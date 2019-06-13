@@ -8,10 +8,13 @@
     "[python]": {
         "editor.tabSize": 2
     },
-    "editor.wordWrap": "wordWrapColumn",
     "editor.tabSize": 2,
     "editor.wrappingIndent": "deepIndent",
     "editor.lineNumbers": "relative",
     "workbench.editor.revealIfOpen": true,
-    "latex-workshop.view.pdf.viewer": "tab"
+    "latex-workshop.view.pdf.viewer": "tab",
+    "rewrap.autoWrap.enabled": true,
+    "rewrap.wrappingColumn": 80
+    "editor.formatOnSave":true
 }
+

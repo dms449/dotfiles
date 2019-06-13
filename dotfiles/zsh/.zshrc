@@ -11,3 +11,14 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+# listing directory contents
+alias ll='ls -la'
+alias l.='ls -d .* --color=auto'
+alias la='ls -a'
+
+# changing directories
+alias ..='cd ..'
+alias .2='cd ../../'
+alias .3='cd ../../../'
+
