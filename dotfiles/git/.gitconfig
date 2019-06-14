@@ -3,3 +3,5 @@
 	email = stevensondm23@gmail.com
 [core]
 	editor = nvim
+[credential]
+	helper = cache --timeout=43200
