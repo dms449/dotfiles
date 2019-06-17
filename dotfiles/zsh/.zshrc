@@ -1,24 +1,49 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+unsetopt nomatch
+setopt extendedglob
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt share_history
+setopt inc_append_history
+setopt extended_history
 
-# Customize to your needs...
+#use colors
+source ~/.zsh/base16-gruvbox-dark-hard.sh
+# makes color constants available
+autoload -U colors
+colors
 
-# listing directory contents
-alias ll='ls -la'
-alias l.='ls -d .* --color=auto'
-alias la='ls -a'
+#load custom functions
+for function in ~/.zsh/functions/*; do
+  source $function
+done
 
-# changing directories
-alias ..='cd ..'
-alias .2='cd ../../'
-alias .3='cd ../../../'
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey -v
+bindkey jj vi-cmd-mode
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
+bindkey "^R" history-incremental-search-backward
+bindkey "^v" edit-command-line
 
+fpath=(~/.zsh/filthy $fpath)
+
+autoload -U promptinit && promptinit
+autoload -Uz compinit && compinit
+
+prompt filthy
+
+# syntax highlighting
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+[[ -f ~/.aliases ]] && source ~/.aliases
+[[ -f ~/.zshrc.local ]] &&  source ~/.zshrc.local
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source /usr/local/share/chruby/chruby.sh
+chruby ruby-2.5.1
+
+opentmux
