@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# run first
+init(){
+  # create the '.config' directory if it doesn't exist
+  mkdir -p ~/.config
+
+  # do other general setup
+  # ...
+}
+
 # Symlink a file
 symlink() {
   cd "$HOME" || exit

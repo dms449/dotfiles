@@ -22,12 +22,12 @@ done
 
 autoload -z edit-command-line
 zle -N edit-command-line
-bindkey -v
-bindkey jj vi-cmd-mode
-bindkey "^A" beginning-of-line
-bindkey "^E" end-of-line
-bindkey "^R" history-incremental-search-backward
-bindkey "^v" edit-command-line
+#bindkey -v
+#bindkey jj vi-cmd-mode
+#bindkey "^A" beginning-of-line
+#bindkey "^E" end-of-line
+#bindkey "^R" history-incremental-search-backward
+#bindkey "^v" edit-command-line
 
 fpath=(~/.zsh/filthy $fpath)
 
@@ -43,7 +43,5 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [[ -f ~/.zshrc.local ]] &&  source ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-source /usr/local/share/chruby/chruby.sh
-chruby ruby-2.5.1
 
 opentmux

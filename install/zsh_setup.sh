@@ -1,6 +1,9 @@
 #!/bin/bas
 source ./setup.sh
 
+# do any basic initialization
+init()
+
 cd "$HOME"/dotfiles/dotfiles/zsh
 
 # symlink files
@@ -10,5 +13,6 @@ for f in .* ; do
       symlink $(readlink -e "$f") "${HOME}/$f"
     fi
 done
+
 echo "Done."
 
