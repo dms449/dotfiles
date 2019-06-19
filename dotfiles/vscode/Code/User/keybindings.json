@@ -41,14 +41,6 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
-        "key": "shift+space shift+space",
-        "command": "workbench.action.togglePanel"
-    },
-    {
-        "key": "ctrl+j",
-        "command": "-workbench.action.togglePanel"
-    },
-    {
         "key": "shift+enter",
         "command": "-settings.action.focusPreviousSetting",
         "when": "inSettingsSearch"
@@ -62,14 +54,6 @@
         "key": "ctrl+enter",
         "command": "-editor.action.insertLineAfter",
         "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "shift+space",
-        "command": "workbench.action.terminal.toggleTerminal"
-    },
-    {
-        "key": "ctrl+`",
-        "command": "-workbench.action.terminal.toggleTerminal"
     },
     {
         "key": "down",
