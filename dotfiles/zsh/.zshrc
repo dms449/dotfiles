@@ -1,3 +1,9 @@
+# use Prezto
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+
 unsetopt nomatch
 setopt extendedglob
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
@@ -10,15 +16,15 @@ setopt inc_append_history
 setopt extended_history
 
 #use colors
-source ~/.zsh/base16-gruvbox-dark-hard.sh
+# source ~/.zsh/base16-gruvbox-dark-hard.sh
 # makes color constants available
-autoload -U colors
-colors
+#autoload -U colors
+#colors
 
 #load custom functions
-for function in ~/.zsh/functions/*; do
-  source $function
-done
+#for function in ~/.zsh/functions/*; do
+#  source $function
+#done
 
 autoload -z edit-command-line
 zle -N edit-command-line
@@ -31,17 +37,17 @@ zle -N edit-command-line
 
 fpath=(~/.zsh/filthy $fpath)
 
-autoload -U promptinit && promptinit
-autoload -Uz compinit && compinit
+#autoload -U promptinit && promptinit
+#autoload -Uz compinit && compinit
 
 prompt filthy
 
 # syntax highlighting
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [[ -f ~/.aliases ]] && source ~/.aliases
-[[ -f ~/.zshrc.local ]] &&  source ~/.zshrc.local
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[[ -f ~/.zshrc.local ]] &&  source ~/.zshrc.local
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-opentmux
+#tmux

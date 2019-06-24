@@ -1,6 +1,4 @@
 # git
-alias stash="git stash --include-untracked"
-alias pop="git stash pop"
 
 # locations
 alias work="cd ~/workspace/"
