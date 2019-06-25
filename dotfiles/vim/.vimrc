@@ -1,4 +1,5 @@
 let mapleader="\<Space>"
+
 " set some variables
 set list
 set tabstop=2
@@ -26,11 +27,20 @@ set ttimeoutlen=100
 set splitright
 set splitbelow
 
-" theme
-"set background=dark
-"let base16colorspace=256
-"colorscheme base16-default-dark
-
-" mappings
+" mappings [Normal]
 nnoremap <leader>jj <PageDown>
 nnoremap <leader>kk <PageUp>
+nnoremap <C-k> :m-2<CR>
+nnoremap <C-j> :m+<CR>
+
+" mappings [Insert]
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap <C-k> <Esc>:m-2<CR>
+inoremap <C-j> <Esc>:m+<CR>
+
+" mappings [Visual and Select]"
+" vnoremap 

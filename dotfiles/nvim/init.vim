@@ -1,6 +1,7 @@
 let mapleader = "\Space"
 
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
+set omnifunc=syntaxcomplete#Complete
 let &packpath = &runtimepath
 source ~/.vimrc
 
@@ -8,7 +9,10 @@ call plug#begin("~/./config/nvim")
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'fishbullet/deoplete-clang'
+Plug 'artur-shaik/vim-javacomplete2'
+Plug 'deoplete-plugins/deoplete-jedi'
+
+
 call plug#end()
 
 inoremap jq <Esc>:wq<cr>
@@ -21,6 +25,11 @@ nnoremap <leader>ft :Ag<space><c-R>"<CR>
 
 nmap <leader>gb <Plug>TigBlame
 nmap <leader>y <Plug>TigLatestCommitForLine
+
+" deoplete
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " fuzzy find
 set rtp+=~/.fzf
