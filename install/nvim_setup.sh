@@ -1,11 +1,32 @@
-#!/bin/bash
-source ./setup.sh
+#!/bin/bas
 
-# do any basic initialization
-init
+echo "Setting up nvim"
 
-# set the source directory for this
-SOURCE="$HOME"/dotfiles/dotfiles/nvim
+# install
+if $INSTALL; then 
+  echo "\t Installing neovim and dependencies..."
+  # neovim
+  sudo apt install neovim
 
-mkdir  ~/.config/nvim/
-ln -s "${SOURCE}"/init.vim "~/.config/nvim/init.vim"
+  # neovim plugin manager
+  sudo apt install curl
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  sudo apt install sil
+
+  # for fuzzy finding within repository
+  sudo apt install silversearcher-ag
+fi
+
+
+cd 
+# symlink files
+echo "\tSymlinking nvim files..."
+for f in "$HOME"/dotfiles/dotfiles/nvim; do
+    if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
+      symlink $(readlink -e "$f") "${HOME}/$f"
+    fi
+done
+
+echo "Done."
+
