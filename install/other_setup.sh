@@ -1,16 +1,21 @@
 #!/bin/shell
-source ./setup.sh
 
-# do any basic initialization
-init
+printf "Setting up other\n"
 
-# set the source directory for this
-SOURCE="$HOME"/dotfiles/dotfiles/other
-
-# install xdotool
-if ["$INSTALL"=true] ; then
+# install 
+if $INSTALL; then
+  # install xdotool
   sudo apt install xdotool
 fi
 
+cd "$HOME"/dotfiles/dotfiles/other
+
 # symlink
-ln -s "$SOURCE"/.focusterminal.sh ~/.focusterminal.sh
+printf "\tSymlinking other files...\n"
+for f in . ; do
+  if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git" ]; then
+    symlink $(readlink -e "$f") "${HOME}/$f"
+  fi
+done
+
+cd "$SETUP_DIR"

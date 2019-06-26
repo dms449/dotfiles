@@ -1,28 +1,28 @@
 #!/bin/bas
 
-echo "Setting up zsh"
+printf "Setting up zsh\n"
 
 # install
 if $INSTALL; then 
-  echo "\t Installing zsh and dependencies..."
+  printf "\t Installing zsh and dependencies...\n"
   # zsh
   sudo apt install zsh
 
   # zprezto (zsh framework)
   sudo apt insall fonts-powerline
-#  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
- # git clone --recurse-submodules https://github.com/belak/prezto-contrib "${ZPREZTODIR:-$HOME}/contrib"
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+  git clone --recurse-submodules https://github.com/belak/prezto-contrib "${ZPREZTODIR:-$HOME}/contrib"
 fi
 
+# change to the src directory so we can symlink the files
+cd "$HOME"/dotfiles/dotfiles/zsh
 
-cd 
 # symlink files
-echo "\tSymlinking zsh files..."
-for f in "$HOME"/dotfiles/dotfiles/zsh; do
+printf "\tSymlinking zsh files...\n"
+for f in . ; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
       symlink $(readlink -e "$f") "${HOME}/$f"
     fi
 done
 
-echo "Done."
-
+cd "$SETUP_DIR"

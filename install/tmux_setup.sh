@@ -1,10 +1,10 @@
 #!/bin/bas
 
-echo "Setting up tmux"
+printf "Setting up tmux\n"
 
 # install
 if $INSTALL; then 
-  echo "\t Installing tmux and dependencies..."
+  printf "\t Installing tmux and dependencies...\n"
   # tmux
   sudo apt install tmux
 
@@ -12,15 +12,14 @@ if $INSTALL; then
   git clone https://github.com/jimeh/tmux-themepack.git ~/.tmux-themepack
 fi
 
-
-cd 
+cd "$HOME"/dotfiles/dotfiles/tmux
 # symlink files
-echo "\tSymlinking tmux files..."
-for f in "$HOME"/dotfiles/dotfiles/tmux; do
+printf "\tSymlinking tmux files...\n"
+for f in . ; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
       symlink $(readlink -e "$f") "${HOME}/$f"
     fi
 done
 
-echo "Done."
+cd "$SETUP_DIR"
 

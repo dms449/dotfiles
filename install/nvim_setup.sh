@@ -1,10 +1,10 @@
 #!/bin/bas
 
-echo "Setting up nvim"
+printf "Setting up nvim\n"
 
 # install
 if $INSTALL; then 
-  echo "\t Installing neovim and dependencies..."
+  printf "\t Installing neovim and dependencies...\n"
   # neovim
   sudo apt install neovim
 
@@ -19,14 +19,13 @@ if $INSTALL; then
 fi
 
 
-cd 
+cd "$HOME"/dotfiles/dotfiles/nvim
 # symlink files
-echo "\tSymlinking nvim files..."
-for f in "$HOME"/dotfiles/dotfiles/nvim; do
+printf "\tSymlinking nvim files...\n"
+for f in . ; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
       symlink $(readlink -e "$f") "${HOME}/$f"
     fi
 done
 
-echo "Done."
-
+cd "$SETUP_DIR"
