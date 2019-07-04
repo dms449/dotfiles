@@ -33,6 +33,15 @@ symlink() {
   cd - >/dev/null 2>&1 || exit
 }
 
+# prerequisites to install
+# ---------------------------------------------------------------
+install_prereqs() {
+  sudo apt install git
+  sudo apt install curl
+
+  # other useful packages
+  sudo apt install tig
+}
 
 # run! 
 # --------------------------------------------------------------------
@@ -73,6 +82,9 @@ setup() {
 # This function simply sets INSTALL to true before setting up. This will 
 # direct each setup script to also install required software.
 install() {
+  # install some prerequisite software and a few other useful things
+  install_prereqs
+
   INSTALL=true
   setup "$@"
 }

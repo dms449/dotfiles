@@ -11,6 +11,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'JuliaEditorSupport/deoplete-julia'
+ 
 
 
 call plug#end()

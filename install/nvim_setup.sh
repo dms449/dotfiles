@@ -5,11 +5,15 @@ printf "Setting up nvim\n"
 # install
 if $INSTALL; then 
   printf "\t Installing neovim and dependencies...\n"
+
   # neovim
-  sudo apt install neovim
+  NVIM_DEST="${HOME}/.config/nvim/"
+  mkdir ${NVIM_DEST}
+  curl -Lo ${NVIM_DEST}/nvim.appimage https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+  chmod a+rxw ${NVIM_DEST}/nvim.appimage
+  symlink ${NVIM_DEST}/nvim.appimage /usr/local/bin/nvim
 
   # neovim plugin manager
-  sudo apt install curl
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   sudo apt install sil
