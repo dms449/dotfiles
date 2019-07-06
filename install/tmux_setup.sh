@@ -12,14 +12,16 @@ if $INSTALL; then
   git clone https://github.com/jimeh/tmux-themepack.git ~/.tmux-themepack
 fi
 
-cd "$HOME"/dotfiles/dotfiles/tmux
+cd "${DOTFILES_HOME}/dotfiles/tmux"
+
 # symlink files
+files=(".tmux.conf")
 printf "\tSymlinking tmux files...\n"
-for f in . ; do
+for f in ${files[@]}; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
       symlink $(readlink -e "$f") "${HOME}/$f"
     fi
 done
 
-cd "$SETUP_DIR"
+cd "$DOTFILES_INSTALL"
 

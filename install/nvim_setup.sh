@@ -23,13 +23,14 @@ if $INSTALL; then
 fi
 
 
-cd "$HOME"/dotfiles/dotfiles/nvim
+cd "${DOTFILES_HOME}/dotfiles/nvim"
 # symlink files
+files=("init.vim")
 printf "\tSymlinking nvim files...\n"
-for f in . ; do
+for f in ${files[@]} ; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
-      symlink $(readlink -e "$f") "${HOME}/$f"
+      symlink $(readlink -e "$f") "${HOME}/.config/nvim/$f"
     fi
 done
 
-cd "$SETUP_DIR"
+cd "$DOTFILES_INSTALL"

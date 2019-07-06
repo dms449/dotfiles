@@ -3,12 +3,14 @@
 # all of the indidivual project setup scripts
 #source ./*.sh
 
-# define this directory 
-SETUP_DIR=$PWD
+# define some directories 
+export DOTFILES_HOME=$PWD
+export DOTFILES_INSTALL="${DOTFILES_HOME}/install"
+echo "dotfiles home = $DOTFILES_HOME"
 
 # determine whether or not to try to install necessary software in addition to 
 # symlinking the dotfiles
-INSTALL=false
+export INSTALL=false
 
 # run first
 init(){
@@ -31,7 +33,8 @@ symlink() {
   rm -f "$DST"
   ln -s "$ORG" "$DST"
   cd - >/dev/null 2>&1 || exit
-}
+} 
+export -f symlink
 
 # prerequisites to install
 # ---------------------------------------------------------------
@@ -42,6 +45,7 @@ install_prereqs() {
   # other useful packages
   sudo apt install tig
 }
+export -f install_prereqs
 
 # run! 
 # --------------------------------------------------------------------
@@ -55,8 +59,9 @@ setup() {
   if [ $# -eq 0 ];  then
     # if no arguments, setup everything
     bash zsh_setup.sh
-    bash tmux_setup
-    bash nvim_setup.sh.sh
+    bash tmux_setup.sh
+    bash vim_setup.sh
+    bash nvim_setup.sh
     bash other_setup.sh
 
   else
@@ -67,9 +72,11 @@ setup() {
     do
       case "$var" in
         zsh) bash zsh_setup.sh ;;
+        vim) bash vim_setup.sh ;;
         nvim)  bash nvim_setup.sh ;;
         tmux) bash tmux_setup.sh ;;
         other) bash other_setup.sh ;;
+        vscode) bash vscode_setup.sh ;;
         
         *) echo "Unrecognized software: $var" ;;
       esac
