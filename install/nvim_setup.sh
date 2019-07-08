@@ -1,6 +1,8 @@
 #!/bin/bas
 
-printf "Setting up nvim\n"
+printf '\n============================================================\n'
+printf "                     Setting up nvim\n"
+printf '\n============================================================\n'
 
 # install
 if $INSTALL; then 
@@ -32,5 +34,7 @@ for f in ${files[@]} ; do
       symlink $(readlink -e "$f") "${HOME}/.config/nvim/$f"
     fi
 done
+
+printf "==================== nvim setup complete ====================\n"
 
 cd "$DOTFILES_INSTALL"

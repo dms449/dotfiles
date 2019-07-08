@@ -1,6 +1,8 @@
 #!/bin/bas
 
-printf "Setting up vim\n"
+printf "============================================================"
+printf "                     Setting up vim\n"
+printf "============================================================"
 
 # install
 if $INSTALL; then 
@@ -16,5 +18,7 @@ for f in ${files[@]} ; do
       symlink $(readlink -e "$f") "${HOME}/$f"
     fi
 done
+
+printf "==================== vim setup complete ===================="
 
 cd "$DOTFILES_INSTALL"

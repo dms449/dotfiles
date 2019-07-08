@@ -1,6 +1,7 @@
 #!/bin/bas
-
-printf "Setting up zsh\n"
+printf "\n ============================================================\n"
+printf "                     Setting up zsh\n"
+printf "============================================================\n"
 
 # install
 if $INSTALL; then 
@@ -15,7 +16,7 @@ if $INSTALL; then
 fi
 
 # change to the src directory so we can symlink the files
-cd "${HOME}/dotfiles/dotfiles/zsh"
+cd "${DOTFILES_HOME}/dotfiles/zsh"
 # symlink files
 files=(".aliases" ".zlogin" ".zlogout" ".zpreztorc" ".zprofile" ".zsh" ".zshenv" ".zshrc")
 printf "\tSymlinking zsh files...\n"
@@ -24,5 +25,7 @@ for f in ${files[@]}; do
       symlink $(readlink -e "$f") "${HOME}/$f"
     fi
 done
+
+printf "====================zsh setup complete ====================\n"
 
 cd "$DOTFILES_INSTALL"

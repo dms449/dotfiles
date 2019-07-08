@@ -1,6 +1,8 @@
 #!/bin/bas
 
-printf "Setting up tmux\n"
+printf "\n ============================================================\n"
+printf "                     Setting up tmux\n"
+printf "============================================================\n"
 
 # install
 if $INSTALL; then 
@@ -22,6 +24,8 @@ for f in ${files[@]}; do
       symlink $(readlink -e "$f") "${HOME}/$f"
     fi
 done
+
+printf "==================== tmux setup complete ====================\n"
 
 cd "$DOTFILES_INSTALL"
 

@@ -1,6 +1,8 @@
 #!/bin/bas
 
-printf "Setting up vscode\n"
+printf "\n ============================================================\n"
+printf "                     Setting up vscode\n"
+printf "\n ============================================================\n"
 
 # install
 if $INSTALL; then 
@@ -22,13 +24,18 @@ fi
 cd "${DOTFILES_HOME}/dotfiles/vscode"
 
 # symlink files
-files=("Code/")
+files=("Code/User/settings.json" "Code/User/keybindings.json")
+
+# ensure directory exists
+mkdir -p "${HOME}/.config/Code/User"
 printf "\tSymlinking vscode files...\n"
 for f in ${files[@]}; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
       symlink $(readlink -e "$f") "${HOME}/.config/$f"
     fi
 done
+
+printf "==================== vscode setup complete ====================\n"
 
 cd "$DOTFILES_INSTALL"
 

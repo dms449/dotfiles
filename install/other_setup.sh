@@ -1,6 +1,8 @@
 #!/bin/shell
 
-printf "Setting up other\n"
+printf "\n ============================================================\n"
+printf "                     Setting up other\n"
+printf "============================================================\n"
 
 # install 
 if $INSTALL; then
@@ -18,5 +20,8 @@ for f in ${files[@]}; do
     symlink $(readlink -e "$f") "${HOME}/$f"
   fi
 done
+
+
+printf "==================== other setup complete ====================\n"
 
 cd "$DOTFILES_INSTALL"

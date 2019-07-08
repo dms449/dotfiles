@@ -4,8 +4,8 @@
 #source ./*.sh
 
 # define some directories 
-export DOTFILES_HOME=$PWD
-export DOTFILES_INSTALL="${DOTFILES_HOME}/install"
+export DOTFILES_INSTALL=$PWD
+export DOTFILES_HOME="${DOTFILES_INSTALL}/.."
 echo "dotfiles home = $DOTFILES_HOME"
 
 # determine whether or not to try to install necessary software in addition to 
@@ -63,6 +63,8 @@ setup() {
     bash vim_setup.sh
     bash nvim_setup.sh
     bash other_setup.sh
+    bash git_setup.sh
+    bash vscode_setup.sh
 
   else
     # only setup the software that was passed in by name
@@ -77,6 +79,7 @@ setup() {
         tmux) bash tmux_setup.sh ;;
         other) bash other_setup.sh ;;
         vscode) bash vscode_setup.sh ;;
+        git) bash git_setup.sh ;;
         
         *) echo "Unrecognized software: $var" ;;
       esac
