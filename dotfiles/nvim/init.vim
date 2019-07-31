@@ -5,13 +5,18 @@ set omnifunc=syntaxcomplete#Complete
 let &packpath = &runtimepath
 source ~/.vimrc
 
-call plug#begin("~/./config/nvim")
+call plug#begin("~/.config/nvim")
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'artur-shaik/vim-javacomplete2'
-Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'JuliaEditorSupport/deoplete-julia'
+
+" python
+Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'roxma/nvim-completion-manager'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
  
 
 
