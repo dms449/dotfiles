@@ -1,4 +1,8 @@
-if ps aux | grep "[g]nome-terminal" > /dev/null                                                                                                                                                                                
- then xdotool windowactivate $(xdotool search --onlyvisible --class gnome-terminal)                                                                                                                                            
- else gnome-terminal&                                                                                                                                                                                                          
+if ps aux | grep "[g]nome-terminal" > /dev/null
+then 
+  desktop="$(xdotool get_desktop)"
+  window="$(xdotool search --onlyvisible --desktop $desktop --class gnome-terminal)"
+  xdotool windowactivate $window
+
+else gnome-terminal
 fi
