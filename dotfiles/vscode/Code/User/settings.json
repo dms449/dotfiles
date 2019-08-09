@@ -14,7 +14,9 @@
     "workbench.editor.revealIfOpen": true,
     "latex-workshop.view.pdf.viewer": "tab",
     "rewrap.autoWrap.enabled": true,
-    "rewrap.wrappingColumn": 80
-    "editor.formatOnSave":true
+    "rewrap.wrappingColumn": 80,
+    "editor.formatOnSave": true,
+    "vim.enableNeovim": true,
+    "vim.neovimPath": "/usr/local/bin/nvim",
+    ""
 }
-

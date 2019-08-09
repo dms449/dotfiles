@@ -152,5 +152,9 @@
         "key": "ctrl+down",
         "command": "-search.focus.nextInputBox",
         "when": "inputBoxFocus && searchViewletVisible"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-workbench.action.openRecent"
     }
 ]
