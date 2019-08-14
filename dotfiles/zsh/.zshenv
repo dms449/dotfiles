@@ -4,8 +4,5 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
 fi
 
 
-# fzf to use ag
-export FZF_DEFAULT_COMMAND='ag -g "" --hidden --ignore .git'
-export FZF_COMPLETION_TRIGGER=',,'
 
 #[[ -f ~/.zshenv.local ]] && source ~/.zshenv.local ]]

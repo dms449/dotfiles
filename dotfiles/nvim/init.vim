@@ -30,6 +30,7 @@ nnoremap <leader>ff :Ag<space>
 nnoremap <leader>fs :Ag<space><c-R><c-W><CR>
 nnoremap <leader>ft :Ag<space><c-R>"<CR>
 
+
 nmap <leader>gb <Plug>TigBlame
 nmap <leader>y <Plug>TigLatestCommitForLine
 

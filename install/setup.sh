@@ -44,6 +44,7 @@ install_prereqs() {
 
   # other useful packages
   sudo apt install tig
+
 }
 export -f install_prereqs
 
@@ -65,6 +66,7 @@ setup() {
     bash other_setup.sh
     bash git_setup.sh
     bash vscode_setup.sh
+    bash fzf_setup.sh
 
   else
     # only setup the software that was passed in by name
@@ -80,6 +82,7 @@ setup() {
         other) bash other_setup.sh ;;
         vscode) bash vscode_setup.sh ;;
         git) bash git_setup.sh ;;
+        fzf) bash fzf_setup.sh ;;
         
         *) echo "Unrecognized software: $var" ;;
       esac

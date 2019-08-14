@@ -1,8 +1,8 @@
 let mapleader="\<Space>"
 
 " set some variables
-set list
 set tabstop=2
+set list
 set autoindent
 set shiftwidth=2
 set softtabstop=2
@@ -32,15 +32,28 @@ nnoremap <leader>jj <PageDown>
 nnoremap <leader>kk <PageUp>
 nnoremap <C-k> :m-2<CR>
 nnoremap <C-j> :m+<CR>
+nnoremap <leader>z <C-w>_<CR>
+nnoremap <leader>Z <C-w>=<CR>
+nnoremap <leader>- :split \| :Files<CR>
+nnoremap <leader>\ :vsplit \| :Files<CR>
+
 
 " mappings [Insert]
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap <C-k> <Esc>:m-2<CR>
-inoremap <C-j> <Esc>:m+<CR>
+" inoremap " ""<left>
+" inoremap ' ''<left>
+" inoremap ( ()<left>
+" inoremap [ []<left>
+" inoremap { {}<left>
+" inoremap <C-k> <Esc>:m-2<CR>
+" inoremap <C-j> <Esc>:m+<CR>
 
 " mappings [Visual and Select]"
 " vnoremap 
+
+" movement between splits
+map <leader>h :wincmd h<CR>
+map <leader>j :wincmd j<CR>
+map <leader>k :wincmd k<CR>
+map <leader>l :wincmd l<CR>
+
+

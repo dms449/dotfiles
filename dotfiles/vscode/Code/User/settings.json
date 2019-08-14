@@ -18,5 +18,19 @@
     "editor.formatOnSave": true,
     "vim.enableNeovim": true,
     "vim.neovimPath": "/usr/local/bin/nvim",
-    ""
+    "vim.useCtrlKeys": true,
+    "vim.highlightedyank.enable": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        }
+    ],
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
 }
