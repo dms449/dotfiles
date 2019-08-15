@@ -5,7 +5,7 @@ if [[ ! "$PATH" == */home/dms/.fzf/bin* ]]; then
 fi
 
 # FZF variables
-export FZF_COMPLETION_TRIGGER=',,'
+export FZF_COMPLETION_TRIGGER=';;'
 
 # Auto-completion
 # ---------------
