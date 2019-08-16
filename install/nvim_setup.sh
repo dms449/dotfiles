@@ -8,6 +8,10 @@ printf '\n============================================================\n'
 if $INSTALL; then 
   printf "\t Installing neovim and dependencies...\n"
 
+  sudo add-apt-repository ppa:x4121/ripgrep
+  sudo apt-get update
+  sudo apt install ripgrep
+
   # neovim
   NVIM_DEST="${HOME}/.config/nvim"
   mkdir ${NVIM_DEST}
@@ -19,8 +23,6 @@ if $INSTALL; then
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-  # for fuzzy finding within repository
-  sudo apt install silversearcher-ag
 fi
 
 

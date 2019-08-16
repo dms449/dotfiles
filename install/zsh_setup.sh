@@ -6,13 +6,14 @@ printf "============================================================\n"
 # install
 if $INSTALL; then 
   printf "\t Installing zsh and dependencies...\n"
-  # zsh
-  sudo apt install zsh
+
+  # install stuff
+  sudo apt install zsh fonts-powerline 
 
   # zprezto (zsh framework)
-  sudo apt insall fonts-powerline
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${$HOME}/.zprezto"
   git clone --recurse-submodules https://github.com/belak/prezto-contrib "${$HOME}/.zprezto/contrib"
+
 fi
 
 # change to the src directory so we can symlink the files

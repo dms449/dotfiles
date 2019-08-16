@@ -28,15 +28,16 @@ set splitright
 set splitbelow
 
 " mappings [Normal]
-nnoremap <leader>jj <PageDown>
-nnoremap <leader>kk <PageUp>
+nnoremap <leader>J <PageDown>
+nnoremap <leader>K <PageUp>
 nnoremap <C-k> :m-2<CR>
 nnoremap <C-j> :m+<CR>
 nnoremap <leader>z <C-w>_<CR>
 nnoremap <leader>Z <C-w>=<CR>
 nnoremap <leader>- :split \| :Files<CR>
 nnoremap <leader>\ :vsplit \| :Files<CR>
-
+nnoremap <Leader>s /<C-r><C-w><CR>
+nnoremap <Leader>r :%s/<C-r><C-w>/
 
 " mappings [Insert]
 " inoremap " ""<left>
@@ -59,3 +60,6 @@ map <leader>l :wincmd l<CR>
 " This is for VIM in TMUX
 set t_8b=^[[48;2;%lu;%lu;%lum
 set t_8f=^[[38;2;%lu;%lu;%lum
+
+" define Find: functionality
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)

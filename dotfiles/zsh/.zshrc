@@ -27,6 +27,9 @@ SPACESHIP_RPROMPT_ORDER=(
 
 #SPACESHIP_PROMPT_PREFIXES_SHOW=false
 SPACESHIP_EXIT_CODE_SHOW=true
+
+# use ripgrep
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 #
 #
 #
