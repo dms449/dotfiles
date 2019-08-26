@@ -1,8 +1,10 @@
-#!/bin/bas
+#!/bin/bash
 
 printf '\n============================================================\n'
 printf "                     Setting up nvim\n"
 printf '\n============================================================\n'
+
+  NVIM_DEST="${HOME}/.config/nvim"
 
 # install
 if $INSTALL; then 
@@ -13,7 +15,6 @@ if $INSTALL; then
   sudo apt install ripgrep
 
   # neovim
-  NVIM_DEST="${HOME}/.config/nvim"
   mkdir ${NVIM_DEST}
   curl -Lo ${NVIM_DEST}/nvim.appimage https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
   chmod a+rxw ${NVIM_DEST}/nvim.appimage
@@ -28,7 +29,7 @@ fi
 
 cd "${DOTFILES_HOME}/dotfiles/nvim"
 # symlink files
-files=("init.vim")
+files=("init.vim" "colors")
 printf "\tSymlinking nvim files...\n"
 for f in ${files[@]} ; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
