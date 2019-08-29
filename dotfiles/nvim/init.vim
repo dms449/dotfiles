@@ -32,9 +32,9 @@ call plug#end()
 inoremap jq <Esc>:wq<cr>
 nnoremap <leader>b :Buffer<CR>
 nnoremap <leader>f :Find<CR>
-nnoremap <leader>o :Files<CR>
+nnoremap <leader>o :GFiles<CR>
 nnoremap <leader>O :Files ~<CR>
-nnoremap <leader>g :GFiles?<CR>
+nnoremap <leader>gd :GFiles?<CR>
 "nnoremap <leader>ff :Ag<space>
 "nnoremap <leader>fs :Ag<space><c-R><c-W><CR>
 "nnoremap <leader>ft :Ag<space><c-R>"<CR>
