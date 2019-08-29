@@ -8,15 +8,22 @@ source ~/.vimrc
 call plug#begin("~/.config/nvim")
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'JuliaEditorSupport/deoplete-julia'
 
-" python
+" Deoplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'Shougo/deoplete-zsh'
+Plug 'Shougo/deoplete-clangx'
+
 Plug 'roxma/nvim-completion-manager'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+
+Plug 'https://tpope.io/vim/surround.git'
  
 
 
