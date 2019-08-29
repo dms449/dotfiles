@@ -28,8 +28,10 @@ SPACESHIP_RPROMPT_ORDER=(
 #SPACESHIP_PROMPT_PREFIXES_SHOW=false
 SPACESHIP_EXIT_CODE_SHOW=true
 
-# use ripgrep
+# using fzf and ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export FZF_CTRL_T_COMMAND='rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '
+bindkey -s '^o' 'nvim $(fzf)\n'
 #
 #
 #
