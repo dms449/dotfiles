@@ -11,8 +11,8 @@ if $INSTALL; then
   sudo apt install zsh fonts-powerline 
 
   # zprezto (zsh framework)
-  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${$HOME}/.zprezto"
-  git clone --recurse-submodules https://github.com/belak/prezto-contrib "${$HOME}/.zprezto/contrib"
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${HOME}/.zprezto"
+  git clone --recurse-submodules https://github.com/belak/prezto-contrib "${HOME}/.zprezto/contrib"
 
 fi
 
