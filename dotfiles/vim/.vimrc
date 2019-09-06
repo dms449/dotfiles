@@ -34,8 +34,8 @@ nnoremap <C-k> :m-2<CR>
 nnoremap <C-j> :m+<CR>
 nnoremap <leader>z <C-w>_<CR>
 nnoremap <leader>Z <C-w>=<CR>
-nnoremap <leader>- :split \| :Files<CR>
-nnoremap <leader>\ :vsplit \| :Files<CR>
+nnoremap <leader>- :split \| :GFiles<CR>
+nnoremap <leader>\ :vsplit \| :GFiles<CR>
 nnoremap <Leader>s /<C-r><C-w><CR>
 nnoremap <Leader>r :%s/<C-r><C-w>/
 
