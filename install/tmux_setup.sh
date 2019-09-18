@@ -9,15 +9,12 @@ if $INSTALL; then
   printf "\t Installing tmux and dependencies...\n"
   # tmux
   sudo apt install tmux
-
-  # theme 
-  git clone https://github.com/jimeh/tmux-themepack.git ~/.tmux-themepack
 fi
 
 cd "${DOTFILES_HOME}/dotfiles/tmux"
 
 # symlink files
-files=(".tmux.conf")
+files=(".tmux.conf" "custom.tmuxtheme")
 printf "\tSymlinking tmux files...\n"
 for f in ${files[@]}; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
