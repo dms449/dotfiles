@@ -24,24 +24,20 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 Plug 'https://tpope.io/vim/surround.git'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'https://github.com/kien/ctrlp.vim'
  
 
 
 call plug#end()
 
-inoremap jq <Esc>:wq<cr>
-nnoremap <leader>b :Buffer<CR>
-nnoremap <leader>f :Find<CR>
-nnoremap <leader>o :GFiles<CR>
-nnoremap <leader>O :Files ~<CR>
-nnoremap <leader>gd :GFiles?<CR>
+nnoremap <leader>. :CtrlPTag<cr>
 "nnoremap <leader>ff :Ag<space>
 "nnoremap <leader>fs :Ag<space><c-R><c-W><CR>
 "nnoremap <leader>ft :Ag<space><c-R>"<CR>
 
 
-nmap <leader>gb <Plug>TigBlame
-nmap <leader>y <Plug>TigLatestCommitForLine
 
 " deoplete
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -71,6 +67,9 @@ if (empty($TMUX))
   endif
 endif
 
+" additional theme stuff
+let g:airline_theme='deus'
+let g:airline_powerline_fonts=1
+"let g:airline_statusline_ontop=1
 
-colorscheme molokai
 " set background=dark " for the dark version

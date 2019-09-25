@@ -13,6 +13,8 @@ if $INSTALL; then
   sudo add-apt-repository ppa:x4121/ripgrep
   sudo apt-get update
   sudo apt install ripgrep
+  sudo apt install exuberant-ctags
+
 
   # neovim
   mkdir ${NVIM_DEST}
