@@ -1,8 +1,12 @@
-# use Prezto
+# use zPrezto if it exists
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# use autojump.sh if it exists
+if [[ -s "/usr/share/autojump/autojump.zsh" ]]; then
+  source "/usr/share/autojump/autojump.zsh"
+fi
 #=========================== Theme Custimization =============================
 # override some theme related zsh settings
 SPACESHIP_PROMPT_ORDER=(
@@ -33,10 +37,10 @@ SPACESHIP_VI_MODE_INSERT=""
 SPACESHIP_VI_MODE_NORMAL="N"
 SPACESHIP_VI_MODE_COLOR=34
 
-SPACESHIP_DIR_COLOR="31"
+SPACESHIP_DIR_COLOR="71"
 
 
-SPACESHIP_CHAR_COLOR_SUCCESS=41
+SPACESHIP_CHAR_COLOR_SUCCESS=71
 SPACESHIP_CHAR_COLOR_FAILURE=124
 
 

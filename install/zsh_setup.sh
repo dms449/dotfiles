@@ -8,11 +8,12 @@ if $INSTALL; then
   printf "\t Installing zsh and dependencies...\n"
 
   # install stuff
-  sudo apt install zsh fonts-powerline 
+  sudo apt install zsh autojump
 
   # zprezto (zsh framework)
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${HOME}/.zprezto"
   git clone --recurse-submodules https://github.com/belak/prezto-contrib "${HOME}/.zprezto/contrib"
+
 
 fi
 

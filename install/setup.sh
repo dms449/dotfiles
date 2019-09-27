@@ -39,8 +39,7 @@ export -f symlink
 # prerequisites to install
 # ---------------------------------------------------------------
 install_prereqs() {
-  sudo apt install git
-  sudo apt install curl
+  sudo apt install git curl fonts-powerline
 
   # other useful packages
   sudo apt install tig
