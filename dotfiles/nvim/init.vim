@@ -11,7 +11,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'JuliaEditorSupport/deoplete-julia'
 
-" Deoplete
+" Deoplete (Completetion)
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
@@ -19,20 +19,25 @@ Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'Shougo/deoplete-zsh'
 Plug 'Shougo/deoplete-clangx'
 
+" vim specific
 Plug 'roxma/nvim-completion-manager'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-
 Plug 'https://tpope.io/vim/surround.git'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-fugitive'
 Plug 'https://github.com/kien/ctrlp.vim'
+Plug 'airblade/vim-gitgutter'
+
  
 
 
 call plug#end()
 
 nnoremap <leader>. :CtrlPTag<cr>
+nnoremap <leader>gg :GitGutterToggle<cr>
+nnoremap <leader>gg :GitGutterToggle<cr>
 "nnoremap <leader>ff :Ag<space>
 "nnoremap <leader>fs :Ag<space><c-R><c-W><CR>
 "nnoremap <leader>ft :Ag<space><c-R>"<CR>
@@ -67,9 +72,11 @@ if (empty($TMUX))
   endif
 endif
 
-" additional theme stuff
+" airline theme stuff
 let g:airline_theme='deus'
 let g:airline_powerline_fonts=1
 "let g:airline_statusline_ontop=1
+
+" git gutter 
 
 " set background=dark " for the dark version
