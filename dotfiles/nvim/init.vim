@@ -35,9 +35,10 @@ Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
-nnoremap <leader>. :CtrlPTag<cr>
+nnoremap <leader>t :CtrlPTag<cr>
 nnoremap <leader>gg :GitGutterToggle<cr>
-nnoremap <leader>gg :GitGutterToggle<cr>
+nmap <leader>gb <Plug>TigBlame
+nmap <leader>y <Plug>TigLatestCommitForLine
 "nnoremap <leader>ff :Ag<space>
 "nnoremap <leader>fs :Ag<space><c-R><c-W><CR>
 "nnoremap <leader>ft :Ag<space><c-R>"<CR>
