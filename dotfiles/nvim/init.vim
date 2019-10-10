@@ -30,15 +30,23 @@ Plug 'tpope/vim-fugitive'
 Plug 'https://github.com/kien/ctrlp.vim'
 Plug 'airblade/vim-gitgutter'
 
- 
-
 
 call plug#end()
 
+nnoremap <leader>o :CtrlP<CR>
+nnoremap <leader>O :Files ~<CR>
 nnoremap <leader>t :CtrlPTag<cr>
+nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <leader>m :CtrlPMixed<CR>
+
 nnoremap <leader>gg :GitGutterToggle<cr>
 nmap <leader>gb <Plug>TigBlame
 nmap <leader>y <Plug>TigLatestCommitForLine
+
+inoremap jq <Esc>:wq<cr>
+nnoremap <leader>gf :GFiles<CR>
+nnoremap <leader>gd :GFiles?<CR>
+nnoremap <leader>f :Find<CR>
 "nnoremap <leader>ff :Ag<space>
 "nnoremap <leader>fs :Ag<space><c-R><c-W><CR>
 "nnoremap <leader>ft :Ag<space><c-R>"<CR>
@@ -78,6 +86,8 @@ let g:airline_theme='deus'
 let g:airline_powerline_fonts=1
 "let g:airline_statusline_ontop=1
 
-" git gutter 
+" ctrlP 
+let g:ctrlp_user_command='rg --files %s'
+let g:ctrlp_use_caching = 0
 
 " set background=dark " for the dark version

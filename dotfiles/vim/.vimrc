@@ -19,6 +19,7 @@ set number
 set relativenumber
 set ruler
 set scrolloff=1
+set mouse=a
 set showcmd
 set showmatch
 set timeout
@@ -39,13 +40,6 @@ nnoremap <leader>\ :vsplit \| :GFiles<CR>
 nnoremap <Leader>s /<C-r><C-w><CR>
 nnoremap <Leader>r :%s/<C-r><C-w>/
 
-inoremap jq <Esc>:wq<cr>
-nnoremap <leader>b :Buffer<CR>
-nnoremap <leader>o :Files<CR>
-nnoremap <leader>O :Files ~<CR>
-nnoremap <leader>gf :GFiles<CR>
-nnoremap <leader>gd :GFiles?<CR>
-nnoremap <leader>f :Find<CR>
 
 " mappings [Insert]
 " inoremap " ""<left>
