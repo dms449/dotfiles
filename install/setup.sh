@@ -39,10 +39,10 @@ export -f symlink
 # prerequisites to install
 # ---------------------------------------------------------------
 install_prereqs() {
-  sudo apt install git curl fonts-powerline
+  sudo apt install git curl fonts-powerline 
 
   # other useful packages
-  sudo apt install tig
+  sudo apt install tig texlive-latex-extra
 
 }
 export -f install_prereqs

@@ -69,4 +69,3 @@ bindkey -s '^o' 'nvim $(fzf)\n'
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 
-
