@@ -35,11 +35,16 @@ Plug 'tpope/vim-fugitive'
 Plug 'https://github.com/kien/ctrlp.vim'
 call plug#end()
 
+" opening files, tags, buffers, or all
 nnoremap <leader>o :CtrlP<CR>
 nnoremap <leader>O :Files ~<CR>
 nnoremap <leader>t :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>m :CtrlPMixed<CR>
+
+" when splitting automatically offer to open file
+nnoremap <leader>- :split \| :CtrlP<CR>
+nnoremap <leader>\ :vsplit \| :CtrlP<CR>
 
 nnoremap <leader>gg :GitGutterToggle<cr>
 nmap <leader>gb <Plug>TigBlame
