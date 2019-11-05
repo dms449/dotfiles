@@ -32,28 +32,24 @@ Plug 'https://tpope.io/vim/surround.git'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
-Plug 'https://github.com/kien/ctrlp.vim'
 call plug#end()
 
 " opening files, tags, buffers, or all
-nnoremap <leader>o :CtrlP<CR>
+nnoremap <leader>o :PFiles<CR> 
 nnoremap <leader>O :Files ~<CR>
-nnoremap <leader>t :CtrlPTag<cr>
-nnoremap <leader>b :CtrlPBuffer<CR>
-nnoremap <leader>m :CtrlPMixed<CR>
+nnoremap <C-f> :Find<CR>
+nnoremap <leader>t :Tags<cr>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>gd :GFiles?<CR>
 
 " when splitting automatically offer to open file
-nnoremap <leader>- :split \| :CtrlP<CR>
-nnoremap <leader>\ :vsplit \| :CtrlP<CR>
+nnoremap <leader>- :split \| :PFiles<CR>
+nnoremap <leader>\ :vsplit \| :PFiles<CR>
 
-nnoremap <leader>gg :GitGutterToggle<cr>
 nmap <leader>gb <Plug>TigBlame
 nmap <leader>y <Plug>TigLatestCommitForLine
 
 inoremap jq <Esc>:wq<cr>
-nnoremap <leader>gf :GFiles<CR>
-"nnoremap <leader>gd :GFiles?<CR>
-nnoremap <C-f> :Find<CR>
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 call ncm2#override_source('LanguageClient_python', {'enable': 0})
@@ -98,18 +94,31 @@ let g:LanguageClient_serverCommands = {
   " into the current line (noinsert).
   set completeopt=noinsert,menuone,noselect
 
-  " deoplete
-  " ---------------------------------------------------------
-  "autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-  "let g:deoplete#enable_at_startup = 1
-  "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  " TMUX
+  " --------------------------------------------------------------------------
+	" This is for VIM in TMUX
+	set t_8b=^[[48;2;%lu;%lu;%lum
+	set t_8f=^[[38;2;%lu;%lu;%lum
 
-  " fuzzy find
+  " FZF
+  " --------------------------------------------------------------------------
   set rtp+=~/.fzf
   set hidden
+
+  " define Find: functionality
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+  "command! -bang -nargs=* Files call fzf#vim#files(<q-args>, <bang>0)
+  " :Files will preview the selected file
+  command! -bang -nargs=? -complete=dir Files
+      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+  " :PFiles (Project Files) is almost identical to GitFiles except it includes
+  "   files that have not been checked in to git
+  command! -bang PFiles 
+      \ call fzf#vim#files(split(system('git rev-parse --show-toplevel'),'\n')[0], fzf#vim#with_preview(),<bang>0)
 "
   " theme 
-  " ---------------------------------------------------------------
+  " --------------------------------------------------------------------------
   "Credit joshdick
   "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
   "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -126,14 +135,15 @@ let g:LanguageClient_serverCommands = {
       set termguicolors
     endif
   endif
+  
+  " setup theme
+  " -----------
+  let g:gruvbox_contrast_dark='hard'
+  let g:gruvbox_italic='1'
+  colorscheme gruvbox
 
   " airline theme stuff
   let g:airline_theme='deus'
   let g:airline_powerline_fonts=1
   "let g:airline_statusline_ontop=1
 
-  " ctrlP 
-  let g:ctrlp_user_command='rg --files %s'
-  let g:ctrlp_use_caching = 0
-
-  " set background=dark " for the dark version

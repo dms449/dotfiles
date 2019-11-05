@@ -1,13 +1,17 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == */home/dms449/.fzf/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}/home/dms449/.fzf/bin"
+if [[ ! "$PATH" == *${HOME}/.fzf/bin* ]]; then
+  export PATH="${PATH:+${PATH}:}${HOME}/.fzf/bin"
 fi
+
+# default trigger
+# ---------------
+export FZF_COMPLETION_TRIGGER=';;'
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "/home/dms449/.fzf/shell/completion.zsh" 2> /dev/null
+[[ $- == *i* ]] && source "${HOME}/.config/fzf/shell/completion.zsh" 2> /dev/null
 
 # Key bindings
 # ------------
-source "/home/dms449/.fzf/shell/key-bindings.zsh"
+source "${HOME}/.config/fzf/shell/key-bindings.zsh"

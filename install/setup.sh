@@ -39,10 +39,21 @@ export -f symlink
 # prerequisites to install
 # ---------------------------------------------------------------
 install_prereqs() {
+  # make sure everything is up to dat first
+  sudo apt-get update
   sudo apt install git curl fonts-powerline 
 
-  # other useful packages
+  # install usefule packages which have no configuration and are to be
+  # used by other installed packages
+  
+  # tig is a git tool and texlive is a latex installation
   sudo apt install tig texlive-latex-extra
+
+  # ripgrep is faster better grep
+  sudo add-apt-repository ppa:x4121/ripgrep
+  sudo apt install ripgrep
+
+
 
 }
 export -f install_prereqs
@@ -64,7 +75,7 @@ setup() {
     bash nvim_setup.sh
     bash other_setup.sh
     bash git_setup.sh
-    bash vscode_setup.sh
+    # bash vscode_setup.sh
     bash fzf_setup.sh
 
   else

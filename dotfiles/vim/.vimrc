@@ -1,13 +1,13 @@
 let mapleader="\<Space>"
 
 " set some variables
+syntax on
 set tabstop=2
 set list
 set autoindent
 set shiftwidth=2
 set softtabstop=2
 set expandtab
-syntax on
 set backspace=indent,eol,start
 set colorcolumn=80
 set encoding=utf-8
@@ -28,6 +28,13 @@ set ttimeoutlen=100
 set splitright
 set splitbelow
 
+" searching
+set hlsearch
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+
 " mappings [Normal]
 nnoremap <leader>J <PageDown>
 nnoremap <leader>K <PageUp>
@@ -35,23 +42,11 @@ nnoremap <C-k> :m-2<CR>
 nnoremap <C-j> :m+<CR>
 nnoremap <leader>z <C-w>_<CR>
 nnoremap <leader>Z <C-w>=<CR>
-nnoremap <leader>- :split \| :Files<CR>
-nnoremap <leader>\ :vsplit \| :Files<CR>
 nnoremap <Leader>s /<C-r><C-w><CR>
 nnoremap <Leader>r :%s/<C-r><C-w>/
 
 
-" mappings [Insert]
-" inoremap " ""<left>
-" inoremap ' ''<left>
-" inoremap ( ()<left>
-" inoremap [ []<left>
-" inoremap { {}<left>
-" inoremap <C-k> <Esc>:m-2<CR>
-" inoremap <C-j> <Esc>:m+<CR>
-
 " mappings [Visual and Select]"
-" vnoremap 
 
 " movement between splits
 map <leader>h :wincmd h<CR>
@@ -59,14 +54,4 @@ map <leader>j :wincmd j<CR>
 map <leader>k :wincmd k<CR>
 map <leader>l :wincmd l<CR>
 
-" This is for VIM in TMUX
-set t_8b=^[[48;2;%lu;%lu;%lum
-set t_8f=^[[38;2;%lu;%lu;%lum
 
-" setup theme
-let g:gruvbox_contrast_dark='hard'
-let g:gruvbox_italic='1'
-colorscheme gruvbox
-
-" define Find: functionality
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
