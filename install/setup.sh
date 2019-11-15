@@ -38,7 +38,7 @@ export -f symlink
 
 # prerequisites to install
 # ---------------------------------------------------------------
-install_prereqs() {
+prereqs() {
   # make sure everything is up to dat first
   sudo apt-get update
   sudo apt install git curl fonts-powerline 
@@ -56,7 +56,7 @@ install_prereqs() {
 
 
 }
-export -f install_prereqs
+export -f prereqs
 
 # run! 
 # --------------------------------------------------------------------
@@ -68,6 +68,12 @@ setup() {
   init 
 
   if [ $# -eq 0 ];  then
+
+    # install the prereqs
+    if [ $INSTALL ]; then
+      prereqs
+    fi
+
     # if no arguments, setup everything
     bash zsh_setup.sh
     bash tmux_setup.sh
@@ -93,6 +99,7 @@ setup() {
         vscode) bash vscode_setup.sh ;;
         git) bash git_setup.sh ;;
         fzf) bash fzf_setup.sh ;;
+        prereqs) prereqs ;;
         
         *) echo "Unrecognized software: $var" ;;
       esac
@@ -105,9 +112,6 @@ setup() {
 # This function simply sets INSTALL to true before setting up. This will 
 # direct each setup script to also install required software.
 install() {
-  # install some prerequisite software and a few other useful things
-  install_prereqs
-
   INSTALL=true
   setup "$@"
 }

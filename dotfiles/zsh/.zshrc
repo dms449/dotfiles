@@ -59,7 +59,13 @@ SPACESHIP_EXIT_CODE_COLOR=167
 # using fzf and ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND='rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '
+
+# open a file with neovim using a fuzzy finder on the current directory
 bindkey -s '^o' 'nvim $(fzf)\n'
+
+# auto suggestion accept = TAB
+bindkey '^M' autosuggest-execute
+
 #
 #
 #

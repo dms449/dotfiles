@@ -23,7 +23,6 @@ Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-jedi'
 
 " vim specific
 Plug 'SirVer/ultisnips'
@@ -37,10 +36,10 @@ call plug#end()
 " opening files, tags, buffers, or all
 nnoremap <leader>o :PFiles<CR> 
 nnoremap <leader>O :Files ~<CR>
-nnoremap <C-f> :Find<CR>
+nnoremap <leader>f :Find<CR>
 nnoremap <leader>t :Tags<cr>
 nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>gd :GFiles?<CR>
+"nnoremap <leader>gd :GFiles?<CR>
 
 " when splitting automatically offer to open file
 nnoremap <leader>- :split \| :PFiles<CR>
@@ -49,13 +48,13 @@ nnoremap <leader>\ :vsplit \| :PFiles<CR>
 nmap <leader>gb <Plug>TigBlame
 nmap <leader>y <Plug>TigLatestCommitForLine
 
-inoremap jq <Esc>:wq<cr>
 
+" Language Client Mappings
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-call ncm2#override_source('LanguageClient_python', {'enable': 0})
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <leader> d :call LanguageClient#textDocument_hover()<CR>
+nnoremap <leader> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
 
 
 " LanguageClient
@@ -66,6 +65,7 @@ let g:LanguageClient_serverCommands = {
     \ 'cpp': ['clangd'],
     \ 'cuda': ['clangd'],
     \ 'objc': ['clangd'],
+    \ 'python': ['python3','-m', 'pyls'],
     \ 'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
     \     using LanguageServer;
     \     using Pkg;
