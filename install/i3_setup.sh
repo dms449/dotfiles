@@ -1,43 +1,31 @@
 #!/bin/bash
 
 printf '\n============================================================\n'
-printf "                     Setting up nvim\n"
+printf "                     Setting up i3\n"
 printf '\n============================================================\n'
 
-  NVIM_DEST="${HOME}/.config/nvim"
+  #_DEST="${HOME}/.config/i3"
 
 # install
 if $INSTALL; then 
-  printf "\t Installing neovim and dependencies...\n"
+  printf "\t Installing i3 and dependencies...\n"
 
-  sudo add-apt-repository ppa:x4121/ripgrep
-  sudo apt-get update
-  sudo apt install ripgrep
-  sudo apt install exuberant-ctags
+  sudo apt install i3blocks
 
-  # neovim
-  mkdir ${NVIM_DEST}
-  curl -Lo ${NVIM_DEST}/nvim.appimage https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-  chmod a+rxw ${NVIM_DEST}/nvim.appimage
-  symlink ${NVIM_DEST}/nvim.appimage /usr/local/bin/nvim
-
-  # neovim plugin manager
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 fi
 
 
-cd "${DOTFILES_HOME}/dotfiles/nvim"
+cd "${DOTFILES_HOME}/dotfiles/i3"
 # symlink files
-files=("init.vim" "colors")
-printf "\tSymlinking nvim files...\n"
+files=("i3")
+printf "\tSymlinking i3 files...\n"
 for f in ${files[@]} ; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
-      symlink $(readlink -e "$f") "${NVIM_DEST}/$f"
+      symlink $(readlink -e "$f") "${HOME}/.config/$f"
     fi
 done
 
-printf "==================== nvim setup complete ====================\n"
+printf "==================== i3 setup complete ====================\n"
 
 cd "$DOTFILES_INSTALL"

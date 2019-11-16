@@ -47,7 +47,7 @@ prereqs() {
   # used by other installed packages
   
   # tig is a git tool and texlive is a latex installation
-  sudo apt install tig texlive-latex-extra
+  sudo apt install tig texlive-latex-extra acpi
 
   # ripgrep is faster better grep
   sudo add-apt-repository ppa:x4121/ripgrep
