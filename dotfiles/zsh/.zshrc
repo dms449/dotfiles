@@ -7,6 +7,8 @@ fi
 if [[ -s "/usr/share/autojump/autojump.zsh" ]]; then
   source "/usr/share/autojump/autojump.zsh"
 fi
+
+export KEYTIMEOUT=1
 #=========================== Theme Custimization =============================
 # override some theme related zsh settings
 SPACESHIP_PROMPT_ORDER=(
@@ -64,7 +66,7 @@ export FZF_CTRL_T_COMMAND='rg --column --line-number --no-heading --fixed-string
 bindkey -s '^o' 'nvim $(fzf)\n'
 
 # auto suggestion accept = TAB
-bindkey '^M' autosuggest-execute
+#bindkey '^M' autosuggest-execute
 
 #
 #
