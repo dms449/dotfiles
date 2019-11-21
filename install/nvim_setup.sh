@@ -22,7 +22,6 @@ if $INSTALL; then
   sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100
 
 
-
   # neovim
   mkdir ${NVIM_DEST}
   curl -Lo ${NVIM_DEST}/nvim.appimage https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
@@ -38,7 +37,7 @@ fi
 
 cd "${DOTFILES_HOME}/dotfiles/nvim"
 # symlink files
-files=("init.vim" "colors")
+files=("init.vim" "colors" "UltiSnips")
 printf "\tSymlinking nvim files...\n"
 for f in ${files[@]} ; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 

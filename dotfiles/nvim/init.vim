@@ -23,14 +23,15 @@ Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'wellle/tmux-complete.vim'
 
 " vim specific
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+"Plug 'honza/vim-snippets'
 Plug 'https://tpope.io/vim/surround.git'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-fugitive'
 call plug#end()
 
 " opening files, tags, buffers, or all
@@ -48,13 +49,11 @@ nnoremap <leader>\ :vsplit \| :PFiles<CR>
 nmap <leader>gb <Plug>TigBlame
 nmap <leader>y <Plug>TigLatestCommitForLine
 
-
 " Language Client Mappings
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <leader> d :call LanguageClient#textDocument_hover()<CR>
 nnoremap <leader> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
 
 
 " LanguageClient
@@ -81,7 +80,7 @@ let g:LanguageClient_serverCommands = {
     \}
 
   " ncm2 
-  " ---------------------------------------------------------
+  " --------------------------------------------------------------------------
   " enable ncm2 for all buffers
   autocmd BufEnter * call ncm2#enable_for_buffer()
 
@@ -93,6 +92,21 @@ let g:LanguageClient_serverCommands = {
   " prevent automatic selection (noselect) and prevent automatic text injection
   " into the current line (noinsert).
   set completeopt=noinsert,menuone,noselect
+
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>" 
+
+  " UltiSnips
+  " --------------------------------------------------------------------------
+  " Press enter key to trigger snippet expansion
+  " The parameters are the same as `:help feedkeys()`
+  inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+
+  " c-j c-k for moving in snippet
+  let g:UltiSnipsExpandTrigger	= "<Plug>(ultisnips_expand)"
+  let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+  let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+  let g:UltiSnipsRemoveSelectModeMappings = 0
 
   " TMUX
   " --------------------------------------------------------------------------
