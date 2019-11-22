@@ -14,7 +14,6 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'JuliaEditorSupport/julia-vim'
 
@@ -95,6 +94,9 @@ let g:LanguageClient_serverCommands = {
 
   inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>" 
+
+  " Devalue the LangueClient Suggestions
+  call ncm2#override_source('ultisnips', {'priority': 9})
 
   " UltiSnips
   " --------------------------------------------------------------------------
