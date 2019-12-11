@@ -1,9 +1,16 @@
-snippet inc "include" b
+snippet #" "include" b
+#include "$1"
+endsnippet
+
+snippet #< "include" b
 #include "$1"
 endsnippet
 
 
 snippet cla "class def" b
+/**
+ *
+ */
 class $1
 {
 public:
@@ -23,5 +30,14 @@ endsnippet
 snippet while "while" b
 while($1) {
 	$0
+}
+endsnippet
+
+
+snippet main "main" b
+int main(int argc, char *argv[]){
+	$1
+	
+	return 0;
 }
 endsnippet

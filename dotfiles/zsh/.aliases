@@ -10,6 +10,7 @@ alias dot='cd ~/dotfiles/'
 # changing directory
 alias ..="cd .."
 
+alias qb='bash build.sh '
 
 #l aliases
 alias ll='ls -alF --color=auto'
