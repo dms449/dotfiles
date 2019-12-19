@@ -8,7 +8,7 @@ printf "============================================================\n"
 if $INSTALL; then 
   printf "\t Installing tmux and dependencies...\n"
   # tmux
-  sudo apt install tmux
+  sudo $PM install tmux
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 fi

@@ -1,7 +1,20 @@
 #!/bin/bash
 
-# all of the indidivual project setup scripts
-#source ./*.sh
+# detect which package manager to use in descending order of preference 
+pms=("yum" "apt" "apt-get" "pacman")
+for pm in ${pms[@]}; do 
+  type $pm
+  if [ $? == 0 ]; then
+    export PM="$pm"
+    break
+  fi
+done
+
+
+type snap
+[[ $? == 0 ]] && USE_SNAP=true || USE_SNAP=false
+
+
 
 # define some directories 
 export DOTFILES_INSTALL=$PWD
@@ -40,21 +53,23 @@ export -f symlink
 # ---------------------------------------------------------------
 prereqs() {
   # make sure everything is up to dat first
-  sudo apt-get update
-  sudo apt install git curl fonts-powerline 
+  sudo $PM update
+
+  # before installing anything, ensure that correct repositories are added to
+  # the appropriate package managers
+  if [ $PM=="yum" ]; then
+    sudo yum-config-manager --add-repo=https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-7/carlwgeorge-ripgrep-epel-7.repo
+    sudo yum install epel-release
+  elif [ $PM=="apt" || $PM=="apt-get" ]; then
+    sudo add-apt-repository ppa:x4121/ripgrep
+  fi
+
+  # install a bunch of stuff
+  sudo $PM install git curl fonts-powerline python-pip python3-pip tig texlive-latex-extras acpi ripgrep
 
   # install usefule packages which have no configuration and are to be
   # used by other installed packages
   
-  # tig is a git tool and texlive is a latex installation
-  sudo apt install tig texlive-latex-extra acpi
-
-  # ripgrep is faster better grep
-  sudo add-apt-repository ppa:x4121/ripgrep
-  sudo apt install ripgrep
-
-
-
 }
 export -f prereqs
 

@@ -9,7 +9,7 @@ printf '\n============================================================\n'
 # install
 if $INSTALL; then 
   printf "\t Installing neovim and dependencies...\n"
-  sudo apt install exuberant-ctags
+  sudo $PM install exuberant-ctags
 
   # install language servers
   printf "\t Installing language servers\n"
@@ -18,8 +18,8 @@ if $INSTALL; then
   pip3 install jedi
 
   # c/c++ 
-  sudo apt install clang-tools-8 
-  sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100
+  sudo $PM install clang-tools-9 
+  #sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100
 
 
   # neovim
