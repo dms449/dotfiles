@@ -8,6 +8,21 @@ if [[ -s "/usr/share/autojump/autojump.zsh" ]]; then
   source "/usr/share/autojump/autojump.zsh"
 fi
 
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/dms/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/dms/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/dms/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/dms/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
 export KEYTIMEOUT=1
 #=========================== Theme Custimization =============================
 # override some theme related zsh settings

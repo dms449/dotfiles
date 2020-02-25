@@ -27,6 +27,8 @@ Plug 'wellle/tmux-complete.vim'
 
 " vim specific
 Plug 'SirVer/ultisnips'
+Plug 'camspiers/animate.vim'
+Plug 'camspiers/lens.vim'
 "Plug 'honza/vim-snippets'
 Plug 'https://tpope.io/vim/surround.git'
 Plug 'vim-airline/vim-airline'
@@ -162,4 +164,10 @@ let g:LanguageClient_serverCommands = {
   let g:airline_theme='deus'
   let g:airline_powerline_fonts=1
   "let g:airline_statusline_ontop=1
+
+
+  " Lens
+  " ----
+  let g:lens#disabled=0
+  let g:lens#animate=1
 
