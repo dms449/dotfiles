@@ -25,12 +25,15 @@ Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'wellle/tmux-complete.vim'
 
+" Git
+Plug 'tpope/vim-fugitive'
+
 " vim specific
 Plug 'SirVer/ultisnips'
 Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
 "Plug 'honza/vim-snippets'
-Plug 'https://tpope.io/vim/surround.git'
+Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 call plug#end()
