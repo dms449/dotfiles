@@ -13,6 +13,9 @@ fi
 
 cd "$HOME/dotfiles/dotfiles/other"
 
+# load settings file
+dconf load /org/gnome/terminal/ < gnome_terminal_settings.txt
+
 # symlink
 files=("focus_terminal.sh" ".ctags")
 printf "\tSymlinking other files...\n"

@@ -8,6 +8,9 @@ if [[ -s "/usr/share/autojump/autojump.zsh" ]]; then
   source "/usr/share/autojump/autojump.zsh"
 fi
 
+# set the number of threads for julia
+export JULIA_NUM_THREADS=8
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/dms/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -55,21 +58,21 @@ SPACESHIP_VI_MODE_INSERT=""
 SPACESHIP_VI_MODE_NORMAL="N"
 #SPACESHIP_VI_MODE_COLOR=106
 
-#SPACESHIP_DIR_COLOR=66
-#SPACESHIP_EXEC_TIME_COLOR=214
+SPACESHIP_DIR_COLOR=66
+SPACESHIP_EXEC_TIME_COLOR=214
 
-#SPACESHIP_CHAR_COLOR_SUCCESS=106
-#SPACESHIP_CHAR_COLOR_FAILURE=167
+SPACESHIP_CHAR_COLOR_SUCCESS=106
+SPACESHIP_CHAR_COLOR_FAILURE=167
 
-#SPACESHIP_GIT_BRANCH_COLOR=132
-#SPACESHIP_GIT_STATUS_COLOR=167
+SPACESHIP_GIT_BRANCH_COLOR=132
+SPACESHIP_GIT_STATUS_COLOR=167
 
 # Julia
-#SPACESHIP_JULIA_COLOR=106
+SPACESHIP_JULIA_COLOR=106
 
 # virtualenv
-#SPACESHIP_VENV_COLOR=66
-#SPACESHIP_EXIT_CODE_COLOR=167
+SPACESHIP_VENV_COLOR=66
+SPACESHIP_EXIT_CODE_COLOR=167
 
 #=========================== Theme Custimization =============================
 
