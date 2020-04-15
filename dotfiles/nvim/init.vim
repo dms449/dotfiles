@@ -39,6 +39,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
+set clipboard=unnamedplus
+
 " opening files, tags, buffers, or all
 nnoremap <leader>o :PFiles<CR> 
 nnoremap <leader>O :Files ~<CR>
