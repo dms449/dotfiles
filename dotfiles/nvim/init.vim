@@ -24,6 +24,7 @@ Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'wellle/tmux-complete.vim'
+Plug 'JuliaEditorSupport/julia-vim'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -114,6 +115,8 @@ let g:LanguageClient_serverCommands = {
   let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
   let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
   let g:UltiSnipsRemoveSelectModeMappings = 0
+
+  let g:latex_to_unicode_auto = 1
 
   " TMUX
   " --------------------------------------------------------------------------
