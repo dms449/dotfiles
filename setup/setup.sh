@@ -6,6 +6,7 @@ for pm in ${pms[@]}; do
   type $pm
   if [ $? == 0 ]; then
     export PM="$pm"
+    echo "Using $pm as package manager."
     break
   fi
 done
@@ -16,8 +17,11 @@ type snap
 
 
 
-# define some directories 
-export DOTFILES_INSTALL=$PWD
+# this is the directory where the install scripts live and should always be
+# the directory from which they are called.
+export DOTFILES_INSTALL=$PWD 
+
+# the root 'dotfiles' project directory
 export DOTFILES_HOME="${DOTFILES_INSTALL}/.."
 echo "dotfiles home = $DOTFILES_HOME"
 
@@ -52,7 +56,7 @@ export -f symlink
 # prerequisites to install
 # ---------------------------------------------------------------
 prereqs() {
-  # make sure everything is up to dat first
+  # make sure everything is up to date first
   sudo $PM update
 
   # before installing anything, ensure that correct repositories are added to
