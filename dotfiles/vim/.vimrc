@@ -10,10 +10,10 @@ set softtabstop=2
 set expandtab
 set backspace=indent,eol,start
 set colorcolumn=80
+set clipboard=unnamedplus
 set encoding=utf-8
 set fileencoding=utf-8
 set laststatus=2
-set nowrap
 set nrformats-=octal
 set number
 set relativenumber
