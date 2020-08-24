@@ -14,8 +14,8 @@ if $INSTALL; then
   # install language servers
   printf "\t Installing language servers\n"
   # python
-  pip install jedi
   pip3 install jedi
+  pip3 install pynvim
 
   # c/c++ 
   sudo $PM install clang-tools-9 
