@@ -8,21 +8,18 @@ source ~/.vimrc
 call plug#begin("~/.config/nvim")
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'morhetz/gruvbox'
 
 " Language Servers/Clients stuff
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+"Plug 'autozimu/LanguageClient-neovim', {
+"    \ 'branch': 'next',
+"    \ 'do': 'bash install.sh',
+"    \ }
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'JuliaEditorSupport/julia-vim'
 
 " Completion
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-ultisnips'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'wellle/tmux-complete.vim'
 Plug 'JuliaEditorSupport/julia-vim'
 
@@ -33,8 +30,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'SirVer/ultisnips'
 Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
-"Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 call plug#end()
@@ -89,7 +86,7 @@ let g:LanguageClient_serverCommands = {
   " ncm2 
   " --------------------------------------------------------------------------
   " enable ncm2 for all buffers
-  autocmd BufEnter * call ncm2#enable_for_buffer()
+  "autocmd BufEnter * call ncm2#enable_for_buffer()
 
   " Affects the visual representation of what happens after you hit <C-x><C-o>
   " https://neovim.io/doc/user/insert.html#i_CTRL-X_CTRL-O
@@ -104,13 +101,13 @@ let g:LanguageClient_serverCommands = {
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>" 
 
   " Devalue the LangueClient Suggestions
-  call ncm2#override_source('ultisnips', {'priority': 9})
+  "call ncm2#override_source('ultisnips', {'priority': 9})
 
   " UltiSnips
   " --------------------------------------------------------------------------
   " Press enter key to trigger snippet expansion
   " The parameters are the same as `:help feedkeys()`
-  inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+  "inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
   " c-j c-k for moving in snippet
   let g:UltiSnipsExpandTrigger	= "<Plug>(ultisnips_expand)"
