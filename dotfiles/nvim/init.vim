@@ -6,19 +6,19 @@ let &packpath = &runtimepath
 source ~/.vimrc
 
 call plug#begin("~/.config/nvim")
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
 Plug 'junegunn/fzf.vim'
-Plug 'morhetz/gruvbox'
 
 " Language Servers/Clients stuff
 "Plug 'autozimu/LanguageClient-neovim', {
 "    \ 'branch': 'next',
 "    \ 'do': 'bash install.sh',
 "    \ }
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'JuliaEditorSupport/julia-vim'
+" Plug 'roxma/vim-hug-neovim-rpc'
 
-" Completion
+" Completion 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'wellle/tmux-complete.vim'
 Plug 'JuliaEditorSupport/julia-vim'
@@ -34,6 +34,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'morhetz/gruvbox'
 call plug#end()
 
 set clipboard=unnamedplus
@@ -54,34 +55,30 @@ nmap <leader>gb <Plug>TigBlame
 nmap <leader>y <Plug>TigLatestCommitForLine
 
 " Language Client Mappings
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <leader> d :call LanguageClient#textDocument_hover()<CR>
-nnoremap <leader> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" nnoremap <leader> d :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <leader> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 
 " LanguageClient
 " ---------------------------------------------------------
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_serverCommands = {
-    \ 'c': ['clangd'],
-    \ 'cpp': ['clangd'],
-    \ 'cuda': ['clangd'],
-    \ 'objc': ['clangd'],
-    \ 'python': ['python3','-m', 'pyls'],
-    \ 'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
-    \     using LanguageServer;
-    \     using Pkg;
-    \     import StaticLint;
-    \     import SymbolServer;
-    \     env_path = dirname(Pkg.Types.Context().env.project_file);
-    \     debug = false; 
-    \     
-    \     server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
-    \     server.runlinter = true;
-    \     run(server);
-    \ '],
-    \}
+" let g:LanguageClient_autoStart = 1
+" let g:LanguageClient_serverCommands = {
+"     \ 'c': ['clangd'],
+"     \ 'cpp': ['clangd'],
+"     \ 'cuda': ['clangd'], \ 'objc': ['clangd'], \ 'python': ['python3','-m', 'pyls'], \ 'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', ' \     using LanguageServer;
+"     \     using Pkg;
+"     \     import StaticLint;
+"     \     import SymbolServer;
+"     \     env_path = dirname(Pkg.Types.Context().env.project_file);
+"     \     debug = false; 
+"     \     
+"     \     server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
+"     \     server.runlinter = true;
+"     \     run(server);
+"     \ '],
+"     \}
 
   " ncm2 
   " --------------------------------------------------------------------------
@@ -138,7 +135,8 @@ let g:LanguageClient_serverCommands = {
   " :PFiles (Project Files) is almost identical to GitFiles except it includes
   "   files that have not been checked in to git
   command! -bang PFiles 
-      \ call fzf#vim#files(split(system('git rev-parse --show-toplevel'),'\n')[0], fzf#vim#with_preview(),<bang>0)
+      \ call fzf#vim#gitfiles(split(system('git rev-parse --show-toplevel'),'\n')[0], fzf#vim#with_preview(),<bang>0)
+      "\ call fzf#vim#gitfiles('?', fzf#vim#with_preview(),<bang>0)
 "
   " theme 
   " --------------------------------------------------------------------------
