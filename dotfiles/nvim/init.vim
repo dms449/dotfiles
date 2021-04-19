@@ -6,20 +6,23 @@ let &packpath = &runtimepath
 source ~/.vimrc
 
 call plug#begin("~/.config/nvim")
-"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Language Servers/Clients stuff
-"Plug 'autozimu/LanguageClient-neovim', {
-"    \ 'branch': 'next',
-"    \ 'do': 'bash install.sh',
-"    \ }
-" Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'JuliaEditorSupport/julia-vim'
 
-" Completion 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Completion
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-ultisnips'
 Plug 'wellle/tmux-complete.vim'
 Plug 'JuliaEditorSupport/julia-vim'
 
@@ -30,11 +33,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'SirVer/ultisnips'
 Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
+"Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'morhetz/gruvbox'
 call plug#end()
 
 set clipboard=unnamedplus
@@ -55,35 +57,39 @@ nmap <leader>gb <Plug>TigBlame
 nmap <leader>y <Plug>TigLatestCommitForLine
 
 " Language Client Mappings
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" nnoremap <leader> d :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <leader> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <leader> d :call LanguageClient#textDocument_hover()<CR>
+nnoremap <leader> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 
 " LanguageClient
 " ---------------------------------------------------------
-" let g:LanguageClient_autoStart = 1
-" let g:LanguageClient_serverCommands = {
-"     \ 'c': ['clangd'],
-"     \ 'cpp': ['clangd'],
-"     \ 'cuda': ['clangd'], \ 'objc': ['clangd'], \ 'python': ['python3','-m', 'pyls'], \ 'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', ' \     using LanguageServer;
-"     \     using Pkg;
-"     \     import StaticLint;
-"     \     import SymbolServer;
-"     \     env_path = dirname(Pkg.Types.Context().env.project_file);
-"     \     debug = false; 
-"     \     
-"     \     server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
-"     \     server.runlinter = true;
-"     \     run(server);
-"     \ '],
-"     \}
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {
+    \ 'c': ['clangd'],
+    \ 'cpp': ['clangd'],
+    \ 'cuda': ['clangd'],
+    \ 'objc': ['clangd'],
+    \ 'python': ['python3','-m', 'pyls'],
+    \ 'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
+    \     using LanguageServer;
+    \     using Pkg;
+    \     import StaticLint;
+    \     import SymbolServer;
+    \     env_path = dirname(Pkg.Types.Context().env.project_file);
+    \     debug = false; 
+    \     
+    \     server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
+    \     server.runlinter = true;
+    \     run(server);
+    \ '],
+    \}
 
   " ncm2 
   " --------------------------------------------------------------------------
   " enable ncm2 for all buffers
-  "autocmd BufEnter * call ncm2#enable_for_buffer()
+  autocmd BufEnter * call ncm2#enable_for_buffer()
 
   " Affects the visual representation of what happens after you hit <C-x><C-o>
   " https://neovim.io/doc/user/insert.html#i_CTRL-X_CTRL-O
@@ -98,13 +104,13 @@ nmap <leader>y <Plug>TigLatestCommitForLine
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>" 
 
   " Devalue the LangueClient Suggestions
-  "call ncm2#override_source('ultisnips', {'priority': 9})
+  call ncm2#override_source('ultisnips', {'priority': 9})
 
   " UltiSnips
   " --------------------------------------------------------------------------
   " Press enter key to trigger snippet expansion
   " The parameters are the same as `:help feedkeys()`
-  "inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+  inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
   " c-j c-k for moving in snippet
   let g:UltiSnipsExpandTrigger	= "<Plug>(ultisnips_expand)"
@@ -135,8 +141,7 @@ nmap <leader>y <Plug>TigLatestCommitForLine
   " :PFiles (Project Files) is almost identical to GitFiles except it includes
   "   files that have not been checked in to git
   command! -bang PFiles 
-      \ call fzf#vim#gitfiles(split(system('git rev-parse --show-toplevel'),'\n')[0], fzf#vim#with_preview(),<bang>0)
-      "\ call fzf#vim#gitfiles('?', fzf#vim#with_preview(),<bang>0)
+      \ call fzf#vim#files(split(system('git rev-parse --show-toplevel'),'\n')[0], fzf#vim#with_preview(),<bang>0)
 "
   " theme 
   " --------------------------------------------------------------------------

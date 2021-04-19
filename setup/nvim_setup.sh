@@ -12,18 +12,15 @@ if $INSTALL; then
   sudo $PM install exuberant-ctags
 
   # install language servers
-  printf "\t Completion manager and LanguageServers\n"
+  printf "\t Installing language servers\n"
   # python
-  #pip3 install jedi
-  #pip3 install pynvim
+  pip3 install jedi
+  pip3 install pynvim
 
   # c/c++ 
   sudo $PM install clang-tools-9 
-
-  # needed for coc completion manager
-  $PM install nodejs npm
-
   #sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100
+
 
   # neovim
   mkdir ${NVIM_DEST}
