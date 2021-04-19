@@ -27,7 +27,7 @@ Plug 'wellle/tmux-complete.vim'
 Plug 'JuliaEditorSupport/julia-vim'
 
 " Git
-Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-fugitive'
 
 " vim specific
 Plug 'SirVer/ultisnips'
@@ -35,6 +35,8 @@ Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
 "Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
+Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 call plug#end()
