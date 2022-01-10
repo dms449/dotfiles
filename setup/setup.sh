@@ -1,20 +1,49 @@
 #!/bin/bash
 
 # detect which package manager to use in descending order of preference 
-pms=("yum" "apt" "apt-get" "pacman")
-for pm in ${pms[@]}; do 
-  type $pm
-  if [ $? == 0 ]; then
-    export PM="$pm"
-    echo "Using $pm as package manager."
-    break
-  fi
-done
+# pms=("apt" "apt-get")
+# for pm in ${pms[@]}; do 
+#   type $pm
+#   if [ $? == 0 ]; then
+#     export PM="$pm"
+#     echo "Using $pm as package manager."
+#     break
+#   fi
+# done
 
 
-type snap
-[[ $? == 0 ]] && USE_SNAP=true || USE_SNAP=false
+# Determine OS platform
+# ---------------------
+UNAME=$(uname | tr "[:upper:]" "[:lower:]")
+# If Linux, try to determine specific distribution
+if [ "$UNAME" == "linux" ]; then
+    # If available, use LSB to identify distribution
+    if [ -f /etc/lsb-release -o -d /etc/lsb-release.d ]; then
+        export DISTRO=$(lsb_release -i | cut -d: -f2 | sed s/'^\t'//)
+    # Otherwise, use release info file
+    else
+        export DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
+    fi
+fi
+# For everything else (or if above failed), just use generic identifier
+[ "$DISTRO" == "" ] && export DISTRO=$UNAME
+unset UNAME
 
+echo Detected OS - $DISTRO
+
+# get the right package manager based on distro
+# ----------------------------------------------
+
+
+DISTRO_LOWER=$(DISTRO | tr "[:upper:]" "[:lower:]")
+
+# verify that we found a valid package manager
+# TODO: fill this in for other distros and package managers 
+if [ $DISTRO_LOWER = "pop"]; then
+  export PM = "apt"
+fi
+
+echo Using $PM package manager
 
 
 # this is the directory where the install scripts live and should always be
@@ -55,7 +84,7 @@ export -f symlink
 
 # prerequisites to install
 # ---------------------------------------------------------------
-prereqs() {
+install_general_purpose() {
   # make sure everything is up to date first
   sudo $PM update
 
@@ -75,7 +104,7 @@ prereqs() {
   # used by other installed packages
   
 }
-export -f prereqs
+export -f install_general_purpose
 
 # run! 
 # --------------------------------------------------------------------
@@ -86,39 +115,36 @@ setup() {
   # initialize
   init 
 
+  # install the prereqs
+  if [ $INSTALL ]; then
+    install_general_purpose
+  fi
+
+  # basics
+  bash zsh_setup.sh
+  bash tmux_setup.sh
+  bash vim_setup.sh
+  bash nvim_setup.sh
+  bash other_setup.sh
+  bash git_setup.sh
+  bash fzf_setup.sh
+
+
+  # if no arguments, setup everything
   if [ $# -eq 0 ];  then
+    bash web_setup.sh
+    bash data_science_setup.sh
+    bash data_science_setup.sh
 
-    # install the prereqs
-    if [ $INSTALL ]; then
-      prereqs
-    fi
-
-    # if no arguments, setup everything
-    bash zsh_setup.sh
-    bash tmux_setup.sh
-    bash vim_setup.sh
-    bash nvim_setup.sh
-    bash other_setup.sh
-    bash git_setup.sh
-    # bash vscode_setup.sh
-    bash fzf_setup.sh
-
+  # if arguments ARE passed in, only setup/install those
   else
-    # only setup the software that was passed in by name
-
     # iterate over passed parameters
     for var in "$@"
     do
       case "$var" in
-        zsh) bash zsh_setup.sh ;;
-        vim) bash vim_setup.sh ;;
-        nvim)  bash nvim_setup.sh ;;
-        tmux) bash tmux_setup.sh ;;
-        other) bash other_setup.sh ;;
-        vscode) bash vscode_setup.sh ;;
-        git) bash git_setup.sh ;;
-        fzf) bash fzf_setup.sh ;;
-        prereqs) prereqs ;;
+        web) bash web_setup.sh ;;
+        data_science) bash data_science_setup.sh ;;
+        cplusplus) bash cplusplus.sh ;;
         
         *) echo "Unrecognized software: $var" ;;
       esac

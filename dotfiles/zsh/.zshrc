@@ -86,12 +86,15 @@ bindkey -s '^o' 'nvim $(fzf)\n'
 # auto suggestion accept = TAB
 #bindkey '^M' autosuggest-execute
 
+# functions
+for function in ~/.zsh/functions/*; do
+  source $function
+done
+
 #
 #
 #
 [[ $TMUX != "" ]] && export TERM="screen-256color"
 [[ -f ~/.aliases ]] && source ~/.aliases
 [[ -f ~/.zshrc.local ]] &&  source ~/.zshrc.local
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-
-
+[[ -f ~/.config/fzf/.fzf.zsh ]] && source ~/.config/fzf/.fzf.zsh

@@ -61,12 +61,12 @@ gbD() {
 }
 
 dev() {
-  git checkout develop && git up
+  git checkout develop && git fetch && git rebase
 }
 
 hotfix() {
   branch=$(echo "$@" | tr ' ' '-')
-  git checkout master && git up && git checkout -b "hotfix/$branch"
+  git checkout master && git fetch && git rebase && git checkout -b "hotfix/$branch"
 }
 
 feature() {

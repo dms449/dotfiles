@@ -4,9 +4,6 @@ printf "                     Setting up fzf\n"
 printf "============================================================\n"
 
 
-# define the directory where fzf config files will be kept and ensure it exists
-FZF_CONFIG=${HOME}/.config/fzf
-mkdir -p ${FZF_CONFIG}
 
 # install
 if $INSTALL; then 
@@ -24,14 +21,14 @@ printf "\tSymlinking fzf files...\n"
 files=(".fzf.zsh" ".fzf.bash") 
 for f in ${files[@]}; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
-      symlink $(readlink -e "$f") "${HOME}/$f"
+      symlink $(readlink -e "$f") "${HOME}/.config/fzf/$f"
     fi
 done
 
 files=("shell")
-for f in ${files[@]}; do
+for file in ${files[@]}; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
-      symlink $(readlink -e "$f") "${HOME}/.config/fzf/$f"
+      symlink $(readlink -e "$f") "${HOME}/.config/fzf/shell/$f"
     fi
 done
 
