@@ -4,13 +4,13 @@ printf "                     Setting up fzf\n"
 printf "============================================================\n"
 
 
-
 # install
 if $INSTALL; then 
   printf "\t Installing fzf and dependencies...\n"
+  mkdir -p ~/.fzf/fzf
   # fzf
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  ~/.fzf/install
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf/fzf
+  ~/.fzf/fzf/install
 fi
 
 # change to the src directory so we can symlink the files
@@ -18,17 +18,10 @@ cd "${DOTFILES_HOME}/dotfiles/fzf"
 
 # symlink files
 printf "\tSymlinking fzf files...\n"
-files=(".fzf.zsh" ".fzf.bash") 
+files=(".fzf.zsh" "completion.zsh" "key-bindings.zsh") 
 for f in ${files[@]}; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
-      symlink $(readlink -e "$f") "${HOME}/.config/fzf/$f"
-    fi
-done
-
-files=("shell")
-for file in ${files[@]}; do
-    if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
-      symlink $(readlink -e "$f") "${HOME}/.config/fzf/shell/$f"
+      symlink $(readlink -e "$f") "${HOME}/.fzf/$f"
     fi
 done
 
