@@ -28,4 +28,4 @@ done
 
 printf "==================== other setup complete ====================\n"
 
-cd "$DOTFILES_INSTALL"
+cd "$DOTFILES_SETUP"

@@ -37,5 +37,5 @@ done
 
 printf "==================== vscode setup complete ====================\n"
 
-cd "$DOTFILES_INSTALL"
+cd "$DOTFILES_SETUP"
 

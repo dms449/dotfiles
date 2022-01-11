@@ -22,4 +22,4 @@ done
 
 printf "==================== vim setup complete ===================="
 
-cd "$DOTFILES_INSTALL"
+cd "$DOTFILES_SETUP"

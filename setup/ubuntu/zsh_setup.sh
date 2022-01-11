@@ -28,4 +28,4 @@ done
 
 printf "====================zsh setup complete ====================\n"
 
-cd "$DOTFILES_INSTALL"
+cd "$DOTFILES_SETUP"

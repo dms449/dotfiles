@@ -1,15 +1,10 @@
 #!/bin/bash
 
-# detect which package manager to use in descending order of preference 
-# pms=("apt" "apt-get")
-# for pm in ${pms[@]}; do 
-#   type $pm
-#   if [ $? == 0 ]; then
-#     export PM="$pm"
-#     echo "Using $pm as package manager."
-#     break
-#   fi
-# done
+# Find the dotfile home
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+export DOTFILES_SETUP=$SCRIPT_DIR
+export DOTFILES_HOME=$(realpath ${DOTFILES_SETUP}/..)
+echo "Dotfiles home:    $DOTFILES_HOME"
 
 
 # Determine OS platform
@@ -28,37 +23,35 @@ fi
 # For everything else (or if above failed), just use generic identifier
 [ "$DISTRO" == "" ] && export DISTRO=$UNAME
 unset UNAME
+echo "Detected OS:      $DISTRO"
 
-echo Detected OS - $DISTRO
 
-# get the right package manager based on distro
+# get the right package manager and system base based on distro
 # ----------------------------------------------
-
-
-DISTRO_LOWER=$(DISTRO | tr "[:upper:]" "[:lower:]")
+DISTRO_LOWER=$(echo ${DISTRO} | tr "[:upper:]" "[:lower:]")
 
 # verify that we found a valid package manager
 # TODO: fill this in for other distros and package managers 
-if [ $DISTRO_LOWER = "pop"]; then
-  export PM = "apt"
+if [ "$DISTRO_LOWER" == "pop" ]; then
+  export PM="apt"
+  export BASE="ubuntu"
 fi
+unset DISTRO_LOWER
 
-echo Using $PM package manager
-
-
-# this is the directory where the install scripts live and should always be
-# the directory from which they are called.
-export DOTFILES_INSTALL=$PWD 
-
-# the root 'dotfiles' project directory
-export DOTFILES_HOME="${DOTFILES_INSTALL}/.."
-echo "dotfiles home = $DOTFILES_HOME"
+echo "Package Manager:  $PM" 
+echo "System Base:      $BASE"
+echo "------------------------------------------------------------\n\n"
+exit 1
 
 # determine whether or not to try to install necessary software in addition to 
 # symlinking the dotfiles
 export INSTALL=false
 
+
+
+
 # run first
+# -----------------------------------------------------------------
 init(){
   # create the '.config' directory if it doesn't exist
   mkdir -p ~/.config
@@ -121,20 +114,19 @@ setup() {
   fi
 
   # basics
-  bash zsh_setup.sh
-  bash tmux_setup.sh
-  bash vim_setup.sh
-  bash nvim_setup.sh
-  bash other_setup.sh
-  bash git_setup.sh
-  bash fzf_setup.sh
+  bash ubuntu/zsh_setup.sh
+  bash ubuntu/tmux_setup.sh
+  bash ubuntu/vim_setup.sh
+  bash ubuntu/nvim_setup.sh
+  bash ubuntu/other_setup.sh
+  bash ubuntu/git_setup.sh
+  bash ubuntu/fzf_setup.sh
 
 
   # if no arguments, setup everything
   if [ $# -eq 0 ];  then
-    bash web_setup.sh
-    bash data_science_setup.sh
-    bash data_science_setup.sh
+    bash ubuntu/web_setup.sh
+    bash ubuntu/data_science_setup.sh
 
   # if arguments ARE passed in, only setup/install those
   else
@@ -142,9 +134,8 @@ setup() {
     for var in "$@"
     do
       case "$var" in
-        web) bash web_setup.sh ;;
-        data_science) bash data_science_setup.sh ;;
-        cplusplus) bash cplusplus.sh ;;
+        web) bash ubuntu/web_setup.sh ;;
+        data_science) bash ubuntu/data_science_setup.sh ;;
         
         *) echo "Unrecognized software: $var" ;;
       esac

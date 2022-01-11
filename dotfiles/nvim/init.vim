@@ -6,7 +6,7 @@ let &packpath = &runtimepath
 source ~/.vimrc
 
 call plug#begin("~/.config/nvim")
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Language specific

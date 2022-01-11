@@ -25,3 +25,4 @@ done
 
 printf "====================latex setup complete ====================\n"
 
+cd "$DOTFILES_SETUP"

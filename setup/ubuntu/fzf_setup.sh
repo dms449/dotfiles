@@ -10,7 +10,7 @@ if $INSTALL; then
   mkdir -p ~/.fzf/fzf
   # fzf
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf/fzf
-  ~/.fzf/fzf/install
+  ~/.fzf/fzf/install --bin
 fi
 
 # change to the src directory so we can symlink the files
@@ -27,4 +27,4 @@ done
 
 printf "====================fzf setup complete ====================\n"
 
-cd "$DOTFILES_INSTALL"
+cd "$DOTFILES_SETUP"
