@@ -91,7 +91,7 @@ install_general_purpose() {
   fi
 
   # install a bunch of stuff
-  sudo $PM install git curl fonts-powerline python-pip python3-pip tig texlive-latex-extras acpi ripgrep
+  sudo $PM install git curl fonts-powerline python-pip python3-pip tig acpi ripgrep
 
   # install usefule packages which have no configuration and are to be
   # used by other installed packages
@@ -113,20 +113,21 @@ setup() {
     install_general_purpose
   fi
 
-  # basics
-  bash ubuntu/zsh_setup.sh
-  bash ubuntu/tmux_setup.sh
-  bash ubuntu/vim_setup.sh
-  bash ubuntu/nvim_setup.sh
-  bash ubuntu/other_setup.sh
-  bash ubuntu/git_setup.sh
-  bash ubuntu/fzf_setup.sh
-
 
   # if no arguments, setup everything
   if [ $# -eq 0 ];  then
+    # basics
+    bash ubuntu/zsh_setup.sh
+    bash ubuntu/tmux_setup.sh
+    bash ubuntu/vim_setup.sh
+    bash ubuntu/nvim_setup.sh
+    bash ubuntu/other_setup.sh
+    bash ubuntu/git_setup.sh
+    bash ubuntu/fzf_setup.sh
+
+    # conglomerates
     bash ubuntu/web_setup.sh
-    bash ubuntu/data_science_setup.sh
+    # bash ubuntu/data_science_setup.sh
 
   # if arguments ARE passed in, only setup/install those
   else
@@ -134,8 +135,15 @@ setup() {
     for var in "$@"
     do
       case "$var" in
+        zsh) bash ubuntu/zsh_setup.sh;;
+        tmux) bash ubuntu/tmux_setup.sh;;
+        vim) bash ubuntu/vim_setup.sh;;
+        nvim) bash ubuntu/nvim_setup.sh;;
+        other) bash ubuntu/other_setup.sh;;
+        git) bash ubuntu/git_setup.sh;;
+        fzf) bash ubuntu/fzf_setup.sh;;
         web) bash ubuntu/web_setup.sh ;;
-        data_science) bash ubuntu/data_science_setup.sh ;;
+        # data_science) bash ubuntu/data_science_setup.sh ;;
         
         *) echo "Unrecognized software: $var" ;;
       esac
