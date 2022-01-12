@@ -35,9 +35,9 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'git' \
-  'completion' \
   'contrib-prompt' \
   'prompt'\
+  'completion' \
 
 #
 # Autosuggestions

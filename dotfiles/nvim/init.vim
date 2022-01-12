@@ -24,7 +24,8 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
 Plug 'digitaltoad/vim-pug'
 Plug 'jelera/vim-javascript-syntax'
-
+Plug 'thoughtbot/vim-rspec'
+Plug 'benmills/vimux'
 
 " Completion
 Plug 'ncm2/ncm2'
@@ -65,22 +66,29 @@ nnoremap <leader>t :Tags <C-r><C-w><cr>
 nnoremap <leader>T :Tags<cr>
 nnoremap <leader>b :Buffers <C-r><C-w><CR>
 nnoremap <leader>B :Buffers <CR>
-" nnoremap <leader>gd :GFiles?<CR>
+nnoremap <leader>gd :GFiles?<CR>
 
 
+" RSpec.vim mappings
+let g:rspec_command = 'call VimuxRunCommand("bes {spec}\n")'
+map <Leader>rf :call RunCurrentSpecFile()<CR>
+map <Leader>rr :call RunNearestSpec()<CR>
+map <Leader>rl :call RunLastSpec()<CR>
 
 
 " when splitting automatically offer to open file
 nnoremap <leader>- :split \| :PFiles<CR>
 nnoremap <leader>\ :vsplit \| :PFiles<CR>
 
+" other
 nmap <leader>gb <Plug>TigBlame
 nmap <leader>y <Plug>TigLatestCommitForLine
+nmap <leader>. <Plug>RailsOpenAlt
 
 " Language Client Mappings
 nnoremap <F5> :call LanguageClient_contextMenu()<C-r><C-w><CR>
 nnoremap <silent>K :call LanguageClient#textDocument_hover()<C-r><C-w><CR>
-nnoremap <leader>gd :call LanguageClient#textDocument_definition()<C-r><C-w><CR>
+nnoremap <leader>df :call LanguageClient#textDocument_definition()<C-r><C-w><CR>
 nnoremap <silent><F2> :call LanguageClient#textDocument_rename()<C-r><C-w><CR>
 
 

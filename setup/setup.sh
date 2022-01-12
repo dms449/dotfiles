@@ -31,19 +31,18 @@ echo "Detected OS:      $DISTRO"
 DISTRO_LOWER=$(echo ${DISTRO} | tr "[:upper:]" "[:lower:]")
 
 # verify that we found a valid package manager
-# TODO: fill this in for other distros and package managers 
+# TODO: fill this in for other distros and package managers
 if [ "$DISTRO_LOWER" == "pop" ]; then
   export PM="apt"
   export BASE="ubuntu"
 fi
 unset DISTRO_LOWER
 
-echo "Package Manager:  $PM" 
+echo "Package Manager:  $PM"
 echo "System Base:      $BASE"
 echo "------------------------------------------------------------\n\n"
-exit 1
 
-# determine whether or not to try to install necessary software in addition to 
+# determine whether or not to try to install necessary software in addition to
 # symlinking the dotfiles
 export INSTALL=false
 
@@ -72,7 +71,7 @@ symlink() {
   rm -f "$DST"
   ln -s "$ORG" "$DST"
   cd - >/dev/null 2>&1 || exit
-} 
+}
 export -f symlink
 
 # prerequisites to install
@@ -91,25 +90,29 @@ install_general_purpose() {
   fi
 
   # install a bunch of stuff
-  sudo $PM install git curl fonts-powerline python-pip python3-pip tig acpi ripgrep
+  sudo $PM install git curl fonts-powerline python-pip python3-pip tig acpi
+
+  sudo $PM install ripgrep lsb-release ca-certificates gnupg
 
   # install usefule packages which have no configuration and are to be
   # used by other installed packages
-  
-}
-export -f install_general_purpose
 
-# run! 
+}
+# export -f install_general_purpose
+
+# run!
 # --------------------------------------------------------------------
 # sets up the specified packages. By default this does NOT install
 # any packages (see 'install' function). This method by itself will
 # only create the symlinks.
 setup() {
   # initialize
-  init 
+  init
+
+  echo "install = $INSTALL"
 
   # install the prereqs
-  if [ $INSTALL ]; then
+  if [ $INSTALL = true ]; then
     install_general_purpose
   fi
 
@@ -144,7 +147,7 @@ setup() {
         fzf) bash ubuntu/fzf_setup.sh;;
         web) bash ubuntu/web_setup.sh ;;
         # data_science) bash ubuntu/data_science_setup.sh ;;
-        
+
         *) echo "Unrecognized software: $var" ;;
       esac
     done
@@ -153,7 +156,7 @@ setup() {
 
 # install
 # --------------------------------------------------------------------
-# This function simply sets INSTALL to true before setting up. This will 
+# This function simply sets INSTALL to true before setting up. This will
 # direct each setup script to also install required software.
 install() {
   INSTALL=true
@@ -163,4 +166,5 @@ install() {
 
 "$@"
 
+unset INSTALL
 

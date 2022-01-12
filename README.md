@@ -21,6 +21,11 @@ replace 'install' with 'setup'.
 bash ./setup.sh setup 
 
 ```
+or 
+```
+bash ./setup.sh setup nvim tmux
+
+```
 
 ## Conglomerates
 Treated like applications in the examples above ('tmux' or 'nvim'), conglomerates

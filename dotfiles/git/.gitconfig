@@ -7,3 +7,8 @@
 	helper = cache --timeout=43200
 [branch]
 	autosetuprebase = always
+[push]
+  default = current
+[rebase]
+  autostash = true
+  autosquash = true
