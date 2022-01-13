@@ -9,6 +9,7 @@ call plug#begin("~/.config/nvim")
 Plug 'junegunn/fzf', { 'dir': '~/.fzf/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+
 " Language specific
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -26,6 +27,7 @@ Plug 'digitaltoad/vim-pug'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'thoughtbot/vim-rspec'
 Plug 'benmills/vimux'
+Plug 'unblevable/quick-scope'
 
 " Completion
 Plug 'ncm2/ncm2'
@@ -41,11 +43,13 @@ Plug 'JuliaEditorSupport/julia-vim'
 "Plug 'tpope/vim-fugitive'
 
 " vim specific
+Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
 "Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
@@ -103,21 +107,21 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['python3','-m', 'pyls'],
     \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'typescript': ['typescript-language-server', '--stdio'],
-    \ 'ruby':['solargraph', 'stdio'], 
+    \ 'ruby':['solargraph', 'stdio'],
     \ 'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
     \     using LanguageServer;
     \     using Pkg;
     \     import StaticLint;
     \     import SymbolServer;
     \     env_path = dirname(Pkg.Types.Context().env.project_file);
-    \     debug = false; 
-    \     
+    \     debug = false;
+    \
     \     server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
     \     server.runlinter = true;
     \     run(server);
     \ ']}
 
-" ncm2 
+" ncm2
 " --------------------------------------------------------------------------
 " enable ncm2 for all buffers
 autocmd BufEnter * call ncm2#enable_for_buffer()
@@ -132,7 +136,7 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>" 
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Devalue the LangueClient Suggestions
 call ncm2#override_source('ultisnips', {'priority': 9})
@@ -153,7 +157,7 @@ let g:latex_to_unicode_auto = 1
 
 " vue
 " --------------------------------------------------------------------------
-let g:vim_vue_plugin_config = { 
+let g:vim_vue_plugin_config = {
     \'syntax': {
     \   'template': ['pug'],
     \   'script': ['javascript'],
@@ -194,12 +198,12 @@ command! -bang -nargs=? -complete=dir Files
 
 " :PFiles (Project Files) is almost identical to GitFiles except it includes
 "   files that have not been checked in to git
-command! -bang PFiles 
+command! -bang PFiles
     \ call fzf#vim#files(split(system('git rev-parse --show-toplevel'),'\n')[0], fzf#vim#with_preview(),<bang>0)
 
 
 "
-" theme 
+" theme
 " --------------------------------------------------------------------------
 "Credit joshdick
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
@@ -235,3 +239,6 @@ let g:airline_powerline_fonts=1
 let g:lens#disabled=0
 let g:lens#animate=1
 
+" Undo config
+set undofile
+set undodir=~/.config/nvim/undodir

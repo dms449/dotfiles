@@ -1,5 +1,5 @@
 # Dotfiles
-Install everything or just some things. Choose between actually installing vs 
+Install everything or just some things. Choose between actually installing vs
 simply symlinking.
 
 ## Installation
@@ -15,13 +15,13 @@ bash ./setup.sh install nvim tmux
 ```
 
 ## Setup
-to only redo the copying and symlinking of config files but not the installing 
-replace 'install' with 'setup'. 
+to only redo the copying and symlinking of config files but not the installing
+replace 'install' with 'setup'.
 ```
-bash ./setup.sh setup 
+bash ./setup.sh setup
 
 ```
-or 
+or
 ```
 bash ./setup.sh setup nvim tmux
 
@@ -29,13 +29,13 @@ bash ./setup.sh setup nvim tmux
 
 ## Conglomerates
 Treated like applications in the examples above ('tmux' or 'nvim'), conglomerates
-exist to avoid installing unnecessary applications, plugins, configs, etc. when 
+exist to avoid installing unnecessary applications, plugins, configs, etc. when
 they are not needed.
 
 For Example.
-If you are not doing web development this greatly decreases the amount of 
-applications, plugins, etc. that you will need. Thus, all things web development 
-are broken out separately and can be install like 
+If you are not doing web development this greatly decreases the amount of
+applications, plugins, etc. that you will need. Thus, all things web development
+are broken out separately and can be install like
 ```
 bash ./setup.sh install web-development
 ```

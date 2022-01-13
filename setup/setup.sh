@@ -8,8 +8,7 @@ echo "Dotfiles home:    $DOTFILES_HOME"
 
 
 # Determine OS platform
-# ---------------------
-UNAME=$(uname | tr "[:upper:]" "[:lower:]")
+# --------------------- UNAME=$(uname | tr "[:upper:]" "[:lower:]")
 # If Linux, try to determine specific distribution
 if [ "$UNAME" == "linux" ]; then
     # If available, use LSB to identify distribution
@@ -120,13 +119,13 @@ setup() {
   # if no arguments, setup everything
   if [ $# -eq 0 ];  then
     # basics
-    bash ubuntu/zsh_setup.sh
-    bash ubuntu/tmux_setup.sh
-    bash ubuntu/vim_setup.sh
-    bash ubuntu/nvim_setup.sh
-    bash ubuntu/other_setup.sh
-    bash ubuntu/git_setup.sh
-    bash ubuntu/fzf_setup.sh
+    bash $DOTFILES_SETUP/ubuntu/zsh_setup.sh
+    bash $DOTFILES_SETUP/ubuntu/tmux_setup.sh
+    bash $DOTFILES_SETUP/ubuntu/vim_setup.sh
+    bash $DOTFILES_SETUP/ubuntu/nvim_setup.sh
+    bash $DOTFILES_SETUP/ubuntu/other_setup.sh
+    bash $DOTFILES_SETUP/ubuntu/git_setup.sh
+    bash $DOTFILES_SETUP/ubuntu/fzf_setup.sh
 
     # conglomerates
     bash ubuntu/web_setup.sh
@@ -138,14 +137,14 @@ setup() {
     for var in "$@"
     do
       case "$var" in
-        zsh) bash ubuntu/zsh_setup.sh;;
-        tmux) bash ubuntu/tmux_setup.sh;;
-        vim) bash ubuntu/vim_setup.sh;;
-        nvim) bash ubuntu/nvim_setup.sh;;
-        other) bash ubuntu/other_setup.sh;;
-        git) bash ubuntu/git_setup.sh;;
-        fzf) bash ubuntu/fzf_setup.sh;;
-        web) bash ubuntu/web_setup.sh ;;
+        zsh) bash $DOTFILES_SETUP/ubuntu/zsh_setup.sh;;
+        tmux) bash $DOTFILES_SETUP/ubuntu/tmux_setup.sh;;
+        vim) bash $DOTFILES_SETUP/ubuntu/vim_setup.sh;;
+        nvim) bash $DOTFILES_SETUP/ubuntu/nvim_setup.sh;;
+        other) bash $DOTFILES_SETUP/ubuntu/other_setup.sh;;
+        git) bash $DOTFILES_SETUP/ubuntu/git_setup.sh;;
+        fzf) bash $DOTFILES_SETUP/ubuntu/fzf_setup.sh;;
+        web) bash $DOTFILES_SETUP/ubuntu/web_setup.sh ;;
         # data_science) bash ubuntu/data_science_setup.sh ;;
 
         *) echo "Unrecognized software: $var" ;;

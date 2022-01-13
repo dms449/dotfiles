@@ -11,21 +11,6 @@ fi
 # set the number of threads for julia
 export JULIA_NUM_THREADS=8
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/dms/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/dms/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/dms/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/dms/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 export KEYTIMEOUT=1
 #=========================== Theme Custimization =============================
 # override some theme related zsh settings
@@ -53,7 +38,7 @@ SPACESHIP_RPROMPT_ORDER=(
 #SPACESHIP_PROMPT_PREFIXES_SHOW=false
 SPACESHIP_EXIT_CODE_SHOW=true
 
-# edit the vim 
+# edit the vim
 SPACESHIP_VI_MODE_INSERT=""
 SPACESHIP_VI_MODE_NORMAL="N"
 #SPACESHIP_VI_MODE_COLOR=106
