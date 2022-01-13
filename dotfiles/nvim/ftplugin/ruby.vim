@@ -2,5 +2,5 @@ setlocal iskeyword+=!
 setlocal iskeyword+=?
 
 if expand('%')[len(expand('%'))-4:len(expand('%'))] != 'slim'
-  autocmd BufWritePre <buffer> call LangaugeClient_textDocument_formatting()
+  autocmd BufWritePre <buffer> call LanguageClient_textDocument_formatting()
 endif

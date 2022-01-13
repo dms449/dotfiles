@@ -105,7 +105,14 @@ let g:LanguageClient_serverCommands = {
     \ 'cuda': ['clangd'],
     \ 'objc': ['clangd'],
     \ 'python': ['python3','-m', 'pyls'],
-    \ 'javascript': ['typescript-language-server', '--stdio'],
+    \ 'javascript': {
+    \   'name': 'typescript-language-server',
+    \   'command': ['typescript-language-server', '--stdio'],
+    \   'initializationOptions': {
+    \     'preferences': {
+    \     },
+    \   },
+    \ },
     \ 'typescript': ['typescript-language-server', '--stdio'],
     \ 'ruby':['solargraph', 'stdio'],
     \ 'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
