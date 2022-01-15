@@ -50,6 +50,7 @@ Plug 'camspiers/lens.vim'
 "Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
@@ -68,8 +69,7 @@ nnoremap <leader>s /<C-r><C-w><CR>
 " nnoremap <leader>S :Find <C-r><C-w><CR>
 nnoremap <leader>t :Tags <C-r><C-w><cr>
 nnoremap <leader>T :Tags<cr>
-nnoremap <leader>b :Buffers <C-r><C-w><CR>
-nnoremap <leader>B :Buffers <CR>
+nnoremap <leader>b :Buffers
 nnoremap <leader>gd :GFiles?<CR>
 
 
@@ -128,6 +128,9 @@ let g:LanguageClient_serverCommands = {
     \     run(server);
     \ ']}
 
+set completefunc=LanguageClient#complete
+
+
 " ncm2
 " --------------------------------------------------------------------------
 " enable ncm2 for all buffers
@@ -152,7 +155,7 @@ call ncm2#override_source('ultisnips', {'priority': 9})
 " --------------------------------------------------------------------------
 " Press enter key to trigger snippet expansion
 " The parameters are the same as `:help feedkeys()`
-inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+" inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
 " c-j c-k for moving in snippet
 let g:UltiSnipsExpandTrigger	= "<Plug>(ultisnips_expand)"
