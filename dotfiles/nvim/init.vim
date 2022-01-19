@@ -76,7 +76,7 @@ nnoremap <leader>gd :GFiles?<CR>
 
 " RSpec.vim mappings
 let g:rspec_command = 'call VimuxRunCommand("bes {spec}\n")'
-map <Leader>rf :call RunCurrentSpecFile()<CR>
+map <Leader>rt :call RunCurrentSpecFile()<CR>
 " map <Leader>rr :call RunNearestSpec()<CR>
 " map <Leader>rl :call RunLastSpec()<CR>
 
@@ -200,7 +200,7 @@ set rtp+=~/.fzf
 set hidden
 
 " define Find: functionality
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --no-heading --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 "command! -bang -nargs=* Files call fzf#vim#files(<q-args>, <bang>0)
 
 " :Files will preview the selected file

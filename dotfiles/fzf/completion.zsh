@@ -9,7 +9,6 @@
 # - $FZF_COMPLETION_TRIGGER (default: '**')
 # - $FZF_COMPLETION_OPTS    (default: empty)
 
-export FZF_COMPLETION_TRIGGER=';;'  
 
 if [[ $- =~ i ]]; then
 
