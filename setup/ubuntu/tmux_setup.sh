@@ -5,10 +5,10 @@ printf "                     Setting up tmux\n"
 printf "============================================================\n"
 
 # install
-if $INSTALL; then 
+if $INSTALL; then
   printf "\t Installing tmux and dependencies...\n"
   # tmux
-  sudo $PM install tmux
+  sudo $PM install tmux tmate
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 fi
@@ -19,7 +19,7 @@ cd "${DOTFILES_HOME}/dotfiles/tmux"
 files=(".tmux.conf" "custom.tmuxtheme")
 printf "\tSymlinking tmux files...\n"
 for f in ${files[@]}; do
-    if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
+    if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then
       symlink $(readlink -e "$f") "${HOME}/$f"
     fi
 done

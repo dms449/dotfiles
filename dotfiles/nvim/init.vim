@@ -43,6 +43,7 @@ Plug 'JuliaEditorSupport/julia-vim'
 "Plug 'tpope/vim-fugitive'
 
 " vim specific
+Plug 'kthibodeaux/tig.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'camspiers/animate.vim'
@@ -67,17 +68,17 @@ nnoremap <leader>f :Find <C-r><C-w><CR>
 nnoremap <leader>F :Find<CR>
 nnoremap <leader>s /<C-r><C-w><CR>
 " nnoremap <leader>S :Find <C-r><C-w><CR>
-nnoremap <leader>t :Tags <C-r><C-w><cr>
-nnoremap <leader>T :Tags<cr>
-nnoremap <leader>b :Buffers
+nnoremap <leader>t :Tags <C-r><C-w><CR>
+nnoremap <leader>T :Tags<CR>
+nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>gd :GFiles?<CR>
 
 
 " RSpec.vim mappings
 let g:rspec_command = 'call VimuxRunCommand("bes {spec}\n")'
 map <Leader>rf :call RunCurrentSpecFile()<CR>
-map <Leader>rr :call RunNearestSpec()<CR>
-map <Leader>rl :call RunLastSpec()<CR>
+" map <Leader>rr :call RunNearestSpec()<CR>
+" map <Leader>rl :call RunLastSpec()<CR>
 
 
 " when splitting automatically offer to open file
@@ -199,7 +200,7 @@ set rtp+=~/.fzf
 set hidden
 
 " define Find: functionality
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 "command! -bang -nargs=* Files call fzf#vim#files(<q-args>, <bang>0)
 
 " :Files will preview the selected file
@@ -211,6 +212,12 @@ command! -bang -nargs=? -complete=dir Files
 command! -bang PFiles
     \ call fzf#vim#files(split(system('git rev-parse --show-toplevel'),'\n')[0], fzf#vim#with_preview(),<bang>0)
 
+" set -U FZF_DEFAULT_OPTS " \
+"          --multi --cycle --keep-right -1 \
+"          --height=80% --layout=reverse --info=default \
+"          --preview-window right:50%:wrap \
+"          --preview '__fzf_preview {}' \
+"          --ansi"
 
 "
 " theme

@@ -30,6 +30,7 @@ SPACESHIP_PROMPT_ORDER=(
   vi_mode
   char
 )
+
 SPACESHIP_RPROMPT_ORDER=(
   git
   time

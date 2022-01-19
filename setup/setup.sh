@@ -79,19 +79,10 @@ install_general_purpose() {
   # make sure everything is up to date first
   sudo $PM update
 
-  # before installing anything, ensure that correct repositories are added to
-  # the appropriate package managers
-  if [ $PM=="yum" ]; then
-    sudo yum-config-manager --add-repo=https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-7/carlwgeorge-ripgrep-epel-7.repo
-    sudo yum install epel-release
-  elif [ $PM=="apt" || $PM=="apt-get" ]; then
-    sudo add-apt-repository ppa:x4121/ripgrep
-  fi
-
   # install a bunch of stuff
   sudo $PM install git curl fonts-powerline python-pip python3-pip tig acpi
 
-  sudo $PM install ripgrep lsb-release ca-certificates gnupg
+  sudo $PM install lsb-release ca-certificates gnupg
 
   # install usefule packages which have no configuration and are to be
   # used by other installed packages
