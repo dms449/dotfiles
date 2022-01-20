@@ -40,7 +40,7 @@ Plug 'wellle/tmux-complete.vim'
 Plug 'JuliaEditorSupport/julia-vim'
 
 " Git
-"Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " vim specific
 Plug 'kthibodeaux/tig.vim'
@@ -48,10 +48,10 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
-"Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-vinegar'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
@@ -65,21 +65,14 @@ set clipboard+=unnamedplus
 nnoremap <leader>o :Files<CR>
 nnoremap <leader>O :Files ~<CR>
 nnoremap <leader>f :Find <C-r><C-w><CR>
-nnoremap <leader>F :Find<CR>
+nnoremap <leader>F :Find
 nnoremap <leader>s /<C-r><C-w><CR>
 " nnoremap <leader>S :Find <C-r><C-w><CR>
 nnoremap <leader>t :Tags <C-r><C-w><CR>
 nnoremap <leader>T :Tags<CR>
 nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>gd :GFiles?<CR>
-
-
-" RSpec.vim mappings
-let g:rspec_command = 'call VimuxRunCommand("bes {spec}\n")'
-map <Leader>rt :call RunCurrentSpecFile()<CR>
-" map <Leader>rr :call RunNearestSpec()<CR>
-" map <Leader>rl :call RunLastSpec()<CR>
-
+nnoremap <leader>gf :GFiles?<CR>
+nnoremap <leader>gd :Git diff<CR>
 
 " when splitting automatically offer to open file
 nnoremap <leader>- :split \| :PFiles<CR>
@@ -88,7 +81,6 @@ nnoremap <leader>\ :vsplit \| :PFiles<CR>
 " other
 nmap <leader>gb <Plug>TigBlame
 nmap <leader>y <Plug>TigLatestCommitForLine
-nmap <leader>. <Plug>RailsOpenAlt
 
 " Language Client Mappings
 nnoremap <F5> :call LanguageClient_contextMenu()<C-r><C-w><CR>
