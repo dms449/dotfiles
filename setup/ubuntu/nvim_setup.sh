@@ -9,6 +9,7 @@ printf '\n============================================================\n'
 # install
 if $INSTALL; then
   printf "\t Installing neovim and dependencies...\n"
+
   #sudo $PM install exuberant-ctags
 # install language servers printf "\t Installing language servers\n"
   # python
@@ -26,9 +27,9 @@ if $INSTALL; then
   chmod a+rxw ${NVIM_DEST}/nvim.appimage
   symlink ${NVIM_DEST}/nvim.appimage /usr/local/bin/nvim
 
-  # neovim plugin manager
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  # neovim plugin manager `Packer`
+  git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+    ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 fi
 
