@@ -80,7 +80,7 @@ install_general_purpose() {
   sudo $PM update
 
   # install a bunch of stuff
-  sudo $PM install git curl fonts-powerline python-pip python3-pip tig acpi
+  sudo $PM install git curl fonts-firacode python-pip python3-pip python3-venv tig acpi
 
   sudo $PM install lsb-release ca-certificates gnupg
 

@@ -14,8 +14,9 @@ vim.g.mapleader = ' '
 vim.g.netrw_banner = false
 
 vim.bo.expandtab = true
-vim.bo.shiftwidth = 4
-vim.bo.softtabstop = 4
+vim.bo.shiftwidth = 2
+vim.bo.softtabstop = 2
+vim.bo.tabstop = 2
 vim.bo.path = vim.o.path .. '**'
 
 vim.wo.number = true
@@ -23,6 +24,8 @@ vim.wo.signcolumn = 'number'
 vim.wo.colorcolumn = "120"
 vim.wo.relativenumber = true
 
+-- require('packer.lua')
+require('lsp.lua')
 
 -- Plugins
 require("packer").startup(
@@ -30,10 +33,8 @@ require("packer").startup(
     use 'wbthomason/packer.nvim'
 
     -- generic vim
-    use {
-      'nvim-telescope/telescope.nvim',
-      requires = { {'nvim-lua/plenary.nvim'} }
-    }
+    use 'junegunn/fzf', { 'dir': '~/.fzf/fzf', 'do': './install --all' }
+    use 'junegunn/fzf.vim'
     use 'rstacruz/vim-closer'
     use 'machakann/vim-highlightedyank'
     use 'tpope/vim-commentary'
@@ -51,11 +52,29 @@ require("packer").startup(
     -- completion
     use {'ms-jpq/coq_nvim', branch = 'coq'}
 
-
     -- Theme
     use 'nvim-lualine/lualine.nvim'
     use 'morhetz/gruvbox'
 end)
+
+function map(mode, lhs, rhs, opts)
+    local options = { noremap = true, silent = true }
+    if opts then
+        options = vim.tbl_extend("force", options, opts)
+    end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
+map("n", "<leader>o", ":Files<CR>")
+map("n", "<leader>f", ":Find <C-r><C-w><CR>")
+
+map("n", "<leader>J", "<PageDown>")
+map("n", "<leader>K", "<PageUp>")
+-- switch panes
+map("n", "<leader>h", ":wincmd h<CR>")
+map("n", "<leader>j", ":wincmd j<CR>")
+map("n", "<leader>k", ":wincmd k<CR>")
+map("n", "<leader>l", ":wincmd l<CR>")
 
 
 -- ============================= Theme ==============================

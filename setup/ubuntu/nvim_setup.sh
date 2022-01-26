@@ -36,7 +36,7 @@ fi
 
 cd "${DOTFILES_HOME}/dotfiles/nvim"
 # symlink files
-# files=("init.vim" "colors" "UltiSnips" "plugin")
+# files=("init.vim" "lua" "colors" "UltiSnips" "plugin" "ftplugin")
 printf "\tSymlinking nvim files...\n"
 for f in * ; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then
