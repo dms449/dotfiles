@@ -2,10 +2,13 @@
 require("packer").startup(
   function()
     use 'wbthomason/packer.nvim'
+    use {"junegunn/fzf",
+        run = function()
+          vim.fn["fzf#install"]()
+        end}
+    use "junegunn/fzf.vim"
 
     -- generic vim
-    use 'junegunn/fzf', { 'dir': '~/.fzf/fzf', 'do': './install --all' }
-    use 'junegunn/fzf.vim'
     use 'rstacruz/vim-closer'
     use 'machakann/vim-highlightedyank'
     use 'tpope/vim-commentary'

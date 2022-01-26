@@ -25,7 +25,7 @@ vim.wo.colorcolumn = "120"
 vim.wo.relativenumber = true
 
 -- require('packer.lua')
-require('lsp.lua')
+-- require('lua.lsp.lua')
 
 -- Plugins
 require("packer").startup(
@@ -33,8 +33,11 @@ require("packer").startup(
     use 'wbthomason/packer.nvim'
 
     -- generic vim
-    use 'junegunn/fzf', { 'dir': '~/.fzf/fzf', 'do': './install --all' }
-    use 'junegunn/fzf.vim'
+    use {"junegunn/fzf",
+        run = function()
+          vim.fn["fzf#install"]()
+        end}
+    use "junegunn/fzf.vim"
     use 'rstacruz/vim-closer'
     use 'machakann/vim-highlightedyank'
     use 'tpope/vim-commentary'
