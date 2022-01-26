@@ -4,7 +4,7 @@ printf '\n============================================================\n'
 printf "                     Setting up nvim\n"
 printf '\n============================================================\n'
 
-  NVIM_DEST="${HOME}/.config/nvim"
+NVIM_DEST="${HOME}/.config/nvim"
 
 # install
 if $INSTALL; then
@@ -45,4 +45,5 @@ done
 
 printf "==================== nvim setup complete ====================\n"
 
+unset NVIM_DEST
 cd "$DOTFILES_SETUP"
