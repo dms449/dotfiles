@@ -14,7 +14,7 @@ if $INSTALL; then
 # install language servers printf "\t Installing language servers\n"
   # python
   #pip3 install jedi
-  #pip3 install pynvim
+  pip3 install pynvim
 
   # c/c++
   #sudo $PM install clang-tools-9
@@ -36,7 +36,7 @@ fi
 
 cd "${DOTFILES_HOME}/dotfiles/nvim"
 # symlink files
-# files=("init.vim" "lua" "colors" "UltiSnips" "plugin" "ftplugin")
+# files=("init.lua" "lua" "colors" "UltiSnips" "plugin" "ftplugin")
 printf "\tSymlinking nvim files...\n"
 for f in * ; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then

@@ -12,6 +12,10 @@ vim.o.clipboard = "unnamedplus"
 
 vim.g.mapleader = ' '
 vim.g.netrw_banner = false
+vim.g.gruvbox_contrast_dark = 'hard'
+vim.g.coq_settings = {
+   auto_start = 'shut-up',
+}
 
 vim.bo.expandtab = true
 vim.bo.shiftwidth = 2
@@ -30,9 +34,7 @@ vim.wo.relativenumber = true
 -- Plugins
 require("packer").startup(
   function()
-    use 'wbthomason/packer.nvim'
-
-    -- generic vim
+    use 'wbthomason/packer.nvim' -- generic vim
     use {"junegunn/fzf",
         run = function()
           vim.fn["fzf#install"]()
@@ -53,7 +55,14 @@ require("packer").startup(
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
     -- completion
-    use {'ms-jpq/coq_nvim', branch = 'coq'}
+    use {
+      'ms-jpq/coq_nvim',
+      requires = {
+         {'ms-jpq/coq.artifacts', branch = 'artifacts'},
+         {'ms-jpq/coq.thirdparty', branch = '3p'},
+      },
+      branch = 'coq'
+    }
 
     -- Theme
     use 'nvim-lualine/lualine.nvim'
@@ -70,6 +79,8 @@ end
 
 map("n", "<leader>o", ":Files<CR>")
 map("n", "<leader>f", ":Find <C-r><C-w><CR>")
+map("n", "<leader>-", ":split | :Files<CR>")
+map("n", "<leader>\\", ":vsplit | :Files<CR>")
 
 map("n", "<leader>J", "<PageDown>")
 map("n", "<leader>K", "<PageUp>")
@@ -86,20 +97,16 @@ map("n", "<leader>l", ":wincmd l<CR>")
 require('lualine').setup {
   options = { theme = 'gruvbox_dark' }
 }
-
--- vim.cmd [[set termguicolors]]
- vim.api.nvim_command [[let g:gruvbox_contrast_dark='hard']]
- vim.api.nvim_command [[colorscheme gruvbox]]
--- why isn't this working?
--- vim.g.gruvbox_contrast_dark = 'hard'
--- vim.g.colorscheme = 'gruvbox'
+vim.api.nvim_command [[colorscheme gruvbox]]
 
 -- ============================= LSP ==============================
-local lsp = require "lspconfig"
+-- local lsp = require "lspconfig"
 local coq = require "coq"
 
-lsp.julials.setup{}
-lsp.cssls.setup{}
-lsp.eslint.setup{}
+require('nvim-lspconfig')
+
+-- lsp.julials.setup{}
+-- lsp.cssls.setup{}
+-- lsp.eslint.setup{}
 -- require'lspconfig'.bashls.setup{}
 -- lsp.<server>.setup(coq.lsp_ensure_capabilities(<stuff...>)) -- after
