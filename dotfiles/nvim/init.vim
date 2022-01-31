@@ -18,8 +18,8 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'tpope/vim-rails'
-" Plug 'posva/vim-vue'
 Plug 'leafOfTree/vim-vue-plugin'
+Plug 'posva/vim-vue'
 Plug 'mattn/emmet-vim'
 Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
@@ -30,13 +30,14 @@ Plug 'benmills/vimux'
 Plug 'unblevable/quick-scope'
 
 " Completion
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'ncm2/ncm2'
+" Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2-bufword'
+" Plug 'ncm2/ncm2-path'
 " Plug 'ncm2/ncm2-syntax'
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'wellle/tmux-complete.vim'
+" Plug 'ncm2/ncm2-ultisnips'
+" Plug 'wellle/tmux-complete.vim'
 Plug 'JuliaEditorSupport/julia-vim'
 
 " Git
@@ -71,7 +72,7 @@ nnoremap <leader>s /<C-r><C-w><CR>
 nnoremap <leader>t :Tags <C-r><C-w><CR>
 nnoremap <leader>T :Tags<CR>
 nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>gf :GFiles?<CR>
+" nnoremap <leader>gf :GFiles?<CR>
 nnoremap <leader>gd :Git diff<CR>
 
 " when splitting automatically offer to open file
@@ -79,47 +80,121 @@ nnoremap <leader>- :split \| :PFiles<CR>
 nnoremap <leader>\ :vsplit \| :PFiles<CR>
 
 " other
+" let g:rspec_command = 'call VimuxRunCommand("bes {spec}\n")'
 nmap <leader>gb <Plug>TigBlame
 nmap <leader>y <Plug>TigLatestCommitForLine
+nmap <leader>. <Plug>RailsOpenAlt
 
-" Language Client Mappings
-nnoremap <F5> :call LanguageClient_contextMenu()<C-r><C-w><CR>
-nnoremap <silent>K :call LanguageClient#textDocument_hover()<C-r><C-w><CR>
-nnoremap <leader>df :call LanguageClient#textDocument_definition()<C-r><C-w><CR>
-nnoremap <silent><F2> :call LanguageClient#textDocument_rename()<C-r><C-w><CR>
 
+" {{{ coc.vim
+" {{{ functions
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+" }}}
+" {{{ mappings
+let g:rspec_command = 'call VimuxRunCommand("bes {spec}\n")'
+inoremap <silent><expr> <c-n> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" :coc#refresh()
+inoremap <expr><S-c-n> pumvisible() ? "\<C-p>" : "\<C-h>"
+"
+" Use <c-n> to trigger completion.
+inoremap <silent><expr> <c-n> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+if has('patch8.1.1068')
+  " Use `complete_info` if your (Neo)Vim version supports it.
+  inoremap <expr> <tab> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  imap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+" }}}
+" {{{ commands
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+" }}}
+" {{{ snippets
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_prev = '<c-p>'
+let g:coc_snippet_next = '<c-n>'
+" }}}
+" {{{ extensions
+let g:coc_global_extensions = [
+      \'coc-css',
+      \'coc-eslint',
+      \'coc-html',
+      \'coc-json',
+      \'coc-snippets',
+      \'coc-solargraph',
+      \'coc-tsserver',
+      \'coc-vetur',
+      \'coc-yaml',
+      \]
 
 " LanguageClient
 " ---------------------------------------------------------
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_serverCommands = {
-    \ 'c': ['clangd'],
-    \ 'cpp': ['clangd'],
-    \ 'cuda': ['clangd'],
-    \ 'objc': ['clangd'],
-    \ 'python': ['python3','-m', 'pyls'],
-    \ 'javascript': {
-    \   'name': 'typescript-language-server',
-    \   'command': ['typescript-language-server', '--stdio'],
-    \   'initializationOptions': {
-    \     'preferences': {
-    \     },
-    \   },
-    \ },
-    \ 'typescript': ['typescript-language-server', '--stdio'],
-    \ 'ruby':['solargraph', 'stdio'],
-    \ 'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
-    \     using LanguageServer;
-    \     using Pkg;
-    \     import StaticLint;
-    \     import SymbolServer;
-    \     env_path = dirname(Pkg.Types.Context().env.project_file);
-    \     debug = false;
-    \
-    \     server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
-    \     server.runlinter = true;
-    \     run(server);
-    \ ']}
+" let g:LanguageClient_autoStart = 1
+" let g:LanguageClient_serverCommands = {
+"     \ 'c': ['clangd'],
+"     \ 'cpp': ['clangd'],
+"     \ 'cuda': ['clangd'],
+"     \ 'objc': ['clangd'],
+"     \ 'python': ['python3','-m', 'pyls'],
+"     \ 'javascript': {
+"     \   'name': 'typescript-language-server',
+"     \   'command': ['typescript-language-server', '--stdio'],
+"     \   'initializationOptions': {
+"     \     'preferences': {
+"     \     },
+"     \   },
+"     \ },
+"     \ 'typescript': ['typescript-language-server', '--stdio'],
+"     \ 'ruby':['solargraph', 'stdio'],
+"     \ 'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
+"     \     using LanguageServer;
+"     \     using Pkg;
+"     \     import StaticLint;
+"     \     import SymbolServer;
+"     \     env_path = dirname(Pkg.Types.Context().env.project_file);
+"     \     debug = false;
+"     \
+"     \     server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
+"     \     server.runlinter = true;
+"     \     run(server);
+"     \ ']}
 
 set completefunc=LanguageClient#complete
 
@@ -127,7 +202,7 @@ set completefunc=LanguageClient#complete
 " ncm2
 " --------------------------------------------------------------------------
 " enable ncm2 for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
+" autocmd BufEnter * call ncm2#enable_for_buffer()
 
 " Affects the visual representation of what happens after you hit <C-x><C-o>
 " https://neovim.io/doc/user/insert.html#i_CTRL-X_CTRL-O
@@ -136,13 +211,13 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 " This will show the popup menu even if there's only one match (menuone),
 " prevent automatic selection (noselect) and prevent automatic text injection
 " into the current line (noinsert).
-set completeopt=noinsert,menuone,noselect
+" set completeopt=noinsert,menuone,noselect
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Devalue the LangueClient Suggestions
-call ncm2#override_source('ultisnips', {'priority': 9})
+" call ncm2#override_source('ultisnips', {'priority': 9})
 
 " UltiSnips
 " --------------------------------------------------------------------------
@@ -160,6 +235,19 @@ let g:latex_to_unicode_auto = 1
 
 " vue
 " --------------------------------------------------------------------------
+" Vue `gf` for components
+function! Dashcase(word)
+  let word = substitute(a:word,'::','/','g')
+  let word = substitute(word,'\(\u\+\)\(\u\l\)','\1_\2','g')
+  let word = substitute(word,'\(\l\|\d\)\(\u\)','\1_\2','g')
+  let word = substitute(word,'[.-]','_','g')
+  let word = tolower(word)
+  let word = substitute(word,'_','-','g')
+  return word
+endfunction
+set suffixesadd=.vue
+set includeexpr=Dashcase(v:fname)
+set path=.,app/javascript/**,frontend/src/**
 let g:vim_vue_plugin_config = {
     \'syntax': {
     \   'template': ['pug'],

@@ -84,4 +84,4 @@ done
 [[ $TMUX != "" ]] && export TERM="screen-256color"
 [[ -f ~/.aliases ]] && source ~/.aliases
 [[ -f ~/.zshrc.local ]] &&  source ~/.zshrc.local
-[[ -f ~/.fzf/.fzf.zsh ]] && source ~/.fzf/.fzf.zsh
+[ -f ~/.config/fzf/.fzf.zsh ] && source ~/.config/fzf/.fzf.zsh

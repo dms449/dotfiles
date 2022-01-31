@@ -5,7 +5,7 @@ printf "============================================================\n"
 
 
 # install
-if $INSTALL; then 
+if $INSTALL; then
   printf "\t Installing Docker and dependencies...\n"
 
   # remove old ones
@@ -26,6 +26,12 @@ if $INSTALL; then
   # download current stable release and add execute permissions
   sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
+
+  # add docker group and add user to it (prevents having to run 'sudo' all the time)
+  sudo groupadd docker
+  sudo gpasswd -a $USER docker
+  newgrp docker
+
 fi
 
 
@@ -34,9 +40,9 @@ cd "${DOTFILES_HOME}/dotfiles/docker"
 
 # symlink files
 printf "\tSymlinking docker files...\n"
-files=() 
+files=()
 for f in ${files[@]}; do
-    if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
+    if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then
       symlink $(readlink -e "$f") "${HOME}/.fzf/$f"
     fi
 done

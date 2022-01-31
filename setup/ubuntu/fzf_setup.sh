@@ -4,6 +4,9 @@ printf "                     Setting up fzf\n"
 printf "============================================================\n"
 
 
+FZF_DEST="${HOME}/.config/fzf"
+mkdir ${FZF_DEST}
+
 # install
 if $INSTALL; then
   if [ -d ~/.fzf ]; then
@@ -24,7 +27,6 @@ if $INSTALL; then
   fi
   sudo apt update
   sudo apt install ripgrep
-
 fi
 
 # change to the src directory so we can symlink the files
@@ -35,10 +37,12 @@ printf "\tSymlinking fzf files...\n"
 files=(".fzf.zsh" "completion.zsh" "key-bindings.zsh")
 for f in ${files[@]}; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then
-      symlink $(readlink -e "$f") "${HOME}/.fzf/$f"
+      symlink $(readlink -e "$f") "${FZF_DEST}/$f"
     fi
 done
 
 printf "====================fzf setup complete ====================\n"
 
+unset FZF_DEST
 cd "$DOTFILES_SETUP"
+
