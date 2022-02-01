@@ -9,6 +9,8 @@ vim.o.path = vim.o.path .. '**'
 vim.o.wildmenu = true
 vim.o.smarttab = true
 vim.o.clipboard = "unnamedplus"
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 vim.g.mapleader = ' '
 vim.g.netrw_banner = false
@@ -54,6 +56,8 @@ require("packer").startup(
     use 'tpope/vim-rails'
     use 'posva/vim-vue'
     use 'digitaltoad/vim-pug'
+    use 'slim-template/vim-slim'
+    use 'benmills/vimux'
 
     -- LSP
     use 'neovim/nvim-lspconfig'
@@ -113,6 +117,12 @@ vim.api.nvim_command [[colorscheme gruvbox]]
 local coq = require "coq"
 
 require('nvim-lspconfig')
+
+
+-- :PFiles (Project Files) is almost identical to GitFiles except it includes
+--   files that have not been checked in to git
+vim.api.nvim_command [[command! -bang PFiles call fzf#vim#files(split(system('git rev-parse --show-toplevel'),'\n')[0], fzf#vim#with_preview(),<bang>0)]]
+
 
 -- lsp.julials.setup{}
 -- lsp.cssls.setup{}
