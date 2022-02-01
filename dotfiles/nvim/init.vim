@@ -27,7 +27,6 @@ Plug 'digitaltoad/vim-pug'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'thoughtbot/vim-rspec'
 Plug 'benmills/vimux'
-Plug 'unblevable/quick-scope'
 
 " Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

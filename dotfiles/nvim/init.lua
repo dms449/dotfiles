@@ -47,6 +47,13 @@ require("packer").startup(
     use 'tpope/vim-surround'
     use 'tpope/vim-vinegar'
     use 'tpope/vim-eunuch'
+    use 'tpope/vim-fugitive'
+
+    -- Language specific
+    use 'jelera/vim-javascript-syntax'
+    use 'tpope/vim-rails'
+    use 'posva/vim-vue'
+    use 'digitaltoad/vim-pug'
 
     -- LSP
     use 'neovim/nvim-lspconfig'
@@ -77,8 +84,10 @@ function map(mode, lhs, rhs, opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-map("n", "<leader>o", ":Files<CR>")
+map("n", "<leader>o", ":PFiles<CR>")
 map("n", "<leader>f", ":Find <C-r><C-w><CR>")
+map("n", "<leader>b", ":Buffers<CR>")
+map("n", "<leader>t", ":Tags<CR>")
 map("n", "<leader>-", ":split | :Files<CR>")
 map("n", "<leader>\\", ":vsplit | :Files<CR>")
 
