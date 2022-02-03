@@ -50,6 +50,7 @@ require("packer").startup(
     use 'tpope/vim-vinegar'
     use 'tpope/vim-eunuch'
     use 'tpope/vim-fugitive'
+    use 'airblade/vim-gitgutter'
 
     -- Language specific
     use 'jelera/vim-javascript-syntax'
@@ -58,6 +59,8 @@ require("packer").startup(
     use 'digitaltoad/vim-pug'
     use 'slim-template/vim-slim'
     use 'benmills/vimux'
+    -- use 'vim-ruby/vim-ruby'
+    use 'thoughtbot/vim-rspec'
 
     -- LSP
     use 'neovim/nvim-lspconfig'
@@ -76,7 +79,10 @@ require("packer").startup(
     }
 
     -- Theme
-    use 'nvim-lualine/lualine.nvim'
+    use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    }
     use 'morhetz/gruvbox'
 end)
 
@@ -90,6 +96,7 @@ end
 
 map("n", "<leader>o", ":PFiles<CR>")
 map("n", "<leader>f", ":Find <C-r><C-w><CR>")
+map("n", "<leader>F", ":Find ")
 map("n", "<leader>b", ":Buffers<CR>")
 map("n", "<leader>t", ":Tags<CR>")
 map("n", "<leader>-", ":split | :Files<CR>")
@@ -97,11 +104,15 @@ map("n", "<leader>\\", ":vsplit | :Files<CR>")
 
 map("n", "<leader>J", "<PageDown>")
 map("n", "<leader>K", "<PageUp>")
+
 -- switch panes
 map("n", "<leader>h", ":wincmd h<CR>")
 map("n", "<leader>j", ":wincmd j<CR>")
 map("n", "<leader>k", ":wincmd k<CR>")
 map("n", "<leader>l", ":wincmd l<CR>")
+
+-- plugins
+map("n", "<leader>gg", ":GitGutterToggle<CR>")
 
 
 -- ============================= Theme ==============================
@@ -115,7 +126,6 @@ vim.api.nvim_command [[colorscheme gruvbox]]
 -- ============================= LSP ==============================
 -- local lsp = require "lspconfig"
 local coq = require "coq"
-
 require('nvim-lspconfig')
 
 
@@ -124,8 +134,5 @@ require('nvim-lspconfig')
 vim.api.nvim_command [[command! -bang PFiles call fzf#vim#files(split(system('git rev-parse --show-toplevel'),'\n')[0], fzf#vim#with_preview(),<bang>0)]]
 
 
--- lsp.julials.setup{}
--- lsp.cssls.setup{}
--- lsp.eslint.setup{}
--- require'lspconfig'.bashls.setup{}
--- lsp.<server>.setup(coq.lsp_ensure_capabilities(<stuff...>)) -- after
+-- define Find: functionality
+vim.api.nvim_command [[command! -bang -nargs=* Find call fzf#vim#grep('rg --column --no-heading --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)]]

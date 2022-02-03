@@ -2,7 +2,7 @@ setlocal iskeyword+=!
 setlocal iskeyword+=?
 
 " format on save
-" autocmd BufWritePre <buffer> call LanguageClient_textDocument_formatting_sync()
+autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
 
 " run
 map <buffer> <leader>rt :call VimuxRunCommand("pytest ". expand('%') ." \n")<CR>

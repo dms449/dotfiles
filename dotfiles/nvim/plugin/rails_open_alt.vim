@@ -16,4 +16,4 @@ function s:open_alt(path)
   endif
 endfunction
 
-nnoremap <Plug>RailsOpenAlt :call <SID>open_alt(expand('%'))<CR>
+nnoremap :call RailsOpenAlt() :call <SID>open_alt(expand('%'))<CR>
