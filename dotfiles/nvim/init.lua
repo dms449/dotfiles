@@ -15,6 +15,8 @@ vim.opt.splitbelow = true
 vim.g.mapleader = ' '
 vim.g.netrw_banner = false
 vim.g.gruvbox_contrast_dark = 'hard'
+vim.g.argwrap_padded_brace = '{'
+vim.g.argwrap_tail_comma = 1
 vim.g.coq_settings = {
    auto_start = 'shut-up',
 }
@@ -51,6 +53,7 @@ require("packer").startup(
     use 'tpope/vim-eunuch'
     use 'tpope/vim-fugitive'
     use 'airblade/vim-gitgutter'
+    use 'FooSoft/vim-argwrap'
 
     -- Language specific
     use 'jelera/vim-javascript-syntax'
@@ -102,8 +105,8 @@ map("n", "<leader>t", ":Tags<CR>")
 map("n", "<leader>-", ":split | :Files<CR>")
 map("n", "<leader>\\", ":vsplit | :Files<CR>")
 
-map("n", "<leader>J", "<PageDown>")
-map("n", "<leader>K", "<PageUp>")
+map("n", "<leader>jj", "<PageDown>")
+map("n", "<leader>kk", "<PageUp>")
 
 -- switch panes
 map("n", "<leader>h", ":wincmd h<CR>")
@@ -113,6 +116,7 @@ map("n", "<leader>l", ":wincmd l<CR>")
 
 -- plugins
 map("n", "<leader>gg", ":GitGutterToggle<CR>")
+map("n", "<leader>a", ":ArgWrap<CR>")
 
 
 -- ============================= Theme ==============================
