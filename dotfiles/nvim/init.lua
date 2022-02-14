@@ -1,7 +1,7 @@
 -- Common
 vim.o.mouse = 'a'
 vim.o.hidden = true
-vim.o.completeopt = 'menuone,noinsert,noselect'
+vim.o.completeopt = "menuone,noselect"
 vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.o.path = vim.o.path .. '**'
 vim.o.wildmenu = true
@@ -85,6 +85,7 @@ require("packer").startup(
     use 'tpope/vim-fugitive'
     use 'airblade/vim-gitgutter'
     use 'FooSoft/vim-argwrap'
+    use 'ms-jpq/chadtree'
 
     -- Language specific
     use 'jelera/vim-javascript-syntax'
@@ -115,7 +116,7 @@ require("packer").startup(
     -- Theme
     use {
       'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+      requires = { 'kyazdani42/nvim-web-devicons' },
     }
     use 'morhetz/gruvbox'
 end)
@@ -129,18 +130,21 @@ function map(mode, lhs, rhs, opts)
 end
 
 map("n", "<leader>o", ":PFiles<CR>")
-map("n", "<leader>f", ":Find <C-r><C-w><CR>")
+map("n", "<leader>ff", ":Find <C-r><C-w><CR>")
 map("n", "<leader>F", ":Find ")
 map("n", "<leader>b", ":Buffers<CR>")
 map("n", "<leader>t", ":Tags<CR>")
 map("n", "<leader>-", ":split | :Files<CR>")
 map("n", "<leader>\\", ":vsplit | :Files<CR>")
 
-map("n", "<leader>jj", "<PageDown>")
-map("n", "<leader>kk", "<PageUp>")
+map("n", "<leader>J", "<PageDown>")
+map("n", "<leader>K", "<PageUp>")
+map("n", "<C-k>", ":m-2<CR>")
+map("n", "<C-j>", ":m+<CR>")
+
 
 map("n", "<leader>rr", ":%s/\\C<C-r><C-w>/")
-map("n", "<leader>s", "/<C-r><C-w><C-w>")
+map("n", "<leader>s", "/<C-r><C-w><CR>")
 
 -- switch panes
 map("n", "<leader>h", ":wincmd h<CR>")
@@ -151,6 +155,7 @@ map("n", "<leader>l", ":wincmd l<CR>")
 -- plugins
 map("n", "<leader>gg", ":GitGutterToggle<CR>")
 map("n", "<leader>a", ":ArgWrap<CR>")
+map("n", "<leader>v", ":CHADopen<CR>")
 
 
 -- ============================= Theme ==============================
@@ -169,7 +174,7 @@ require('nvim-lspconfig')
 
 require('plugin_config/auto-pairs')
 require('plugin_config/fzf')
-require('plugin_config/tig')
+-- require('plugin_config/tig')
 require('plugin_config/undotree')
 require('plugin_config/vcs-jump')
 require('plugin_config/vim-argwrap')
