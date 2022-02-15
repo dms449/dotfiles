@@ -1,7 +1,19 @@
+require('plugin_config/coq')
+require('plugin_config/fzf')
+require('plugin_config/tig')
+require('plugin_config/undotree')
+require('plugin_config/vcs-jump')
+require('plugin_config/vim-argwrap')
+require('plugin_config/vim-closetag')
+require('plugin_config/vim-rspec')
+require('plugin_config/vim-ruby')
+require('plugin_config/nvim-treesitter')
+require('plugin_config/vim-tmux-navigator')
+
 -- Common
 vim.o.mouse = 'a'
 vim.o.hidden = true
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt="menuone,noinsert,noselect"
 vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.o.path = vim.o.path .. '**'
 vim.o.wildmenu = true
@@ -14,9 +26,7 @@ vim.o.backspace = 'indent,start,eol'
 vim.o.backupcopy = 'yes'
 vim.o.colorcolumn = '80'
 vim.o.encoding = 'utf-8'
-vim.o.expandtab = true
-vim.o.fileencoding = 'utf-8'
-vim.o.foldlevelstart = 3
+vim.o.expandtab = true vim.o.fileencoding = 'utf-8' vim.o.foldlevelstart = 3
 vim.o.foldmethod = 'syntax'
 vim.o.gdefault = true
 vim.o.hlsearch = true
@@ -50,10 +60,6 @@ vim.g.netrw_banner = false
 vim.g.netrw_liststyle = 3
 vim.g.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 vim.g.gruvbox_contrast_dark = 'hard'
-vim.g.netrw_liststyle = 3
-vim.g.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-vim.g.coq_settings = {
-   auto_start = 'shut-up', }
 
 vim.bo.expandtab = true
 vim.bo.shiftwidth = 2
@@ -75,7 +81,6 @@ require("packer").startup(
           vim.fn["fzf#install"]()
         end}
     use "junegunn/fzf.vim"
-    use 'rstacruz/vim-closer'
     use 'machakann/vim-highlightedyank'
     use 'tpope/vim-commentary'
     use 'tpope/vim-endwise'
@@ -85,10 +90,9 @@ require("packer").startup(
     use 'tpope/vim-fugitive'
     use 'airblade/vim-gitgutter'
     use 'FooSoft/vim-argwrap'
-    use 'ms-jpq/chadtree'
 
     -- Language specific
-    use 'jelera/vim-javascript-syntax'
+    -- use 'jelera/vim-javascript-syntax'
     use 'tpope/vim-rails'
     use 'posva/vim-vue'
     use 'digitaltoad/vim-pug'
@@ -100,7 +104,6 @@ require("packer").startup(
     -- LSP
     use 'neovim/nvim-lspconfig'
     use 'glepnir/lspsaga.nvim'
-    -- use 'haorenW1025/completion-nvim'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
     -- completion
@@ -167,19 +170,5 @@ require('lualine').setup {
 vim.api.nvim_command [[colorscheme gruvbox]]
 
 
--- ============================= requires ==============================
-
-local coq = require "coq"
-require('nvim-lspconfig')
-
-require('plugin_config/auto-pairs')
-require('plugin_config/fzf')
--- require('plugin_config/tig')
-require('plugin_config/undotree')
-require('plugin_config/vcs-jump')
-require('plugin_config/vim-argwrap')
-require('plugin_config/vim-closetag')
-require('plugin_config/vim-rspec')
-require('plugin_config/vim-ruby')
-require('plugin_config/vim-tmux-navigator')
+-- ============================= netwr ==============================
 
