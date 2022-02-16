@@ -1,76 +1,10 @@
-require('plugin_config/coq')
-require('plugin_config/fzf')
-require('plugin_config/tig')
-require('plugin_config/undotree')
-require('plugin_config/vcs-jump')
-require('plugin_config/vim-argwrap')
-require('plugin_config/vim-closetag')
-require('plugin_config/vim-rspec')
-require('plugin_config/vim-ruby')
-require('plugin_config/nvim-treesitter')
-require('plugin_config/vim-tmux-navigator')
-
--- Common
-vim.o.mouse = 'a'
-vim.o.hidden = true
-vim.o.completeopt="menuone,noinsert,noselect"
-vim.o.shortmess = vim.o.shortmess .. 'c'
-vim.o.path = vim.o.path .. '**'
-vim.o.wildmenu = true
-vim.o.smarttab = true
-vim.o.clipboard = "unnamedplus"
-vim.o.splitright = true
-vim.o.splitbelow = true
-vim.o.autoindent = true
-vim.o.backspace = 'indent,start,eol'
-vim.o.backupcopy = 'yes'
-vim.o.colorcolumn = '80'
-vim.o.encoding = 'utf-8'
-vim.o.expandtab = true vim.o.fileencoding = 'utf-8' vim.o.foldlevelstart = 3
-vim.o.foldmethod = 'syntax'
-vim.o.gdefault = true
-vim.o.hlsearch = true
-vim.o.ignorecase = true
-vim.o.incsearch = true
-vim.o.laststatus = 2
-vim.o.number = true
-vim.o.path = '.,app/javascript/**,frontend/src/**,src/**'
-vim.o.relativenumber = true
-vim.o.ruler = true
-vim.o.scrolloff = 3
-vim.o.shiftwidth = 2
-vim.o.showcmd = true
-vim.o.showmatch = true
-vim.o.smartcase = true
-vim.o.softtabstop = 2
-vim.o.suffixesadd = '.vue'
-vim.o.tabstop = 2
-vim.o.termguicolors = true
-vim.o.timeout = true
-vim.o.timeoutlen = 1000
-vim.o.ttimeoutlen = 100
-vim.o.undofile = true
-vim.o.updatetime = 300
-vim.o.visualbell = true
-vim.o.winwidth = 90
-vim.o.wrap = false
-
-vim.g.mapleader = ' '
-vim.g.netrw_banner = false
-vim.g.netrw_liststyle = 3
-vim.g.netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-vim.g.gruvbox_contrast_dark = 'hard'
-
-vim.bo.expandtab = true
-vim.bo.shiftwidth = 2
-vim.bo.softtabstop = 2
-vim.bo.tabstop = 2
-vim.bo.path = vim.o.path .. '**'
-
-vim.wo.number = true
-vim.wo.signcolumn = 'number'
-vim.wo.colorcolumn = "120"
-vim.wo.relativenumber = true
+function map(mode, lhs, rhs, opts)
+    local options = { noremap = true, silent = true }
+    if opts then
+        options = vim.tbl_extend("force", options, opts)
+    end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
 
 -- Plugins
 require("packer").startup(
@@ -90,15 +24,15 @@ require("packer").startup(
     use 'tpope/vim-fugitive'
     use 'airblade/vim-gitgutter'
     use 'FooSoft/vim-argwrap'
+    use 'jiangmiao/auto-pairs'
+    use 'mbbill/undotree'
 
     -- Language specific
-    -- use 'jelera/vim-javascript-syntax'
     use 'tpope/vim-rails'
     use 'posva/vim-vue'
     use 'digitaltoad/vim-pug'
     use 'slim-template/vim-slim'
     use 'benmills/vimux'
-    -- use 'vim-ruby/vim-ruby'
     use 'thoughtbot/vim-rspec'
 
     -- LSP
@@ -121,16 +55,23 @@ require("packer").startup(
       'nvim-lualine/lualine.nvim',
       requires = { 'kyazdani42/nvim-web-devicons' },
     }
-    use 'morhetz/gruvbox'
+    use 'ellisonleao/gruvbox.nvim'
 end)
 
-function map(mode, lhs, rhs, opts)
-    local options = { noremap = true, silent = true }
-    if opts then
-        options = vim.tbl_extend("force", options, opts)
-    end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
+require('settings')
+require('plugin_config/coq')
+require('plugin_config/fzf')
+require('plugin_config/tig')
+require('plugin_config/undotree')
+require('plugin_config/vcs-jump')
+require('plugin_config/vim-gitgutter')
+require('plugin_config/vim-argwrap')
+require('plugin_config/vim-closetag')
+require('plugin_config/vim-rspec')
+require('plugin_config/vim-ruby')
+require('plugin_config/vim-tmux-navigator')
+require('plugin_config/nvim-treesitter')
+
 
 map("n", "<leader>o", ":PFiles<CR>")
 map("n", "<leader>ff", ":Find <C-r><C-w><CR>")
@@ -148,6 +89,7 @@ map("n", "<C-j>", ":m+<CR>")
 
 map("n", "<leader>rr", ":%s/\\C<C-r><C-w>/")
 map("n", "<leader>s", "/<C-r><C-w><CR>")
+-- map("n", "-", ":ToggleNetrw<CR>")
 
 -- switch panes
 map("n", "<leader>h", ":wincmd h<CR>")
@@ -156,9 +98,7 @@ map("n", "<leader>k", ":wincmd k<CR>")
 map("n", "<leader>l", ":wincmd l<CR>")
 
 -- plugins
-map("n", "<leader>gg", ":GitGutterToggle<CR>")
 map("n", "<leader>a", ":ArgWrap<CR>")
-map("n", "<leader>v", ":CHADopen<CR>")
 
 
 -- ============================= Theme ==============================
@@ -168,7 +108,3 @@ require('lualine').setup {
   options = { theme = 'gruvbox_dark' }
 }
 vim.api.nvim_command [[colorscheme gruvbox]]
-
-
--- ============================= netwr ==============================
-

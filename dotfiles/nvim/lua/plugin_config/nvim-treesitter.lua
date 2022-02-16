@@ -22,6 +22,10 @@ require'nvim-treesitter.configs'.setup {
   incremental_selection = {
     enable = true,
     disable = { "vue" },
+  },
+
+  indent = {
+    enable = true
   }
 }
 
