@@ -44,7 +44,6 @@ nnoremap <leader>z <C-w>_<CR>
 nnoremap <leader>Z <C-w>=<CR>
 nnoremap <Leader>rr :%s/\C<C-r><C-w>/
 
-
 " mappings [Visual and Select]"
 
 " movement between splits
