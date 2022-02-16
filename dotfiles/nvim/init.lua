@@ -6,59 +6,9 @@ function map(mode, lhs, rhs, opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
--- Plugins
-require("packer").startup(
-  function()
-    use 'wbthomason/packer.nvim' -- generic vim
-    use {"junegunn/fzf",
-        run = function()
-          vim.fn["fzf#install"]()
-        end}
-    use "junegunn/fzf.vim"
-    use 'machakann/vim-highlightedyank'
-    use 'tpope/vim-commentary'
-    use 'tpope/vim-endwise'
-    use 'tpope/vim-surround'
-    use 'tpope/vim-vinegar'
-    use 'tpope/vim-eunuch'
-    use 'tpope/vim-fugitive'
-    use 'airblade/vim-gitgutter'
-    use 'FooSoft/vim-argwrap'
-    use 'jiangmiao/auto-pairs'
-    use 'mbbill/undotree'
-
-    -- Language specific
-    use 'tpope/vim-rails'
-    use 'posva/vim-vue'
-    use 'digitaltoad/vim-pug'
-    use 'slim-template/vim-slim'
-    use 'benmills/vimux'
-    use 'thoughtbot/vim-rspec'
-
-    -- LSP
-    use 'neovim/nvim-lspconfig'
-    use 'glepnir/lspsaga.nvim'
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-
-    -- completion
-    use {
-      'ms-jpq/coq_nvim',
-      requires = {
-         {'ms-jpq/coq.artifacts', branch = 'artifacts'},
-         {'ms-jpq/coq.thirdparty', branch = '3p'},
-      },
-      branch = 'coq'
-    }
-
-    -- Theme
-    use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons' },
-    }
-    use 'ellisonleao/gruvbox.nvim'
-end)
-
+require('plugins')
 require('settings')
+require('mappings')
 require('plugin_config/coq')
 require('plugin_config/fzf')
 require('plugin_config/tig')
@@ -71,34 +21,6 @@ require('plugin_config/vim-rspec')
 require('plugin_config/vim-ruby')
 require('plugin_config/vim-tmux-navigator')
 require('plugin_config/nvim-treesitter')
-
-
-map("n", "<leader>o", ":PFiles<CR>")
-map("n", "<leader>ff", ":Find <C-r><C-w><CR>")
-map("n", "<leader>F", ":Find ")
-map("n", "<leader>b", ":Buffers<CR>")
-map("n", "<leader>t", ":Tags<CR>")
-map("n", "<leader>-", ":split | :Files<CR>")
-map("n", "<leader>\\", ":vsplit | :Files<CR>")
-
-map("n", "<leader>J", "<PageDown>")
-map("n", "<leader>K", "<PageUp>")
-map("n", "<C-k>", ":m-2<CR>")
-map("n", "<C-j>", ":m+<CR>")
-
-
-map("n", "<leader>rr", ":%s/\\C<C-r><C-w>/")
-map("n", "<leader>s", "/<C-r><C-w><CR>")
--- map("n", "-", ":ToggleNetrw<CR>")
-
--- switch panes
-map("n", "<leader>h", ":wincmd h<CR>")
-map("n", "<leader>j", ":wincmd j<CR>")
-map("n", "<leader>k", ":wincmd k<CR>")
-map("n", "<leader>l", ":wincmd l<CR>")
-
--- plugins
-map("n", "<leader>a", ":ArgWrap<CR>")
 
 
 -- ============================= Theme ==============================

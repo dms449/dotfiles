@@ -1,4 +1,6 @@
 # git
+alias stash="git stash -u"
+alias pop="git stash pop"
 
 # locations
 alias work="cd ~/workspace/"

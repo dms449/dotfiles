@@ -4,4 +4,4 @@ vim.api.nvim_command [[command! -bang PFiles call fzf#vim#files(split(system('gi
 
 
 -- define Find: functionality
-vim.api.nvim_command [[command! -bang -nargs=* Find call fzf#vim#grep('rg --column --no-heading --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)]]
+vim.api.nvim_command [[command! -bang -nargs=* Find call fzf#vim#grep('rg --column --no-heading --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, fzf#vim#with_preview(),<bang>0)]]
