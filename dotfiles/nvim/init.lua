@@ -20,6 +20,7 @@ require('plugin_config/vim-closetag')
 require('plugin_config/vim-rspec')
 require('plugin_config/vim-ruby')
 require('plugin_config/vim-tmux-navigator')
+require('plugin_config/nvim-autopairs')
 require('plugin_config/nvim-treesitter')
 
 

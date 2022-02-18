@@ -58,6 +58,5 @@ vim.bo.tabstop = 2
 vim.bo.path = vim.o.path .. '**'
 
 vim.wo.number = true
-vim.wo.signcolumn = 'number'
 vim.wo.colorcolumn = "120"
 vim.wo.relativenumber = true

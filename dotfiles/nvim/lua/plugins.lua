@@ -13,10 +13,12 @@ require("packer").startup(
     use 'tpope/vim-vinegar'
     use 'tpope/vim-eunuch'
     use 'tpope/vim-fugitive'
+    use 'tpope/vim-abolish'
     use 'airblade/vim-gitgutter'
     use 'FooSoft/vim-argwrap'
-    use 'jiangmiao/auto-pairs'
+    use 'windwp/nvim-autopairs'
     use 'mbbill/undotree'
+    use 'kthibodeaux/tig.vim'
 
     -- Language specific
     use 'tpope/vim-rails'

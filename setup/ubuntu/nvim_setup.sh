@@ -10,18 +10,16 @@ NVIM_DEST="${HOME}/.config/nvim"
 if $INSTALL; then
   printf "\t Installing neovim and dependencies...\n"
 
-  #sudo $PM install exuberant-ctags
-# install language servers printf "\t Installing language servers\n"
-  # python
-  #pip3 install jedi
+  printf "\t Installing Language Servers...\n"
+  sudo npm i -g bash-language-server
+  sudo npm i -g vscode-langservers-extracted
+  sudo gem install --user-install solargraph
+
+  pip3 install pyright
   pip3 install pynvim
 
-  # c/c++
-  #sudo $PM install clang-tools-9
-  #sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100
-
-
   # neovim
+  printf "\t Installing Neovim...\n"
   mkdir ${NVIM_DEST}
   curl -Lo ${NVIM_DEST}/nvim.appimage https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
   chmod a+rxw ${NVIM_DEST}/nvim.appimage
