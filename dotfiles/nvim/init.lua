@@ -13,6 +13,7 @@ require('plugin_config/coq')
 require('plugin_config/fzf')
 require('plugin_config/tig')
 require('plugin_config/undotree')
+require('plugin_config/lualine')
 require('plugin_config/vcs-jump')
 require('plugin_config/vim-gitgutter')
 require('plugin_config/vim-argwrap')
@@ -23,11 +24,4 @@ require('plugin_config/vim-tmux-navigator')
 require('plugin_config/nvim-autopairs')
 require('plugin_config/nvim-treesitter')
 
-
--- ============================= Theme ==============================
--- colorscheme
--- status bar
-require('lualine').setup {
-  options = { theme = 'gruvbox_dark' }
-}
 vim.api.nvim_command [[colorscheme gruvbox]]
