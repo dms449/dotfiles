@@ -8,7 +8,6 @@ require("packer").startup(
     use "junegunn/fzf.vim"
     use 'machakann/vim-highlightedyank'
     use 'tpope/vim-commentary'
-    use 'tpope/vim-endwise'
     use 'tpope/vim-surround'
     use 'tpope/vim-vinegar'
     use 'tpope/vim-eunuch'
@@ -19,6 +18,7 @@ require("packer").startup(
     use 'windwp/nvim-autopairs'
     use 'mbbill/undotree'
     use 'kthibodeaux/tig.vim'
+    use 'RRethy/nvim-treesitter-endwise'
 
     -- Language specific
     use 'tpope/vim-rails'

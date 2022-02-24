@@ -4,6 +4,11 @@ local ts_conds = require('nvim-autopairs.ts-conds')
 
 npairs.setup({
   check_ts = true,
+
+  -- must be done for coq integration. see plugin_config/coq.lua
+  map_cr = false,
+  map_bs = false,
+
   ts_config = {
       lua = {'string'},-- it will not add a pair on that treesitter node
       javascript = {'template_string'},

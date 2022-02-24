@@ -23,5 +23,6 @@ require('plugin_config/vim-ruby')
 require('plugin_config/vim-tmux-navigator')
 require('plugin_config/nvim-autopairs')
 require('plugin_config/nvim-treesitter')
+require('plugin_config/nvim-treesitter-endwise')
 
 vim.api.nvim_command [[colorscheme gruvbox]]
