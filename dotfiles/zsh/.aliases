@@ -1,6 +1,7 @@
 # git
 alias stash="git stash -u"
 alias pop="git stash pop"
+alias ga="git add -A"
 
 # locations
 alias work="cd ~/workspace/"
@@ -11,7 +12,6 @@ alias tmate="tmate -f ~/.tmate.conf"
 
 # directory stuff
 alias ..="cd .."
-alias dot="cd ~/dotfiles"
 
 #l aliases
 alias ll='ls -alF --color=auto'
