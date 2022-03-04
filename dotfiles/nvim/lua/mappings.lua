@@ -2,7 +2,7 @@
 map("n", "<leader>p", ":PFiles<CR>")
 map("n", "<leader>og", ":GitFiles?<CR>")
 map("n", "<leader>s", ":Find <C-r><C-w><CR>")
-map("n", "<leader>f", ":Find ")
+map("n", "<leader>f", ":Find <C-r><C-w>")
 map("n", "<leader>b", ":Buffers<CR>")
 map("n", "<leader>t", ":Tags<CR>")
 map("n", "<leader>-", ":split | :Files<CR>")
