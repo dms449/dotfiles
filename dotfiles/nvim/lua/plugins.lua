@@ -20,6 +20,7 @@ require("packer").startup(
     use 'mbbill/undotree'
     use 'kthibodeaux/tig.vim'
     use 'RRethy/nvim-treesitter-endwise'
+    use 'christoomey/vim-tmux-navigator'
 
     -- Language specific
     use 'tpope/vim-rails'
