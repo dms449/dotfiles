@@ -127,5 +127,5 @@ compdef g=git
 alias stash="git stash -u"
 alias pop="git stash pop"
 alias ga="git add -A"
-alias wip="git add --all && git commit -m 'WIP' && git push"
+alias wip="git add --all && git commit -m 'WIP'"
 alias gback='git reset HEAD~1'
