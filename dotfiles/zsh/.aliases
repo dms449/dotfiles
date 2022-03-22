@@ -1,8 +1,3 @@
-# git
-alias stash="git stash -u"
-alias pop="git stash pop"
-alias ga="git add -A"
-
 # locations
 alias work="cd ~/workspace/"
 alias dot='cd ~/dotfiles/'
