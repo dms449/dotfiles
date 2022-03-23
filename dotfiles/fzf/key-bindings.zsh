@@ -63,7 +63,7 @@ fzf-cd-widget() {
 zle     -N    fzf-cd-widget
 bindkey '\ec' fzf-cd-widget
 
-# CTRL-H - Paste the selected command from history into the command line
+# ALT-h - Paste the selected command from history into the command line
 fzf-history-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
@@ -80,6 +80,6 @@ fzf-history-widget() {
   return $ret
 }
 zle     -N   fzf-history-widget
-bindkey '^H' fzf-history-widget
+bindkey '\eh' fzf-history-widget
 
 fi

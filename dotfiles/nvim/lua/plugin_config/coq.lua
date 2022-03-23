@@ -1,6 +1,9 @@
 vim.g.coq_settings = {
   auto_start = 'shut-up',
-  keymap = { recommended = false },
+  keymap = {
+    recommended = false,
+    jump_to_mark = 'null',
+  },
 }
 
 local remap = vim.api.nvim_set_keymap

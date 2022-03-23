@@ -10,17 +10,15 @@ map("n", "<leader>\\", ":vsplit | :Files<CR>")
 
 
 -- moving
-map("n", "<leader>J", "<PageDown>")
-map("n", "<leader>K", "<PageUp>")
-map("n", "<C-k>", ":m-2<CR>")
-map("n", "<C-j>", ":m+<CR>")
+map("n", "<M-k>", ":m-2<CR>")
+map("n", "<M-j>", ":m+<CR>")
 
 
 map("n", "<leader>rr", ":%s/\\C<C-r><C-w>/")
 
 -- switch panes
-map("n", "<leader>h", ":wincmd h<CR>")
-map("n", "<leader>j", ":wincmd j<CR>")
-map("n", "<leader>k", ":wincmd k<CR>")
-map("n", "<leader>l", ":wincmd l<CR>")
 map("n", "<CR>", "<CR>:noh<CR>")
+map("n", "<C-h>", ":TmuxNavigateLeft<CR>")
+map("n", "<C-j>", ":TmuxNavigateDown<CR>")
+map("n", "<C-k>", ":TmuxNavigateUp<CR>")
+map("n", "<C-l>", ":TmuxNavigateRight<CR>")
