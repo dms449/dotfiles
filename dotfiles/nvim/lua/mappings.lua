@@ -7,6 +7,7 @@ map("n", "<leader>b", ":Buffers<CR>")
 map("n", "<leader>t", ":Tags<CR>")
 map("n", "<leader>-", ":split | :Files<CR>")
 map("n", "<leader>\\", ":vsplit | :Files<CR>")
+map("n", "f", "/<C-r><C-w><CR>")
 
 
 -- moving
