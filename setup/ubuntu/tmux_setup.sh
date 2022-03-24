@@ -16,7 +16,7 @@ fi
 cd "${DOTFILES_HOME}/dotfiles/tmux"
 
 # symlink files
-files=(".tmux.conf" "custom.tmuxtheme")
+files=(".tmate.conf" ".tmux.conf" "custom.tmuxtheme")
 printf "\tSymlinking tmux files...\n"
 for f in ${files[@]}; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then
