@@ -1,19 +1,17 @@
 -- searching
 map("n", "<leader>p", ":PFiles<CR>")
 map("n", "<leader>og", ":GitFiles?<CR>")
-map("n", "<leader>s", ":Find <C-r><C-w><CR>")
-map("n", "<leader>f", ":Find <C-r><C-w>")
+map("n", "<leader>fw", ":Find <C-r><C-w><CR>")
+map("n", "<leader>ff", ":Find <C-r><C-w>")
 map("n", "<leader>b", ":Buffers<CR>")
 map("n", "<leader>t", ":Tags<CR>")
 map("n", "<leader>-", ":split | :Files<CR>")
 map("n", "<leader>\\", ":vsplit | :Files<CR>")
-map("n", "f", "/<C-r><C-w><CR>")
-
+map("n", "<leader>fy", ":Find <c-R>\"<CR>")
 
 -- moving
 map("n", "<M-k>", ":m-2<CR>")
 map("n", "<M-j>", ":m+<CR>")
-
 
 map("n", "<leader>rr", ":%s/\\C<C-r><C-w>/")
 
