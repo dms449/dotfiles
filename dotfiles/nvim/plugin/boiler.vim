@@ -1,6 +1,8 @@
 function s:boiler()
   if filereadable(".boiler/boiler") == 1
     if filereadable(@%) == 0
+      if !empty(matchstr(@%, 'fugitive'))
+        return
       read !./.boiler/boiler %
       norm ggdd
     elseif line('$') == 1 && col('$') == 1
