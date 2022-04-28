@@ -14,7 +14,6 @@ require("packer").startup(
     use 'tpope/vim-eunuch'
     use 'tpope/vim-fugitive'
     use 'tpope/vim-abolish'
-    use 'airblade/vim-gitgutter'
     use 'FooSoft/vim-argwrap'
     use 'windwp/nvim-autopairs'
     use 'mbbill/undotree'
