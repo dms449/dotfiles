@@ -5,8 +5,8 @@ require("packer").startup(
         run = function()
           vim.fn["fzf#install"]()
         end}
-    use "junegunn/fzf.vim"
-    use "junegunn/vim-peekaboo"
+    use 'junegunn/fzf.vim'
+    use 'junegunn/vim-peekaboo'
     use 'machakann/vim-highlightedyank'
     use 'tpope/vim-commentary'
     use 'tpope/vim-surround'
@@ -22,6 +22,7 @@ require("packer").startup(
     use 'christoomey/vim-tmux-navigator'
 
     -- Language specific
+    use 'joom/latex-unicoder.vim'
     use 'tpope/vim-rails'
     use 'posva/vim-vue'
     use 'digitaltoad/vim-pug'

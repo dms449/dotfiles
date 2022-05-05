@@ -13,6 +13,7 @@ require('plugin_config/coq')
 require('plugin_config/fzf')
 require('plugin_config/tig')
 require('plugin_config/undotree')
+require('plugin_config/latex-unicoder')
 require('plugin_config/lualine')
 require('plugin_config/vcs-jump')
 require('plugin_config/vim-fugitive')
@@ -26,3 +27,4 @@ require('plugin_config/nvim-treesitter')
 require('plugin_config/nvim-treesitter-endwise')
 
 vim.api.nvim_command [[colorscheme gruvbox]]
+
