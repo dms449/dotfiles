@@ -5,6 +5,8 @@ alias dot='cd ~/dotfiles/'
 #alias t="tmux"
 alias tmate="tmate -f ~/.tmate.conf"
 
+alias n="v"
+
 # directory stuff
 alias ..="cd .."
 
