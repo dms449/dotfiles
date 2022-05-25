@@ -102,7 +102,7 @@ br() {
 }
 
 cfu() {
-  target=$(git log --pretty=oneline $(base_branch).. | $(fzf_prog) --preview "echo {} | cut -f 1 -d' ' | xargs -I SHA git show --color=always --pretty=fuller --stat SHA" | awk '{ print $1 }')
+  target=$(git log --max-count=10 --pretty=oneline | $(fzf_prog) --preview "echo {} | cut -f 1 -d' ' | xargs -I SHA git show --color=always --pretty=fuller --stat SHA" | awk '{ print $1 }')
 
   if [[ $target != '' ]]; then
     git commit --fixup $(echo $target)
