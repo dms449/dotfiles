@@ -21,14 +21,15 @@ if $INSTALL; then
   # neovim
   printf "\t Installing Neovim...\n"
   mkdir ${NVIM_DEST}
+  rm -f ${NVIM_DEST}/nvim.appimage
   curl -Lo ${NVIM_DEST}/nvim.appimage https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
   chmod a+rxw ${NVIM_DEST}/nvim.appimage
+  sudo rm -f /usr/local/bin/nvim
   symlink ${NVIM_DEST}/nvim.appimage /usr/local/bin/nvim
 
   # neovim plugin manager `Packer`
   git clone --depth 1 https://github.com/wbthomason/packer.nvim\
     ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
 fi
 
 
