@@ -8,6 +8,10 @@ base_branch() {
   fi
 }
 
+current_branch() {
+  git rev-parse --abbrev-ref HEAD
+}
+
 g() {
   if [[ $# > 0 ]]; then
     git $@
@@ -81,10 +85,14 @@ support() {
 
 
 ir() {
-  if [[ $# > 0 ]]; then
-    git rebase -i $@
+  if [ "$(current_branch)" = "$(base_branch)" ]; then
+    git rebase -i HEAD~$@
   else
-    git rebase -i $(base_branch)
+    if [[ $# > 0 ]]; then
+      git rebase -i $@
+    else
+      git rebase -i $(base_branch)
+    fi
   fi
 }
 
@@ -102,7 +110,11 @@ br() {
 }
 
 cfu() {
-  target=$(git log --pretty=oneline $(base_branch).. | $(fzf_prog) --preview "echo {} | cut -f 1 -d' ' | xargs -I SHA git show --color=always --pretty=fuller --stat SHA" | awk '{ print $1 }')
+  if [ "$(current_branch)" = "$(base_branch)" ]; then
+    target=$(git log --max-count=50 --pretty=oneline | $(fzf_prog) --preview "echo {} | cut -f 1 -d' ' | xargs -I SHA git show --color=always --pretty=fuller --stat SHA" | awk '{ print $1 }')
+  else
+    target=$(git log --pretty=oneline $(base_branch).. | $(fzf_prog) --preview "echo {} | cut -f 1 -d' ' | xargs -I SHA git show --color=always --pretty=fuller --stat SHA" | awk '{ print $1 }')
+  fi
 
   if [[ $target != '' ]]; then
     git commit --fixup $(echo $target)
