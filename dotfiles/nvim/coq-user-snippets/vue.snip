@@ -4,9 +4,11 @@ snippet  vcomp
   </template>
 
   <script>
-  name: "${TM_FILENAME}",
-  default {
-    return {
+  export default {
+    name: "${TM_FILENAME}",
+    data() {
+      return {
+      }
     }
   }
   </script>
