@@ -129,6 +129,15 @@ changes() {
   fi
 }
 
+piw() {
+  msg=$(git log -1 --pretty=%B)
+  if [ "$msg" = "WIP" ]; then
+    $(git reset HEAD~1)
+  else
+    echo "no WIP available"
+  fi
+}
+
 clean_branches() {
   git branch --merged origin/develop | grep -v master | grep -v develop | xargs git branch -d
 }
@@ -140,6 +149,5 @@ alias stash="git stash -u"
 alias pop="git stash pop"
 alias ga="git add -A"
 alias wip="git add --all && git commit -m 'WIP' && git push"
-alias piw='git reset HEAD~1'
 alias clean='git clean -d -f'
 alias grc='git rebase --continue'
