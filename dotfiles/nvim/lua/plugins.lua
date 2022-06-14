@@ -6,6 +6,7 @@ require("packer").startup(
           vim.fn["fzf#install"]()
         end}
     use 'junegunn/fzf.vim'
+    use 'ap/vim-css-color.vim'
     use 'junegunn/vim-peekaboo'
     use 'machakann/vim-highlightedyank'
     use 'tpope/vim-commentary'

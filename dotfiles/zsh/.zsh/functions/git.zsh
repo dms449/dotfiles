@@ -142,3 +142,4 @@ alias ga="git add -A"
 alias wip="git add --all && git commit -m 'WIP' && git push"
 alias piw='git reset HEAD~1'
 alias clean='git clean -d -f'
+alias grc='git rebase --continue'
