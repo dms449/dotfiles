@@ -7,6 +7,10 @@ export DOTFILES_HOME=$(realpath ${DOTFILES_SETUP}/..)
 echo "Dotfiles home:    $DOTFILES_HOME"
 
 
+export ME=$(who am i | awk '{print $1}')
+export HOME="/home/${ME}"
+echo "User:             $ME  $HOME"
+
 # Determine OS platform
 # --------------------- UNAME=$(uname | tr "[:upper:]" "[:lower:]")
 # If Linux, try to determine specific distribution
