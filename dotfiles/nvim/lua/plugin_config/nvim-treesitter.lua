@@ -6,11 +6,10 @@ require'nvim-treesitter.configs'.setup {
   sync_install = false,
 
   -- List of parsers to ignore installing
-  ignore_install = { "vue" },
+  ignore_install = {},
 
   highlight = {
     enable = true,
-    disable = { "vue" },
 
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
@@ -21,7 +20,6 @@ require'nvim-treesitter.configs'.setup {
 
   incremental_selection = {
     enable = true,
-    disable = { "vue" },
   },
 
   indent = {
