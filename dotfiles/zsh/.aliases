@@ -1,6 +1,7 @@
 # locations
-alias work="cd ~/workspace/"
 alias dot='cd ~/dotfiles/'
+alias bw='cd ~/workspace/projects/baldwin/baldwin-web'
+alias trc='cd ~/workspace/projects/trc/TRCUtils'
 
 #alias t="tmux"
 alias tmate="tmate -f ~/.tmate.conf"
