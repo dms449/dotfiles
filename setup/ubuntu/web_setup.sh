@@ -14,7 +14,7 @@ if $INSTALL; then
   # TODO: other language servers
   sudo npm install -g typescript typescript-language-server bash-language-server dockerfile-language-server-nodejs
   sudo pip3 install pyright
-  sudo gem install --user-install solargraph
+  gem install --user-install solargraph
 fi
 
 
