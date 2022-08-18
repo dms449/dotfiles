@@ -41,5 +41,3 @@ MUtils.BS = function()
 end
 remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 
-local coq = require "coq"
-require('nvim-lspconfig')
