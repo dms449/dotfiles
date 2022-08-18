@@ -4,11 +4,11 @@ printf "                     Setting up zsh\n"
 printf "============================================================\n"
 
 # install
-if $INSTALL; then 
+if $INSTALL; then
   printf "\t Installing zsh and dependencies...\n"
 
   # install stuff
-  sudo $PM install zsh autojump
+  sudo $PM install zsh zoxide
 
   # zprezto (zsh framework)
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${HOME}/.zprezto"
@@ -21,7 +21,7 @@ cd "${DOTFILES_HOME}/dotfiles/zsh"
 files=(".aliases" ".zlogin" ".zlogout" ".zpreztorc" ".zprofile" ".zsh" ".zshenv" ".zshrc")
 printf "\tSymlinking zsh files...\n"
 for f in ${files[@]}; do
-    if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then 
+    if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then
       symlink $(readlink -e "$f") "${HOME}/$f"
     fi
 done

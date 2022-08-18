@@ -78,6 +78,8 @@ for function in ~/.zsh/functions/*; do
   source $function
 done
 
+# better cd command
+eval "$(zoxide init zsh)"
 #
 #
 #
