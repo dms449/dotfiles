@@ -8,13 +8,15 @@ DOTFILE_DEST="${HOME}/.config/web"
 
 # install
 if $INSTALL; then
-  sudo apt install npm
+  sudo apt install npm ruby-full
 
   # TODO: npm install javascript thing
   # TODO: other language servers
-  sudo npm install -g typescript typescript-language-server bash-language-server dockerfile-language-server-nodejs
+  sudo npm i --location=global typescript typescript-language-server bash-language-server dockerfile-language-server-nodejs vscode-langservers-extracted
+  sudo npm i --location=global n
   sudo pip3 install pyright
   gem install --user-install solargraph
+  gem install --user-install neovim
 fi
 
 

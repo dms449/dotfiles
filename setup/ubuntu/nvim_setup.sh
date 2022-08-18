@@ -11,9 +11,12 @@ if $INSTALL; then
   printf "\t Installing neovim and dependencies...\n"
 
   printf "\t Installing Language Servers...\n"
+  sudo apt install npm
+
   sudo npm i -g bash-language-server
   sudo npm i -g vscode-langservers-extracted
-  sudo gem install --user-install solargraph
+  sudo npm i -g typescript typescript-language-server
+  sudo npm i -g neovim
 
   pip3 install pyright
   pip3 install pynvim

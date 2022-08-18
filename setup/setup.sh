@@ -7,8 +7,8 @@ export DOTFILES_HOME=$(realpath ${DOTFILES_SETUP}/..)
 echo "Dotfiles home:    $DOTFILES_HOME"
 
 
-export ME=$(who am i | awk '{print $1}')
-export HOME="/home/${ME}"
+export ME=$(whoami | awk '{print $1}')
+export HOME="/home/$ME"
 echo "User:             $ME  $HOME"
 
 # Determine OS platform
@@ -31,26 +31,14 @@ echo "Detected OS:      $DISTRO"
 
 # get the right package manager and system base based on distro
 # ----------------------------------------------
-DISTRO_LOWER=$(echo ${DISTRO} | tr "[:upper:]" "[:lower:]")
-
-# verify that we found a valid package manager
-# TODO: fill this in for other distros and package managers
-if [ "$DISTRO_LOWER" == "pop" ]; then
-  export PM="apt"
-  export BASE="ubuntu"
-fi
-unset DISTRO_LOWER
+export PM="apt"
 
 echo "Package Manager:  $PM"
-echo "System Base:      $BASE"
 echo "------------------------------------------------------------\n\n"
 
 # determine whether or not to try to install necessary software in addition to
 # symlinking the dotfiles
 export INSTALL=false
-
-
-
 
 # run first
 # -----------------------------------------------------------------
@@ -121,9 +109,10 @@ setup() {
     bash $DOTFILES_SETUP/ubuntu/other_setup.sh
     bash $DOTFILES_SETUP/ubuntu/git_setup.sh
     bash $DOTFILES_SETUP/ubuntu/fzf_setup.sh
+    bash $DOTFILES_SETUP/ubuntu/docker_setup.sh
 
     # conglomerates
-    bash ubuntu/web_setup.sh
+    bash $DOTFILES_SETUP/ubuntu/web_setup.sh
     # bash ubuntu/data_science_setup.sh
 
   # if arguments ARE passed in, only setup/install those
@@ -140,6 +129,7 @@ setup() {
         git) bash $DOTFILES_SETUP/ubuntu/git_setup.sh;;
         fzf) bash $DOTFILES_SETUP/ubuntu/fzf_setup.sh;;
         web) bash $DOTFILES_SETUP/ubuntu/web_setup.sh ;;
+        docker) bash $DOTFILES_SETUP/ubuntu/docker_setup.sh;;
         # data_science) bash ubuntu/data_science_setup.sh ;;
 
         *) echo "Unrecognized software: $var" ;;
