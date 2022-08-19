@@ -110,6 +110,7 @@ setup() {
     bash $DOTFILES_SETUP/ubuntu/git_setup.sh
     bash $DOTFILES_SETUP/ubuntu/fzf_setup.sh
     bash $DOTFILES_SETUP/ubuntu/docker_setup.sh
+    bash $DOTFILES_SETUP/ubuntu/lf_setup.sh
 
     # conglomerates
     bash $DOTFILES_SETUP/ubuntu/web_setup.sh
@@ -130,6 +131,7 @@ setup() {
         fzf) bash $DOTFILES_SETUP/ubuntu/fzf_setup.sh;;
         web) bash $DOTFILES_SETUP/ubuntu/web_setup.sh ;;
         docker) bash $DOTFILES_SETUP/ubuntu/docker_setup.sh;;
+        lf) bash $DOTFILES_SETUP/ubuntu/lf_setup.sh;;
         # data_science) bash ubuntu/data_science_setup.sh ;;
 
         *) echo "Unrecognized software: $var" ;;

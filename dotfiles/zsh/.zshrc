@@ -3,11 +3,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# use autojump.sh if it exists
-if [[ -s "/usr/share/autojump/autojump.zsh" ]]; then
-  source "/usr/share/autojump/autojump.zsh"
-fi
-
 # set the number of threads for julia
 export JULIA_NUM_THREADS=8
 
