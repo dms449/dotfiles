@@ -1,3 +1,5 @@
+[format]
+  pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an %ae>%Creset
 [user]
 	name = dms449
 	email = stevensondm23@gmail.com
@@ -14,3 +16,6 @@
   autosquash = true
 [pull]
 	rebase = true
+[alias]
+  l = log --graph --abbrev-commit --date=relative
+  short-log = log --pretty=format:'%C(yellow)%h%Creset %s'

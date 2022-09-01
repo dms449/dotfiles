@@ -145,9 +145,11 @@ clean_branches() {
 # Complete g like git
 compdef g=git
 
+alias branches="git --no-pager branch -l"
 alias stash="git stash -u"
 alias pop="git stash pop"
 alias ga="git add -A"
 alias wip="git add --all && git commit -m 'WIP' && git push"
-alias clean='git clean -d -f'
+alias clean='git clean -fd'
+alias grh="git reset --hard && git clean -fd"
 alias grc='git rebase --continue'
