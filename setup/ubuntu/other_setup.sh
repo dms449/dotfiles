@@ -23,7 +23,7 @@ fi
 cd "$HOME/dotfiles/dotfiles/other"
 
 # load settings file
-dconf load /org/gnome/terminal/ < gnome_terminal_settings.txt
+dconf load /org/gnome/terminal/legacy/profiles:/ < gnome-terminal-profiles.dconf
 
 # symlink
 files=("focus_terminal.sh" ".ctags")
