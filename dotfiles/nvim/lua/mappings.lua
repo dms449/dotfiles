@@ -8,6 +8,7 @@ map("n", "<leader>t", ":Tags<CR>")
 map("n", "<leader>-", ":split | :Files<CR>")
 map("n", "<leader>\\", ":vsplit | :Files<CR>")
 map("n", "<leader>fy", ":Find <c-R>\"<CR>")
+map("n", "<leader>lf", ":FileManager<CR>")
 
 -- moving
 map("n", "<M-k>", ":m-2<CR>")
@@ -21,3 +22,4 @@ map("n", "<C-h>", ":TmuxNavigateLeft<CR>")
 map("n", "<C-j>", ":TmuxNavigateDown<CR>")
 map("n", "<C-k>", ":TmuxNavigateUp<CR>")
 map("n", "<C-l>", ":TmuxNavigateRight<CR>")
+

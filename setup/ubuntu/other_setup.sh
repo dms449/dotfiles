@@ -9,15 +9,6 @@ if $INSTALL; then
   # install xdotool
   sudo apt install xdotool
   sudo apt install ctags
-
-  # lf terminal file manager
-  mkdir ${LF_DEST}
-  LF_DEST="${HOME}/.config/lf"
-  cd ${LF_DEST}
-  curl -Lo lf-linux-amd64.tar.gz https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz
-  tar xvf lf-linux-amd64.tar.gz
-  chmod +x lf
-  sudo symlink "${LF_DEST}/lf" "/usr/local/bin/lf"
 fi
 
 cd "$HOME/dotfiles/dotfiles/other"

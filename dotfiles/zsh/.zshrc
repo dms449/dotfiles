@@ -76,10 +76,10 @@ done
 
 # better cd command
 eval "$(zoxide init zsh)"
-#
-#
+
 #
 [[ $TMUX != "" ]] && export TERM="screen-256color"
 [[ -f ~/.aliases ]] && source ~/.aliases
 [[ -f ~/.zshrc.local ]] &&  source ~/.zshrc.local
 [ -f ~/.config/fzf/.fzf.zsh ] && source ~/.config/fzf/.fzf.zsh
+[ -f ~/.config/lf/lf.zsh ] && source ~/.config/lf/lf.zsh
