@@ -104,6 +104,7 @@ setup() {
     # basics
     bash $DOTFILES_SETUP/ubuntu/zsh_setup.sh
     bash $DOTFILES_SETUP/ubuntu/tmux_setup.sh
+    bash $DOTFILES_SETUP/ubuntu/btop_setup.sh
     bash $DOTFILES_SETUP/ubuntu/vim_setup.sh
     bash $DOTFILES_SETUP/ubuntu/nvim_setup.sh
     bash $DOTFILES_SETUP/ubuntu/other_setup.sh
@@ -124,6 +125,7 @@ setup() {
       case "$var" in
         zsh) bash $DOTFILES_SETUP/ubuntu/zsh_setup.sh;;
         tmux) bash $DOTFILES_SETUP/ubuntu/tmux_setup.sh;;
+        btop) bash $DOTFILES_SETUP/ubuntu/btop_setup.sh;;
         vim) bash $DOTFILES_SETUP/ubuntu/vim_setup.sh;;
         nvim) bash $DOTFILES_SETUP/ubuntu/nvim_setup.sh;;
         other) bash $DOTFILES_SETUP/ubuntu/other_setup.sh;;
