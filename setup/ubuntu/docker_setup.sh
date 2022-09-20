@@ -9,7 +9,7 @@ if $INSTALL; then
   printf "\t Installing Docker and dependencies...\n"
 
   # remove old ones
-  sudo apt-get remove docker docker-engine docker.io containerd runc
+  sudo apt remove docker docker-engine docker.io containerd runc docker-compose-plugin
 
   # get the official docker gpg key
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -20,12 +20,8 @@ if $INSTALL; then
     $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
   # install docker
-  sudo apt-get update
-  sudo apt-get install docker-ce docker-ce-cli containerd.io
-
-  # download current stable release and add execute permissions
-  sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  sudo chmod +x /usr/local/bin/docker-compose
+  sudo apt update
+  sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
   # add docker group and add user to it (prevents having to run 'sudo' all the time)
   sudo groupadd docker
