@@ -64,7 +64,13 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 export FZF_CTRL_T_COMMAND='rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '
 
 # open a file with neovim using a fuzzy finder on the current directory
-bindkey -s '^o' 'nvim $(fzf)\n'
+open_project_file() {
+  target=$(fzf)
+  if [[ $target != '' ]]; then
+    nvim $(echo $target)
+  fi
+}
+bindkey -s '^o' 'open_project_file\n'
 
 # auto suggestion accept = TAB
 #bindkey '^M' autosuggest-execute
