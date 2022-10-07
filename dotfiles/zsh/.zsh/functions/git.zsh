@@ -68,22 +68,6 @@ dev() {
   git checkout develop && git fetch && git rebase
 }
 
-hotfix() {
-  branch=$(echo "$@" | tr ' ' '-')
-  git checkout master && git fetch && git rebase && git checkout -b "hotfix/$branch"
-}
-
-feature() {
-  branch=$(echo "$@" | tr ' ' '-')
-  dev && git checkout -b "feature/$branch"
-}
-
-support() {
-  branch=$(echo "$@" | tr ' ' '-')
-  dev && git checkout -b "support/$branch"
-}
-
-
 ir() {
   if [ "$(current_branch)" = "$(base_branch)" ]; then
     git rebase -i HEAD~$@
@@ -141,6 +125,16 @@ piw() {
 clean_branches() {
   git branch --merged origin/develop | grep -v master | grep -v develop | xargs git branch -d
 }
+
+changed_files() {
+  if [[ $# == 0 ]]; then
+    target=$(git status -s | awk '{ print $2 }' | $(fzf_prog) -m --preview 'git diff --color=always {}')
+    if [[ $target != '' ]]; then
+      nvim $(echo $target)
+    fi
+  fi
+}
+bindkey -s '^g' 'changed_files\n'
 
 # Complete g like git
 compdef g=git
