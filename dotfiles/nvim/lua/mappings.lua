@@ -1,5 +1,6 @@
 -- searching
-map("n", "<leader>p", ":PFiles<CR>")
+map("n", "<leader>P", ":PFiles<CR>")
+map("n", "<leader>p", ":GitFiles<CR>")
 map("n", "<leader>og", ":GitFiles?<CR>")
 map("n", "<leader>fw", ":Find <C-r><C-w><CR>")
 map("n", "<leader>ff", ":Find <C-r><C-w>")
