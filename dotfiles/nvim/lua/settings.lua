@@ -44,6 +44,7 @@ vim.o.updatetime = 300
 vim.o.visualbell = true
 vim.o.winwidth = 90
 vim.o.wrap = false
+vim.opt.iskeyword:append({'-'})
 
 vim.g.mapleader = ' '
 vim.g.netrw_banner = false
