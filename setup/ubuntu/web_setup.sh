@@ -8,12 +8,15 @@ DOTFILE_DEST="${HOME}/.config/web"
 
 # install
 if $INSTALL; then
-  sudo apt install npm ruby-full
+  sudo apt install ruby-full
+  sudo curl -fsSL "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linuxstatic-x64" -o /bin/pnpm
+  sudo chmod +x /bin/pnpm;
 
-  # TODO: npm install javascript thing
+
+
+  # TODO: pnpm install javascript thing
   # TODO: other language servers
-  sudo npm i --location=global typescript typescript-language-server bash-language-server dockerfile-language-server-nodejs vscode-langservers-extracted
-  sudo npm i --location=global n
+  pnpm add -g typescript typescript-language-server bash-language-server dockerfile-language-server-nodejs vscode-langservers-extracted
   sudo pip3 install pyright
   gem install --user-install solargraph
   gem install --user-install neovim
