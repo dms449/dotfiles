@@ -14,6 +14,8 @@ ber() { docker_or_local "bundle exec rails $@" }
 bes() { docker_or_local "bundle exec rspec $@" }
 bep() { docker_or_local "bundle exec rake parallel:spec[$RSPEC_CORES] RAILS_ENV=test" }
 
+cy() { docker_or_local "yarn cypress run"}
+
 mi() { docker_or_local "bundle exec rake db:migrate RAILS_ENV=development" }
 mit() { docker_or_local "bundle exec rake db:migrate RAILS_ENV=test" }
 pmit() { docker_or_local "bundle exec rake parallel:migrate[$RSPEC_CORES]" }
