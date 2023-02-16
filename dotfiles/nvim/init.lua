@@ -18,26 +18,20 @@ vim.api.nvim_create_user_command(
   {desc = 'Open lf file manager'}
 )
 
-require('plugins')
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+vim.g.mapleader = " "
+require("lazy").setup('plugins')
 require('settings')
 require('mappings')
-require('plugin_config/coq')
-require('plugin_config/fzf')
-require('plugin_config/latex-unicoder')
-require('plugin_config/lualine')
-require('plugin_config/nvim-autopairs')
-require('plugin_config/nvim-lspconfig')
-require('plugin_config/nvim-treesitter')
-require('plugin_config/nvim-treesitter-endwise')
-require('plugin_config/tig')
-require('plugin_config/undotree')
-require('plugin_config/vcs-jump')
-require('plugin_config/vim-argwrap')
-require('plugin_config/vim-closetag')
-require('plugin_config/vim-fugitive')
-require('plugin_config/vim-rspec')
-require('plugin_config/vim-ruby')
-require('plugin_config/vim-tmux-navigator')
-
-vim.api.nvim_command [[colorscheme gruvbox]]
-

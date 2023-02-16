@@ -1,54 +1,40 @@
-require("packer").startup(
-  function()
-    use 'wbthomason/packer.nvim' -- generic vim
-    use {"junegunn/fzf",
-        run = function()
-          vim.fn["fzf#install"]()
-        end}
-    use 'junegunn/fzf.vim'
-    use 'junegunn/vim-peekaboo'
-    use 'machakann/vim-highlightedyank'
-    use 'tpope/vim-commentary'
-    use 'tpope/vim-surround'
-    use 'tpope/vim-vinegar'
-    use 'tpope/vim-eunuch'
-    use 'tpope/vim-fugitive'
-    use 'tpope/vim-abolish'
-    use 'FooSoft/vim-argwrap'
-    use 'windwp/nvim-autopairs'
-    use 'mbbill/undotree'
-    use 'kthibodeaux/tig.vim'
-    use 'RRethy/nvim-treesitter-endwise'
-    use 'christoomey/vim-tmux-navigator'
+return {
+  { "junegunn/vim-peekaboo"},
+  { "machakann/vim-highlightedyank"},
+  {
+    "FooSoft/vim-argwrap",
+    keys = { {"<leader>a", ":ArgWrap<CR>"}} ,
+    init = function()
+      vim.g.argwrap_padded_braces = '{'
+    end
+  },
+  {
+    "mbbill/undotree",
+    keys = {{ "<F5>", ":UndotreeToggle"}}
+  },
 
-    -- Language specific
-    use 'joom/latex-unicoder.vim'
-    use 'tpope/vim-rails'
-    use 'posva/vim-vue'
-    use 'digitaltoad/vim-pug'
-    use 'slim-template/vim-slim'
-    use 'benmills/vimux'
-    use 'thoughtbot/vim-rspec'
+  {
+    "joom/latex-unicoder.vim",
+    init = function()
+      vim.g.unicoder_no_map = 1
+      vim.api.nvim_set_keymap('n', '<leader>l', ':call unicoder#start(0)<CR>', {})
+    end
+  },
+  { "posva/vim-vue"},
+  { "digitaltoad/vim-pug"},
+  { "slim-template/vim-slim"},
+  {
+    "thoughtbot/vim-rspec",
+    init=function()
+      vim.g.rspec_command = 'call VimuxRunCommand("bes {spec}\n")'
+    end
+  },
 
-    -- LSP
-    use 'neovim/nvim-lspconfig'
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-
-    -- completion
-    use {
-      'ms-jpq/coq_nvim',
-      requires = {
-         {'ms-jpq/coq.thirdparty', branch = '3p'},
-      },
-      branch = 'coq'
-    }
-
-    -- Theme
-    use 'ryanoasis/vim-devicons'
-    use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    }
-    use 'ellisonleao/gruvbox.nvim'
-end)
+  { "ellisonleao/gruvbox.nvim",
+    config = function ()
+      vim.cmd([[colorscheme gruvbox]])
+    end,
+    priority = 1000
+  },
+}
 

@@ -16,7 +16,9 @@ vim.o.backspace = 'indent,start,eol'
 vim.o.backupcopy = 'yes'
 vim.o.colorcolumn = '80'
 vim.o.encoding = 'utf-8'
-vim.o.expandtab = true vim.o.fileencoding = 'utf-8' vim.o.foldlevelstart = 3
+vim.o.expandtab = true
+vim.o.fileencoding = 'utf-8'
+vim.o.foldlevelstart = 3
 vim.o.foldmethod = 'syntax'
 vim.o.gdefault = true
 vim.o.hlsearch = true
