@@ -45,16 +45,12 @@ return {
         buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
         buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
         buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+        buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
         buf_set_keymap('n', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-        buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
         buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
         buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
         buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-        buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-        buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-        buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-        buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-        buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+        buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.setqflist()<CR>', opts)
         buf_set_keymap('n', '<space>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
       end
@@ -74,11 +70,13 @@ return {
       https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#html
       JavaScript/TypeScript --> tsserver
       https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
+      Volar --> vue-language-server
+      https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#vue-language-server
       --]]
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
-      local servers = {'eslint', 'bashls', 'pyright', 'julials', 'html', 'tsserver', 'solargraph' }
+      local servers = {'eslint', 'bashls', 'pyright', 'julials', 'html', 'tsserver', 'solargraph', 'volar'}
 
       -- Set settings for language servers below
       --
@@ -103,7 +101,7 @@ return {
         virtual_text = false,
       })
 
-      vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float({scope="line"})]])
+      vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float({ focus=false })]])
 
     end
   }

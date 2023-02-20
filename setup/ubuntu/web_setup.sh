@@ -16,7 +16,7 @@ if $INSTALL; then
 
   # TODO: pnpm install javascript thing
   # TODO: other language servers
-  pnpm add -g typescript typescript-language-server bash-language-server dockerfile-language-server-nodejs vscode-langservers-extracted
+  pnpm add -g typescript typescript-language-server bash-language-server dockerfile-language-server-nodejs vscode-langservers-extracted vue-language-server
   sudo pip3 install pyright
   gem install --user-install solargraph
   gem install --user-install neovim
