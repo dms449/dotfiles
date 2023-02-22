@@ -4,6 +4,7 @@ return {
   },
   {
     "windwp/nvim-autopairs",
+    lazy = false,
     config = function()
       local npairs = require("nvim-autopairs")
       local Rule = require('nvim-autopairs.rule')
@@ -35,6 +36,9 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    config = function()
+      vim.o.foldexpr="nvim_treesitter#foldexpr()"
+    end,
     build = ":TSUpdate",
     opts = {
       -- One of "all", "maintained" (parsers with maintainers), or a list of languages

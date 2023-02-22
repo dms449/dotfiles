@@ -20,3 +20,5 @@ map("n", "<leader>rr", ":%s/\\C<C-r><C-w>/")
 -- switch panes
 map("n", "<CR>", "<CR>:noh<CR>")
 
+-- folding
+map("n", "<leader>z", "zR")
