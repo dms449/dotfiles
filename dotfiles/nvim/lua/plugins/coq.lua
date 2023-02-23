@@ -5,7 +5,7 @@ return {
        {"ms-jpq/coq.thirdparty", branch = "3p"},
     },
     branch = "coq",
-    config = function()
+    init = function()
       vim.g.coq_settings = {
         auto_start = 'shut-up',
         keymap = {
@@ -14,7 +14,8 @@ return {
           eval_snips = '<leader>s',
         },
       }
-
+    end,
+    config = function()
       local remap = vim.api.nvim_set_keymap
       local npairs = require('nvim-autopairs')
 
