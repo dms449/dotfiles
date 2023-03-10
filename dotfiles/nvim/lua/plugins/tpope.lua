@@ -1,6 +1,7 @@
 return {
   {
      "tpope/vim-fugitive",
+     lazy = false,
      keys = {
        { "<leader>gdf",  ":Gvdiffsplit<CR>"},
        { "<leader>gdd",  ":Gvdiffsplit develop<CR>"}
