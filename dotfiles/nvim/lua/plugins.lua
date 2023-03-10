@@ -10,7 +10,7 @@ return {
   },
   {
     "mbbill/undotree",
-    keys = {{ "<F5>", ":UndotreeToggle"}}
+    keys = {{ "<F5>", ":UndotreeToggle<CR>"}}
   },
 
   {
