@@ -1,5 +1,4 @@
 return {
-  { "junegunn/vim-peekaboo"},
   { "machakann/vim-highlightedyank"},
   {
     "FooSoft/vim-argwrap",
