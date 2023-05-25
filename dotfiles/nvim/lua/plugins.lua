@@ -20,6 +20,12 @@ return {
     end
   },
   { "posva/vim-vue"},
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require('colorizer').setup()
+    end
+  },
   { "digitaltoad/vim-pug"},
   { "slim-template/vim-slim"},
   {
