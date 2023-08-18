@@ -15,7 +15,8 @@ if $INSTALL; then
 
   sudo npm i -g bash-language-server
   sudo npm i -g vscode-langservers-extracted
-  sudo npm i -g typescript typescript-language-server
+  sudo npm i -g typescript typescript-language-server svelte-language-server
+  sudo npm i -g svelte-language-server tree-sitter-svelte nodemon
   sudo npm i -g neovim
 
   pip3 install pyright

@@ -76,7 +76,7 @@ return {
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
-      local servers = {'eslint', 'bashls', 'pyright', 'julials', 'html', 'tsserver', 'solargraph', 'volar'}
+      local servers = {'eslint', 'bashls', 'pyright', 'julials', 'html', 'tsserver', 'solargraph', 'volar', 'svelte'}
 
       -- Set settings for language servers below
       --
