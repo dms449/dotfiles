@@ -42,10 +42,11 @@ return {
     build = ":TSUpdate",
     opts = {
       -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-      ensure_installed = "all",
+      ensure_installed = {'lua', 'julia', 'ruby', 'javascript', 'svelte', 'vim', 'bash'},
 
       -- Install languages synchronously (only applied to `ensure_installed`)
       sync_install = false,
+      auto_install = true,
 
       -- List of parsers to ignore installing
       ignore_install = {},
@@ -59,7 +60,6 @@ return {
         -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
       },
-
       incremental_selection = {
         enable = true,
       },

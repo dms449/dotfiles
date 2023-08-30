@@ -72,12 +72,23 @@ install_general_purpose() {
   sudo $PM update
 
   # install a bunch of stuff
-  sudo $PM install git curl fonts-firacode python-pip python3-pip python3-venv tig acpi
+  sudo $PM install git curl python-pip python3-pip python3-venv tig acpi lsscsi
 
   sudo $PM install lsb-release ca-certificates gnupg
 
-  # install usefule packages which have no configuration and are to be
-  # used by other installed packages
+  # pnpm
+  sudo curl -fsSL "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linuxstatic-x64" -o /usr/local/bin/pnpm
+  sudo chmod +x /usr/local/bin/pnpm;
+  mkdir -p $HOME/.local/share/pnpm
+
+  # nerd font
+  wget -P $HOME/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
+  cd $HOME/.local/share/fonts && unzip Hack.zip && rm *Windows* && rm Hack.zip && cd $DOTFILES_SETUP
+  fc-cache -fv
+
+  # Google Chrome
+  wget -P /home/$USER/Downloads https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  sudo $PM install /home/$USER/Downloads/google-chrome-stable_current_amd64.deb
 
 }
 # export -f install_general_purpose
@@ -112,10 +123,11 @@ setup() {
     bash $DOTFILES_SETUP/ubuntu/fzf_setup.sh
     bash $DOTFILES_SETUP/ubuntu/docker_setup.sh
     bash $DOTFILES_SETUP/ubuntu/lf_setup.sh
+    bash $DOTFILES_SETUP/ubuntu/enpass_setup.sh
 
     # conglomerates
     bash $DOTFILES_SETUP/ubuntu/web_setup.sh
-    # bash ubuntu/data_science_setup.sh
+    #bash ubuntu/data_science_setup.sh
 
   # if arguments ARE passed in, only setup/install those
   else
@@ -134,6 +146,7 @@ setup() {
         web) bash $DOTFILES_SETUP/ubuntu/web_setup.sh ;;
         docker) bash $DOTFILES_SETUP/ubuntu/docker_setup.sh;;
         lf) bash $DOTFILES_SETUP/ubuntu/lf_setup.sh;;
+        enpass) bash $DOTFILES_SETUP/ubuntu/enpass_setup.sh;;
         # data_science) bash ubuntu/data_science_setup.sh ;;
 
         *) echo "Unrecognized software: $var" ;;
