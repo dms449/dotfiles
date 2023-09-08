@@ -42,7 +42,7 @@ return {
     build = ":TSUpdate",
     opts = {
       -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-      ensure_installed = {'lua', 'julia', 'ruby', 'javascript', 'svelte', 'vim', 'bash'},
+      ensure_installed = {'lua', 'julia', 'ruby', 'javascript', 'svelte', 'vim', 'bash', 'vue', 'pug'},
 
       -- Install languages synchronously (only applied to `ensure_installed`)
       sync_install = false,

@@ -105,9 +105,9 @@ setup() {
   echo "install = $INSTALL"
 
   # install the prereqs
-  if [ $INSTALL = true ]; then
-    install_general_purpose
-  fi
+  # if [ $INSTALL = true ]; then
+  #   install_general_purpose
+  # fi
 
 
   # if no arguments, setup everything

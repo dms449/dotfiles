@@ -15,9 +15,8 @@ if $INSTALL; then
   sudo n stable
   sudo pnpm add -g typescript-language-server bash-language-server dockerfile-language-server-nodejs vscode-langservers-extracted vue-language-server svelte-language-server
 
-  pip3 install pyright pynvim
-  apt install python3-venv
-
+  sudo pip3 install pyright pynvim
+  sudo apt install python3-venv
 
   # neovim
   printf "\t Installing Neovim...\n"
