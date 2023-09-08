@@ -9,24 +9,10 @@ mkdir ${FZF_DEST}
 
 # install
 if $INSTALL; then
-  if [ -d ~/.fzf ]; then
-    echo "~/.fzf already exists. skipping fzf install"
-  else
-    printf "\t Installing fzf ...\n"
-    mkdir -p ~/.fzf/fzf
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf/fzf
-    ~/.fzf/fzf/install --bin
-  fi
-
-  printf "\t Installing ripgrep ...\n"
-  if [ $PM=="yum" ]; then
-    sudo yum-config-manager --add-repo=https://copr.fedorainfracloud.org/coprs/carlwgeorge/ripgrep/repo/epel-7/carlwgeorge-ripgrep-epel-7.repo
-    sudo yum install epel-release
-  elif [ $PM=="apt" || $PM=="apt-get" ]; then
-    sudo add-apt-repository ppa:x4121/ripgrep
-  fi
-  sudo apt update
-  sudo apt install ripgrep
+  printf "\t Installing fzf ...\n"
+  mkdir -p ~/.fzf
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install --bin
 fi
 
 # change to the src directory so we can symlink the files

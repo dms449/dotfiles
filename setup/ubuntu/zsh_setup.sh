@@ -8,7 +8,7 @@ if $INSTALL; then
   printf "\t Installing zsh and dependencies...\n"
 
   # install stuff
-  sudo $PM install zsh zoxide
+  sudo $PM install zsh zoxide ripgrep
 
   # zprezto (zsh framework)
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${HOME}/.zprezto"

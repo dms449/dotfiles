@@ -16,9 +16,9 @@ if $INSTALL; then
   sudo ln -s "${LF_DEST}/lf" "/usr/local/bin/lf"
 
   cd "${HOME}/.config/"
-  sudo apt install libmagic-dev libssl-dev libxext-dev
+  sudo ${PM} install libmagic-dev libssl-dev libxext-dev
   pip install ueberzug
-  git clone https://github.com/NikitaIvanovV/ctpv
+  git clone https://github.com/NikitaIvanovV/ctpv && cd ctpv
   sudo make install
 fi
 
