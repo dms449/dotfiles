@@ -3,6 +3,10 @@ return {
     "RRethy/nvim-treesitter-endwise",
   },
   {
+    "windwp/nvim-ts-autotag",
+    opts = {} -- this is equalent to setup({}) function
+  },
+  {
     "windwp/nvim-autopairs",
     lazy = false,
     config = function()
@@ -36,6 +40,9 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      "windwp/nvim-ts-autotag",
+    },
     config = function()
       vim.o.foldexpr="nvim_treesitter#foldexpr()"
     end,
@@ -70,6 +77,9 @@ return {
       endwise = {
         enable = true,
       },
-    }
+      autotag = {
+        enable = true,
+      },
+    },
   },
 }
