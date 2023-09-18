@@ -43,8 +43,9 @@ return {
     dependencies = {
       "windwp/nvim-ts-autotag",
     },
-    config = function()
+    config = function(_, opts)
       vim.o.foldexpr="nvim_treesitter#foldexpr()"
+      require("nvim-treesitter.configs").setup(opts)
     end,
     build = ":TSUpdate",
     opts = {

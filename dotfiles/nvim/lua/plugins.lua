@@ -19,14 +19,12 @@ return {
       vim.api.nvim_set_keymap('n', '<leader>l', ':call unicoder#start(0)<CR>', {})
     end
   },
-  { "posva/vim-vue"},
   {
     "norcalli/nvim-colorizer.lua",
     config = function()
       require('colorizer').setup()
     end
   },
-  { "digitaltoad/vim-pug"},
   { "slim-template/vim-slim"},
   {
     "thoughtbot/vim-rspec",
