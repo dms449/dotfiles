@@ -156,3 +156,4 @@ alias ga="git add -A"
 alias wip="git add --all && git commit -m 'WIP' && git push"
 alias clean='git clean -fd'
 alias grc='git rebase --continue'
+alias lg='lazygit'
