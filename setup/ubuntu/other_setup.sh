@@ -7,7 +7,10 @@ printf "============================================================\n"
 # install
 if $INSTALL; then
   # install xdotool
-  sudo apt install xdotool ctags gnome-tweaks
+  sudo apt install xdotool gnome-tweaks
+
+  #nfs stuff
+  sudo apt install nfs-common cifs-utils
 fi
 
 cd "$HOME/dotfiles/dotfiles/other"
@@ -16,7 +19,7 @@ cd "$HOME/dotfiles/dotfiles/other"
 dconf load /org/gnome/terminal/legacy/profiles:/ < gnome-terminal-profiles.dconf
 
 # symlink
-files=("connect_nas.sh" ".ctags")
+files=(".ctags")
 printf "\tSymlinking other files...\n"
 for f in ${files[@]}; do
   if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git" ]; then
