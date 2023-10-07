@@ -72,7 +72,7 @@ install_general_purpose() {
   sudo $PM update
 
   # install a bunch of stuff
-  sudo $PM install git curl python3-pip python3-venv tig acpi lsscsi
+  sudo $PM install git curl python3-pip python3-venv tig acpi lsscsi openssh-server
 
   sudo $PM install lsb-release ca-certificates gnupg
 
