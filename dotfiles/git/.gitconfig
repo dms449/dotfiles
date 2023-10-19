@@ -16,6 +16,10 @@
   autosquash = true
 [pull]
 	rebase = true
+[fetch]
+  prune = true
 [alias]
   l = log --graph --abbrev-commit --date=relative
   short-log = log --pretty=format:'%C(yellow)%h%Creset %s'
+[merge]
+  conflictstyle = diff3
