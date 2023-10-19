@@ -70,13 +70,11 @@ return {
       https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#html
       JavaScript/TypeScript --> tsserver
       https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tsserver
-      Volar --> vue-language-server
-      https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#vue-language-server
       --]]
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
-      local servers = {'eslint', 'bashls', 'pyright', 'julials', 'html', 'tsserver', 'solargraph', 'volar', 'svelte'}
+      local servers = {'eslint', 'bashls', 'pyright', 'julials', 'html', 'tsserver', 'solargraph', 'svelte'}
 
       -- Set settings for language servers below
       --
