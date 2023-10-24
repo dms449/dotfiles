@@ -6,7 +6,7 @@ printf "=============================================================\n"
 
 # install
 if $INSTALL; then
-  sudo apt install gh
+  sudo apt install gh git-flow
 fi
 
 
