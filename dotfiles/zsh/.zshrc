@@ -94,3 +94,10 @@ eval "$(zoxide init zsh)"
 export PNPM_HOME="/home/dms449/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+
+# bun completions
+[ -s "/home/dms449/.bun/_bun" ] && source "/home/dms449/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

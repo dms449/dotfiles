@@ -14,6 +14,8 @@ if $INSTALL; then
   # TODO: other language servers
   gem install --user-install solargraph
   gem install --user-install neovim
+
+  curl -fsSL https://bun.sh/install | bash
 fi
 
 
