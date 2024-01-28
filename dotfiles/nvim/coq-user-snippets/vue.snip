@@ -1,26 +1,21 @@
-snippet  vcomp
+snippet  newcomponent
+  <script setup>
+  import { $1 } from 'vue'
+
+  $2
+  </script>
+
   <template lang="pug">
     $1
   </template>
 
-  <script>
-  export default {
-    name: "${TM_FILENAME}",
-    data() {
-      return {
-      }
-    }
-  }
-  </script>
-
   <style lang="scss" scoped>
   </style>
 
-snippet  vcomp
+snippet props
+  const props = defineProps({
+    $1: {type: $2, default: null}
+  })
 
-snippet impcomp
-  import $1 from '@/components/$2'
-snippet impq
-  import {$1} from '@/queries/$2'
-snippet impv
-  import {$1} from '@/validations/$2'
+snippet computed
+  const $1 = computed(() => {$2})
