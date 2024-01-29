@@ -8,7 +8,7 @@ printf "============================================================\n"
 if $INSTALL; then
   printf "\t Installing tmux and dependencies...\n"
   # tmux
-  sudo $PM install tmux tmate xclip
+  sudo $PM install tmux xclip
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 fi
@@ -16,7 +16,7 @@ fi
 cd "${DOTFILES_HOME}/dotfiles/tmux"
 
 # symlink files
-files=(".tmate.conf" ".tmux.conf" "custom.tmuxtheme")
+files=(".tmux.conf" "custom.tmuxtheme")
 printf "\tSymlinking tmux files...\n"
 for f in ${files[@]}; do
     if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then

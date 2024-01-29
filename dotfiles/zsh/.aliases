@@ -4,8 +4,6 @@ alias bw='cd ~/workspace/projects/baldwin/baldwin-web'
 alias trc='cd ~/workspace/projects/trc/TRCUtils'
 
 #alias t="tmux"
-alias tmate="tmate -f ~/.tmate.conf"
-
 alias n="v"
 
 # directory stuff
