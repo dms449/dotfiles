@@ -89,6 +89,7 @@ eval "$(zoxide init zsh)"
 [[ -f ~/.zshrc.local ]] &&  source ~/.zshrc.local
 [ -f ~/.config/fzf/.fzf.zsh ] && source ~/.config/fzf/.fzf.zsh
 [ -f ~/.config/lf/lf.zsh ] && source ~/.config/lf/lf.zsh
+[ -f ~/.config/upterm/etc/completions/upterm.zsh_completion ] && source ~/.config/upterm/etc/completions/upterm.zsh_completion
 
 # pnpm
 export PNPM_HOME="/home/dms449/.local/share/pnpm"

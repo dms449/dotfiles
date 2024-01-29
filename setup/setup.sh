@@ -131,6 +131,7 @@ setup() {
     bash $DOTFILES_SETUP/ubuntu/lf_setup.sh
     bash $DOTFILES_SETUP/ubuntu/enpass_setup.sh
     bash $DOTFILES_SETUP/ubuntu/lazy_setup.sh
+    bash $DOTFILES_SETUP/ubuntu/upterm_setup.sh
 
     # conglomerates
     bash $DOTFILES_SETUP/ubuntu/web_setup.sh
@@ -155,6 +156,7 @@ setup() {
         lf) bash $DOTFILES_SETUP/ubuntu/lf_setup.sh;;
         enpass) bash $DOTFILES_SETUP/ubuntu/enpass_setup.sh;;
         lazy) bash $DOTFILES_SETUP/ubuntu/lazy_setup.sh;;
+        upterm) bash $DOTFILES_SETUP/ubuntu/upterm_setup.sh;;
         # data_science) bash ubuntu/data_science_setup.sh ;;
 
         *) echo "Unrecognized software: $var" ;;
