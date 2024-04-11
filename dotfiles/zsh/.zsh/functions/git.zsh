@@ -62,7 +62,7 @@ gdm () {
   then
     git branch --merged origin/develop | grep -v develop | xargs git branch -d
   else
-    git branch --merged origin/master | grep -v master | xargs git branch -d
+      git branch --merged origin/master | grep -v master | xargs git branch -d
   fi
 }
 
@@ -145,6 +145,18 @@ cherry() {
   target_branch=$(echo $branches | awk '{$1=$1};1' | $(fzf_prog) --preview 'git short-log $base_branch..{} | head')
 
   git cherry-pick $(git log --pretty=oneline $(echo $target_branch) | $(fzf_prog) -m --preview "echo {} | cut -f 1 -d' ' | xargs -I SHA git show --color=always --pretty=fuller --stat SHA"| awk '{ print $1 }' )
+}
+
+prd() {
+  issue_id=$(current_branch | grep -o -P 'BW-(\d*)')
+  gh pr create -B=develop -l="Ready for Walkthrough" -t="$current_branch" -b="https://portsideco.atlassian.net/browse/$issue_id"
+}
+
+prr() {
+  issue_id=$(current_branch | grep -o -P 'BW-(\d*)')
+
+
+  gh pr create -p="BaldwinAviation/baldwin-web" -B="$current_release" -l="Ready for Walkthrough" -t="$current_branch" -b="https://portsideco.atlassian.net/browse/$issue_id"
 }
 
 changed_files() {
