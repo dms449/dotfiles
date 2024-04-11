@@ -12,6 +12,10 @@ current_branch() {
   git rev-parse --abbrev-ref HEAD
 }
 
+current_release_branch() {
+  git branch --list 'release/*' --no-merged | awk '{ print $1 }'
+}
+
 g() {
   if [[ $# > 0 ]]; then
     git $@
@@ -149,14 +153,7 @@ cherry() {
 
 prd() {
   issue_id=$(current_branch | grep -o -P 'BW-(\d*)')
-  gh pr create -R="BaldwinAviation/baldwin-web" -B=develop -l="Ready for Walkthrough" -t="$current_branch" -b="https://portsideco.atlassian.net/browse/$issue_id"
-}
-
-prr() {
-  issue_id=$(current_branch | grep -o -P 'BW-(\d*)')
-
-
-  gh pr create -R="BaldwinAviation/baldwin-web" -B="$current_release" -l="Ready for Walkthrough" -t="$current_branch" -b="https://portsideco.atlassian.net/browse/$issue_id"
+  gh pr create -R="BaldwinAviation/baldwin-web" -B=develop -l="Ready for Walkthrough" -t="$(current_branch)" -b="https://portsideco.atlassian.net/browse/$issue_id"
 }
 
 changed_files() {
