@@ -153,7 +153,7 @@ cherry() {
 
 prd() {
   issue_id=$(current_branch | grep -o -P 'BW-(\d*)')
-  gh pr create -R="BaldwinAviation/baldwin-web" -B=develop -l="Ready for Walkthrough" -t="$(current_branch)" -b="https://portsideco.atlassian.net/browse/$issue_id"
+  gh pr create -R="BaldwinAviation/baldwin-web" -B=develop -l="Ready For Review" -t="$(current_branch)" -b="https://portsideco.atlassian.net/browse/$issue_id"
 }
 
 changed_files() {
