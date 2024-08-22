@@ -1,11 +1,18 @@
 # vim:foldmethod=indent:foldlevel=0
-
+#
 base_branch() {
-  if git rev-parse -q --verify develop > /dev/null; then
-    echo "develop"
-  else
-    echo "master"
-  fi
+    if git rev-parse -q --verify develop > /dev/null
+    then
+        echo "develop"
+    elif git rev-parse -q --verify main > /dev/null
+    then
+        echo "main"
+    elif git rev-parse -q --verify master > /dev/null
+    then
+        echo "master"
+    else
+        echo "Unable to determine base branch"
+    fi
 }
 
 current_branch() {
@@ -57,6 +64,12 @@ git-nuke() {
   fi
 }
 
+fuzzy_branch_select() {
+  branches=$(git branch)
+  echo $(echo $branches | awk '{$1=$1};1' | $(fzf_prog) --preview 'git short-log $base_branch..{} | head')
+}
+
+
 gdm () {
   base_branch=$(base_branch)
   if [[ $base_branch == "main" ]]
@@ -71,13 +84,11 @@ gdm () {
 }
 
 gbD() {
-  if [[ $# == 0 ]]; then
-    base_branch=$(base_branch)
-    branches=$(git branch)
-    targets=$(echo $branches | awk '{$1=$1};1' | $(fzf_prog) -m --preview 'git short-log $base_branch..{} | head')
-
-    echo $targets
-    confirm && git branch -D $(echo $targets)
+  if [[ $# == 0 ]]
+  then
+      targets=$(fuzzy_branch_select)
+      echo $targets
+      confirm && git branch -D $(echo $targets)
   fi
 }
 
@@ -96,15 +107,27 @@ ir() {
     fi
   fi
 }
+_ir_completion () {
+    if [[ $LBUFFER == "ir "* ]]; then
+        local selected_branch=$(git branch --sort=-committerdate | sed 's/..//' | fzf --height 20%)
+        if [[ -n $selected_branch ]]; then
+            LBUFFER="${LBUFFER% } $selected_branch"
+        fi
+        zle redisplay
+    else
+        zle complete-word
+    fi
+}
+
+zle -N _ir_completion
+bindkey '^I' _ir_completion
+
 
 br() {
   if [[ $# == 0 ]]; then
-    # have to assign as variable because the preview command will not see the function
-    base_branch=$(base_branch)
-    branches=$(git branch)
-    target=$(echo $branches | awk '{$1=$1};1' | $(fzf_prog) --preview 'git short-log $base_branch..{} | head')
+    target=$(fuzzy_branch_select)
 
-    if [[ $target != '' ]]; then
+    if [[ -n $target ]]; then
       git checkout $(echo $target)
     fi
   fi
@@ -139,21 +162,22 @@ piw() {
   fi
 }
 
+
 clean_branches() {
   git branch --merged origin/develop | grep -v master | grep -v develop | xargs git branch -d
 }
 
 cherry() {
-  base_branch=$(base_branch)
-  branches=$(git branch)
-  target_branch=$(echo $branches | awk '{$1=$1};1' | $(fzf_prog) --preview 'git short-log $base_branch..{} | head')
+  target_branch=$(fuzzy_branch_select)
 
-  git cherry-pick $(git log --pretty=oneline $(echo $target_branch) | $(fzf_prog) -m --preview "echo {} | cut -f 1 -d' ' | xargs -I SHA git show --color=always --pretty=fuller --stat SHA"| awk '{ print $1 }' )
+  if [[ -n $target_branch ]]; then
+    git cherry-pick $(git log --pretty=oneline $(echo $target_branch) | $(fzf_prog) -m --preview "echo {} | cut -f 1 -d' ' | xargs -I SHA git show --color=always --pretty=fuller --stat SHA"| awk '{ print $1 }' )
+  fi
 }
 
-prd() {
-  issue_id=$(current_branch | grep -o -P 'BW-(\d*)')
-  gh pr create -R="BaldwinAviation/baldwin-web" -B=develop -l="Ready For Review" -t="$(current_branch)" -b="https://portsideco.atlassian.net/browse/$issue_id"
+prb() {
+  issue_id=$(current_branch | grep -o 'BW-\d*')
+  gh pr create -R="BaldwinAviation/baldwin-web" -B=$(base_branch) -t="$(current_branch)" -b="https://portsideco.atlassian.net/browse/$issue_id" $@
 }
 
 changed_files() {
@@ -184,3 +208,4 @@ alias wip="git add --all && git commit -m 'WIP' && git push"
 alias clean='git clean -fd'
 alias grc='git rebase --continue'
 alias lg='lazygit'
+alias wt='git worktree'

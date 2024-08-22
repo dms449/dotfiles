@@ -8,7 +8,6 @@ echo "Dotfiles home:    $DOTFILES_HOME"
 
 
 export ME=$(whoami | awk '{print $1}')
-export HOME="/home/$ME"
 echo "User:             $ME  $HOME"
 
 # Check if Stow is installed
@@ -18,7 +17,9 @@ if ! command -v stow &> /dev/null; then
 fi
 
 # Determine OS platform
-# --------------------- UNAME=$(uname | tr "[:upper:]" "[:lower:]")
+# --------------------- 
+UNAME=$(uname | tr "[:upper:]" "[:lower:]")
+
 # If Linux, try to determine specific distribution
 if [ "$UNAME" == "linux" ]; then
     # If available, use LSB to identify distribution

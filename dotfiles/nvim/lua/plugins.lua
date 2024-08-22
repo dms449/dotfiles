@@ -1,5 +1,6 @@
 return {
-  { "machakann/vim-highlightedyank"},
+  { "machakann/vim-highlightedyank", version = '*' },
+  { "echasnovski/mini.ai"},
   {
     "FooSoft/vim-argwrap",
     keys = { {"<leader>a", ":ArgWrap<CR>"}} ,

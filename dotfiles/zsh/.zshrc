@@ -1,3 +1,8 @@
+autoload -Uz compinit
+compinit
+
+export PATH="/opt/homebrew/bin:$PATH"
+
 # use zPrezto if it exists
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -90,14 +95,23 @@ eval "$(zoxide init zsh)"
 [ -f ~/.config/fzf/.fzf.zsh ] && source ~/.config/fzf/.fzf.zsh
 [ -f ~/.config/lf/lf.zsh ] && source ~/.config/lf/lf.zsh
 
+
 # pnpm
-export PNPM_HOME="/home/dms449/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 # bun completions
-[ -s "/home/dms449/.bun/_bun" ] && source "/home/dms449/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+#codeium
+export PATH="$HOME/.local/.codeium/bin:$PATH"
+
+# uv
+export PATH="$HOME/.local/uv/bin:$PATH"
+
+. "$HOME/.local/bin/env"
