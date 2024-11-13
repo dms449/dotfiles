@@ -11,6 +11,12 @@ export ME=$(whoami | awk '{print $1}')
 export HOME="/home/$ME"
 echo "User:             $ME  $HOME"
 
+# Check if Stow is installed
+if ! command -v stow &> /dev/null; then
+  echo "Error: GNU Stow is not installed. Please install it with 'sudo apt install stow'."
+  exit 1
+fi
+
 # Determine OS platform
 # --------------------- UNAME=$(uname | tr "[:upper:]" "[:lower:]")
 # If Linux, try to determine specific distribution
@@ -72,7 +78,7 @@ install_general_purpose() {
   sudo $PM update
 
   # install a bunch of stuff
-  sudo $PM install git curl python3-pip python3-venv tig acpi lsscsi openssh-server
+  sudo $PM install git curl python3-pip python3-venv tig acpi lsscsi openssh-server stow
 
   sudo $PM install lsb-release ca-certificates gnupg
 
