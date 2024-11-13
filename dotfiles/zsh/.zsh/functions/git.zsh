@@ -164,6 +164,11 @@ changed_files() {
     fi
   fi
 }
+
+delete_git_swap() {
+  rm -rf ~/.local/state/nvim/swap
+}
+
 bindkey -s '^g' 'changed_files\n'
 
 
