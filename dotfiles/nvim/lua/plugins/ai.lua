@@ -1,8 +1,12 @@
 return {
- {
-    "supermaven-inc/supermaven-nvim",
+{
+    "Exafunction/codeium.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "hrsh7th/nvim-cmp",
+    },
     config = function()
-      require("supermaven-nvim").setup({})
-    end,
-  },
+        require("codeium").setup({})
+    end
+},
 }
