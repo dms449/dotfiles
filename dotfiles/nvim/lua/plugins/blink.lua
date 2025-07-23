@@ -2,7 +2,7 @@ return {
   'saghen/blink.cmp',
   dependencies = { 'rafamadriz/friendly-snippets' },
   version = '1.*',
-  enabled = false,
+  enabled = true,
   opts = {
     keymap = {
       preset = 'none',
@@ -21,9 +21,9 @@ return {
     completion = { documentation = { auto_show = false } },
 
     sources = {
-      default = { 'codeium', 'lsp', 'path', 'buffer', 'snippets' },
+      default = { 'lsp', 'path', 'buffer', 'snippets' },
       providers = {
-        codeium = { name = 'Codeium', module = 'codeium.blink', async = true },
+        -- codeium = { name = 'Codeium', module = 'codeium.blink', async = true },
       },
     },
 

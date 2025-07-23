@@ -5,11 +5,13 @@ return {
       "nvim-lua/plenary.nvim",
       "hrsh7th/nvim-cmp",
     },
+    enabled = false,
     config = function()
       require("codeium").setup({
-        enable_cmp_source = true,
+
+        enable_cmp_source = false,
         virtual_text = {
-          enabled = true,
+          enabled = false,
 
           -- These are the defaults
 

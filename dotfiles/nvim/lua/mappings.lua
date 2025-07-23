@@ -9,9 +9,11 @@ local function toggle_folds()
   end
 end
 
+vim.keymap.set('n', '<leader-s>', ':w<CR>', { noremap = true, silent = true })
+
 -- searching
-vim.keymap.set("n", "<leader>-", ":split | :Telescope<CR>")
-vim.keymap.set("n", "<leader>\\", ":vsplit | :Telescope<CR>")
+vim.keymap.set("n", "<leader>-", ":split | :Telescope find_files<CR>")
+vim.keymap.set("n", "<leader>\\", ":vsplit | :Telescope find_files<CR>")
 vim.keymap.set("n", "<leader>lf", ":FileManager<CR>")
 
 -- moving
@@ -22,7 +24,7 @@ vim.keymap.set("n", "<leader>rr", ":%s/\\C<C-r><C-w>/")
 
 -- switch panes
 vim.keymap.set("n", "<CR>", "<CR>:noh<CR>")
-vim.keymap.set("n", "<leader>w", ":q<CR>")
+vim.keymap.set("n", "<leader>q", ":q<CR>")
 
 -- folding
 vim.keymap.set("n", "<leader>u", toggle_folds)
