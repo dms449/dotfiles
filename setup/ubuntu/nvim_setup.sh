@@ -11,14 +11,6 @@ DEST="${HOME}/.config/nvim"
 if $INSTALL; then
   printf "\t Installing neovim and dependencies...\n"
 
-  printf "\t Installing Language Servers...\n"
-  bun add -g typescript n
-  sudo n stable
-  bun add -g typescript-language-server bash-language-server dockerfile-language-server-nodejs vscode-langservers-extracted vue-language-server svelte-language-server
-
-  sudo pip3 install pyright pynvim
-  sudo apt install python3-venv
-
   # neovim
   printf "\t Installing Neovim...\n"
   mkdir ${DEST}
