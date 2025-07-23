@@ -113,5 +113,7 @@ export PATH="$HOME/.local/.codeium/bin:$PATH"
 
 # uv
 export PATH="$HOME/.local/uv/bin:$PATH"
-
 . "$HOME/.local/bin/env"
+
+# ruby
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
