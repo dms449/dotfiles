@@ -4,7 +4,16 @@ return {
   },
   {
     "windwp/nvim-ts-autotag",
-    opts = {} -- this is equalent to setup({}) function
+    config = function()
+      require('nvim-ts-autotag').setup({
+        opts = {
+          -- Defaults
+          enable_close = true, -- Auto close tags
+          enable_rename = true, -- Auto rename pairs of tags
+          enable_close_on_slash = false -- Auto close on trailing </
+        },
+      })
+    end
   },
   {
     "windwp/nvim-autopairs",
@@ -40,6 +49,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    version = false, -- Use latest commit
     dependencies = {
       "windwp/nvim-ts-autotag",
     },
@@ -50,7 +60,7 @@ return {
     build = ":TSUpdate",
     opts = {
       -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-      ensure_installed = {'lua', 'julia', 'ruby', 'javascript', 'svelte', 'vim', 'bash', 'vue', 'pug'},
+      ensure_installed = {'lua', 'julia', 'ruby', 'javascript', 'vim', 'bash', 'vue', 'pug'},
 
       -- Install languages synchronously (only applied to `ensure_installed`)
       sync_install = false,
@@ -76,9 +86,6 @@ return {
         enable = true
       },
       endwise = {
-        enable = true,
-      },
-      autotag = {
         enable = true,
       },
     },
