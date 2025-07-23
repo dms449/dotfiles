@@ -8,7 +8,7 @@ return {
         lualine_a = {'mode'},
         lualine_b = {'diff'},
         lualine_c = {{'filename', path=1}},
-        lualine_x = {{'diagnostics', sources = { 'nvim_diagnostic', 'nvim_lsp' }}},
+        lualine_x = {{'diagnostics', sources = { 'nvim_diagnostic', 'nvim_lsp' }, symbols = {error = '✘', warn = '▲', info = 'ⓘ', hint = '⚡'},}},
         lualine_y = {'progress'},
         lualine_z = {'location'}
       },
