@@ -10,15 +10,8 @@ local function toggle_folds()
 end
 
 -- searching
-vim.keymap.set("n", "<leader>P", ":PFiles<CR>")
-vim.keymap.set("n", "<leader>p", ":GitFiles<CR>")
-vim.keymap.set("n", "<leader>og", ":GitFiles?<CR>")
-vim.keymap.set("n", "<leader>fw", ":Find <C-r><C-w><CR>")
-vim.keymap.set("n", "<leader>ff", ":Find <C-r> ")
-vim.keymap.set("n", "<leader>b", ":Buffers<CR>")
-vim.keymap.set("n", "<leader>-", ":split | :Files<CR>")
-vim.keymap.set("n", "<leader>\\", ":vsplit | :Files<CR>")
-vim.keymap.set("n", "<leader>fy", ":Find <c-R>\"<CR>")
+vim.keymap.set("n", "<leader>-", ":split | :Telescope<CR>")
+vim.keymap.set("n", "<leader>\\", ":vsplit | :Telescope<CR>")
 vim.keymap.set("n", "<leader>lf", ":FileManager<CR>")
 
 -- moving
