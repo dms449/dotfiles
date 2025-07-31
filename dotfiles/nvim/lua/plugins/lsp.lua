@@ -83,16 +83,7 @@ return {
           vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
           vim.keymap.set('n', '<space>e', vim.diagnostic.setqflist, opts)
           vim.keymap.set('n', '<space>f', vim.lsp.buf.format, opts)
-
-
-          vim.api.nvim_create_autocmd('BufWritePre', {
-            callback = function()
-              vim.lsp.buf.format({ bufnr = bufnr, id = ev.data.client_id })
-            end
-          })
         end
-
-
       })
 
       local servers = { 'lua_ls', 'bashls', 'pyright', 'julials', 'postgres_lsp' }
