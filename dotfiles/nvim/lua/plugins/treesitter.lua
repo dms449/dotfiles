@@ -8,8 +8,8 @@ return {
       require('nvim-ts-autotag').setup({
         opts = {
           -- Defaults
-          enable_close = true, -- Auto close tags
-          enable_rename = true, -- Auto rename pairs of tags
+          enable_close = true,          -- Auto close tags
+          enable_rename = true,         -- Auto rename pairs of tags
           enable_close_on_slash = false -- Auto close on trailing </
         },
       })
@@ -31,9 +31,9 @@ return {
         map_bs = false,
 
         ts_config = {
-            lua = {'string'},-- it will not add a pair on that treesitter node
-            javascript = {'template_string'},
-            java = false,-- don't check treesitter on java
+          lua = { 'string' }, -- it will not add a pair on that treesitter node
+          javascript = { 'template_string' },
+          java = false,       -- don't check treesitter on java
         }
       })
 
@@ -41,9 +41,9 @@ return {
       -- press % => %% only while inside a comment or string
       npairs.add_rules({
         Rule("%", "%", "lua")
-          :with_pair(ts_conds.is_ts_node({'string','comment'})),
+            :with_pair(ts_conds.is_ts_node({ 'string', 'comment' })),
         Rule("$", "$", "lua")
-          :with_pair(ts_conds.is_not_ts_node({'function'}))
+            :with_pair(ts_conds.is_not_ts_node({ 'function' }))
       })
     end
   },
@@ -54,13 +54,13 @@ return {
       "windwp/nvim-ts-autotag",
     },
     config = function(_, opts)
-      vim.o.foldexpr="nvim_treesitter#foldexpr()"
+      vim.o.foldexpr = "nvim_treesitter#foldexpr()"
       require("nvim-treesitter.configs").setup(opts)
     end,
     build = ":TSUpdate",
     opts = {
       -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-      ensure_installed = {'lua', 'julia', 'ruby', 'javascript', 'vim', 'bash', 'vue', 'pug'},
+      ensure_installed = { 'lua', 'julia', 'ruby', 'javascript', 'vim', 'bash', 'vue', 'pug', 'markdown', 'sql' },
 
       -- Install languages synchronously (only applied to `ensure_installed`)
       sync_install = false,

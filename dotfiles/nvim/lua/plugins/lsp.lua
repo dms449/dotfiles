@@ -36,6 +36,7 @@ return {
           "vue_ls",
           "vtsls",
           "dockerls",
+          "marksman"
         },
         automatic_installation = true,
         automatic_enable = false,
