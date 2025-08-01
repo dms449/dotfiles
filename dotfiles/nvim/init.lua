@@ -13,6 +13,7 @@ vim.api.nvim_create_user_command(
 vim.g.mapleader = " "
 require('config.lazy')
 require('config.terminal')
+require('config.notes').setup()
 require('settings')
 require('mappings')
 require('commands')
