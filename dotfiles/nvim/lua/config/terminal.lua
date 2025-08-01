@@ -11,11 +11,11 @@ vim.api.nvim_create_autocmd('TermOpen', {
 local terminal_buf = nil
 local terminal_win = nil
 
-vim.keymap.set("t", "<leader>t", function()
+vim.keymap.set("t", "<F2>", function()
   vim.api.nvim_win_close(terminal_win, false)
 end)
 
-vim.keymap.set("n", "<leader>t", function()
+vim.keymap.set("n", "<F2>", function()
   local current_win = vim.api.nvim_get_current_win()
 
   -- If we're currently in the terminal window, close it
