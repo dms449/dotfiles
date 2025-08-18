@@ -151,11 +151,6 @@ cherry() {
   git cherry-pick $(git log --pretty=oneline $(echo $target_branch) | $(fzf_prog) -m --preview "echo {} | cut -f 1 -d' ' | xargs -I SHA git show --color=always --pretty=fuller --stat SHA"| awk '{ print $1 }' )
 }
 
-prd() {
-  issue_id=$(current_branch | grep -o -P 'BW-(\d*)')
-  gh pr create -R="BaldwinAviation/baldwin-web" -B=develop -l="Ready For Review" -t="$(current_branch)" -b="https://portsideco.atlassian.net/browse/$issue_id"
-}
-
 changed_files() {
   if [[ $# == 0 ]]; then
     target=$(git status -s | awk '{ print $2 }' | $(fzf_prog) -m --preview 'git diff --color=always {}')
@@ -168,6 +163,7 @@ changed_files() {
 delete_git_swap() {
   rm -rf ~/.local/state/nvim/swap
 }
+
 
 bindkey -s '^g' 'changed_files\n'
 
