@@ -59,3 +59,44 @@ issues() {
     git checkout -b "$branch_name"
   fi
 }
+
+move_issue() {
+  local issue_id="$1"
+  local status="$2"
+
+  if [[ -z "$issue_id" || -z "$status" ]]; then
+    echo "Usage: move_issue <issue_id> <status>"
+    return 1
+  fi
+
+  # Check if gh CLI is available
+  if ! command -v gh &> /dev/null; then
+    echo "GitHub CLI (gh) is not installed. Please install it first."
+    return 1
+  fi
+
+  echo "Searching for issue #${issue_id} in project..."
+
+  # Get project items and find the one matching our issue ID
+  local project_item
+  project_item=$(gh project item-list --owner "Samwise-PSM" 1 --format json | \
+    jq -r --arg issue_id "$issue_id" '.items[] | select(.content.number == ($issue_id | tonumber)) | .id')
+
+  if [[ -z "$project_item" ]]; then
+    echo "Issue #${issue_id} not found in project"
+    return 1
+  fi
+
+  echo "Found issue #${issue_id} in project (item ID: ${project_item})"
+  echo "Moving to '${status}' status..."
+
+  # Edit the project item to move it to the specified status
+  gh project item-edit --id "$project_item" --field-name "Status" --text "$status"
+
+  if [[ $? -eq 0 ]]; then
+    echo "✅ Successfully moved issue #${issue_id} to '${status}'"
+  else
+    echo "❌ Failed to move issue #${issue_id} to '${status}'"
+    return 1
+  fi
+}
