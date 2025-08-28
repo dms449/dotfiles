@@ -10,8 +10,8 @@ local function toggle_folds()
 end
 
 -- searching
-vim.keymap.set("n", "<leader>-", ":split | :Telescope<CR>")
-vim.keymap.set("n", "<leader>\\", ":vsplit | :Telescope<CR>")
+vim.keymap.set("n", "<leader>-", ":split | :Telescope find_files<CR>")
+vim.keymap.set("n", "<leader>\\", ":vsplit | :Telescope find_files<CR>")
 vim.keymap.set("n", "<leader>lf", ":FileManager<CR>")
 
 -- moving
