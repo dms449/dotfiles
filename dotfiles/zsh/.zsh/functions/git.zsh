@@ -92,7 +92,14 @@ ir() {
     if [[ $# > 0 ]]; then
       git rebase -i $@
     else
-      git rebase -i $(base_branch)
+      # Use fzf to select branch for interactive rebase
+      base_branch=$(base_branch)
+      branches=$(git branch)
+      target_branch=$(echo $branches | awk '{$1=$1};1' | $(fzf_prog) --preview 'git short-log $base_branch..{} | head')
+      
+      if [[ $target_branch != '' ]]; then
+        git rebase -i $(echo $target_branch)
+      fi
     fi
   fi
 }
@@ -140,7 +147,7 @@ piw() {
 }
 
 clean_branches() {
-  git branch --merged origin/develop | grep -v master | grep -v develop | xargs git branch -d
+  git branch --merged origin/develop | grep -v main | grep -v develop | xargs git branch -d
 }
 
 cherry() {
