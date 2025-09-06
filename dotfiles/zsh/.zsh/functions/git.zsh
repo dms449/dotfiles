@@ -128,7 +128,19 @@ br() {
     target=$(fuzzy_branch_select)
 
     if [[ -n $target ]]; then
-      git checkout $(echo $target)
+      # Check if the branch is already checked out in another worktree
+      worktree_path=$(git worktree list --porcelain | awk -v branch="$target" '
+        /^worktree / { path = substr($0, 10) }
+        /^branch / && substr($0, 8) == "refs/heads/" branch { print path; exit }
+      ')
+      
+      if [[ -n $worktree_path ]]; then
+
+        echo "Branch '$target' is already checked out in worktree: $worktree_path"
+        cd "$worktree_path"
+      else
+        git checkout $(echo $target)
+      fi
     fi
   fi
 }
@@ -195,6 +207,28 @@ delete_git_swap() {
 
 bindkey -s '^g' 'changed_files\n'
 
+wt() {
+  if [[ $# == 0 ]]; then
+    # Get list of worktrees, excluding the main one (marked with bare)
+    worktrees=$(git worktree list --porcelain | grep -E '^worktree ' | sed 's/^worktree //' | grep -v '(bare)$')
+    
+    if [[ -z $worktrees ]]; then
+      echo "No worktrees found"
+      return 1
+    fi
+    
+    # Use fzf to select a worktree
+    selected=$(echo $worktrees | $(fzf_prog) --preview 'ls -la {}' --prompt="Select worktree: ")
+    
+    if [[ -n $selected ]]; then
+      cd "$selected"
+    fi
+  else
+    # Pass through to git worktree with arguments
+    git worktree $@
+  fi
+}
+
 
 
 # Complete g like git
@@ -208,4 +242,3 @@ alias wip="git add --all && git commit -m 'WIP' && git push"
 alias clean='git clean -fd'
 alias grc='git rebase --continue'
 alias lg='lazygit'
-alias wt='git worktree'

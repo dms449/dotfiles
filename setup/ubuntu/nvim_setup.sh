@@ -22,7 +22,7 @@ if $INSTALL; then
 
 fi
 
-stow --target="$TARGET" "$DEST"
+stow --target="$DEST" .
 
 printf "==================== nvim setup complete ====================\n"
 

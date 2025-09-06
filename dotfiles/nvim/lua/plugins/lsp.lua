@@ -92,7 +92,6 @@ return {
           "dockerls",
           "marksman",
           "vtsls",
-          "ruby_lsp",
         },
         automatic_installation = true,
         automatic_enable = false,
@@ -143,7 +142,7 @@ return {
         end
       })
 
-      local servers = { 'lua_ls', 'bashls', 'pyright', 'julials', 'postgres_lsp', 'vtsls', 'dockerls', 'ruby_lsp' }
+      local servers = { 'lua_ls', 'bashls', 'pyright', 'julials', 'postgres_lsp', 'vtsls', 'dockerls' }
       for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup {}
       end

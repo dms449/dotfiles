@@ -17,7 +17,7 @@ if ! command -v stow &> /dev/null; then
 fi
 
 # Determine OS platform
-# --------------------- 
+# ---------------------
 UNAME=$(uname | tr "[:upper:]" "[:lower:]")
 
 # If Linux, try to determine specific distribution
@@ -83,17 +83,6 @@ install_general_purpose() {
 
   sudo $PM install lsb-release ca-certificates gnupg
 
-  # pnpm
-  sudo curl -fsSL "https://github.com/pnpm/pnpm/releases/latest/download/pnpm-linuxstatic-x64" -o /usr/local/bin/pnpm
-  sudo chmod +x /usr/local/bin/pnpm;
-  mkdir -p $HOME/.local/share/pnpm
-
-  #lazygit
-  LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-  curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-  tar xf lazygit.tar.gz lazygit
-  sudo install lazygit /usr/local/bin
-
   # nerd font
   wget -P $HOME/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
   cd $HOME/.local/share/fonts && unzip Hack.zip && rm *Windows* && rm Hack.zip && cd $DOTFILES_SETUP
@@ -156,7 +145,7 @@ setup() {
         vim) bash $DOTFILES_SETUP/ubuntu/vim_setup.sh;;
         nvim) bash $DOTFILES_SETUP/ubuntu/nvim_setup.sh;;
         other) bash $DOTFILES_SETUP/ubuntu/other_setup.sh;;
-        git) bash $DOTFILES_SETUP/ubuntu/git_setup.sh;;
+        git) bash $DOTFILES_SETUP/mac/git_setup.sh;;
         fzf) bash $DOTFILES_SETUP/ubuntu/fzf_setup.sh;;
         web) bash $DOTFILES_SETUP/ubuntu/web_setup.sh ;;
         docker) bash $DOTFILES_SETUP/ubuntu/docker_setup.sh;;

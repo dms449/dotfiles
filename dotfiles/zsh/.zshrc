@@ -96,10 +96,6 @@ eval "$(zoxide init zsh)"
 [ -f ~/.config/lf/lf.zsh ] && source ~/.config/lf/lf.zsh
 
 
-# pnpm
-export PNPM_HOME="$HOME/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-# pnpm end
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
@@ -117,3 +113,6 @@ export PATH="$HOME/.local/uv/bin:$PATH"
 
 # ruby
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+# Added by Windsurf
+export PATH="$HOME/.codeium/windsurf/bin:$PATH"
