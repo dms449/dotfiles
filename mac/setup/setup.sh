@@ -76,12 +76,12 @@ export -f symlink
 # ---------------------------------------------------------------
 install_general_purpose() {
   # make sure everything is up to date first
-  sudo $PM update
+  $PM update
 
   # install a bunch of stuff
-  sudo $PM install git curl python3-pip python3-venv tig acpi lsscsi openssh-server stow
+  $PM install git curl python3-pip python3-venv tig acpi lsscsi openssh-server stow
 
-  sudo $PM install lsb-release ca-certificates gnupg
+  $PM install lsb-release ca-certificates gnupg
 
   # nerd font
   wget -P $HOME/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
@@ -118,7 +118,6 @@ setup() {
     bash zsh_setup.sh
     bash tmux_setup.sh
     bash btop_setup.sh
-    bash vim_setup.sh
     bash nvim_setup.sh
     bash other_setup.sh
     bash git_setup.sh
@@ -126,11 +125,10 @@ setup() {
     bash docker_setup.sh
     bash lf_setup.sh
     bash enpass_setup.sh
-    bash lazy_setup.sh
+    bash kitty_setup.sh
     bash codium_setup.sh
 
     # conglomerates
-    bash $DOTFILES_SETUP/ubuntu/web_setup.sh
     #bash ubuntu/data_science_setup.sh
 
   # if arguments ARE passed in, only setup/install those
@@ -142,16 +140,14 @@ setup() {
         zsh) bash zsh_setup.sh;;
         tmux) bash tmux_setup.sh;;
         btop) bash btop_setup.sh;;
-        vim) bash vim_setup.sh;;
         nvim) bash nvim_setup.sh;;
         other) bash other_setup.sh;;
         git) bash git_setup.sh;;
         fzf) bash fzf_setup.sh;;
-        web) bash web_setup.sh ;;
         docker) bash docker_setup.sh;;
         lf) bash lf_setup.sh;;
         enpass) bash enpass_setup.sh;;
-        lazy) bash lazy_setup.sh;;
+        kitty) bash kitty_setup.sh;;
         codium) bash codium_setup.sh;;
         # data_science) bash ubuntu/data_science_setup.sh ;;
 

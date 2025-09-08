@@ -9,13 +9,14 @@ if $INSTALL; then
   brew install gh git-flow lazygit
 fi
 
-
-cd "${DOTFILES_HOME}/dotfiles/git"
+cd "${DOTFILES_HOME}/git"
 # symlink files
 
-mkdir -p "${HOME}/.config/gh"
-symlink $(readlink -f "config.yml") "${HOME}/.config/gh/config.yml"
+mkdir -p "${HOME}/.config/gh" "${HOME}/.config/lazygit"
+
+cd "${DOTFILES_HOME}/dotfiles/git"
 symlink $(readlink -f ".gitconfig") "${HOME}/.gitconfig"
+stow --target="${HOME}/.config" .
 
 printf "=================== git setup complete ====================\n"
 cd "$DOTFILES_SETUP"

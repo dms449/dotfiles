@@ -5,21 +5,15 @@ printf "                     Setting up btop\n"
 printf '\n============================================================\n'
 
 BTOP_DEST="${HOME}/.config/btop"
+mkdir $BTOP_DEST
 
 # install
 if $INSTALL; then
   printf "\t Installing btop and dependencies...\n"
-  sudo apt install btop
+  $PM install btop
 fi
 
-cd "${DOTFILES_HOME}/dotfiles/btop"
-# symlink files
-printf "\tSymlinking files...\n"
-for f in * ; do
-    if [ "$f" != ".." ] && [ "$f" != "." ] && [ "$f" != ".git*" ]; then
-      symlink $(readlink -e "$f") "${BTOP_DEST}/$f"
-    fi
-done
+stow -t "$BTOP_DEST" -d "${DOTFILES_HOME}/dotfiles" btop
 
 printf "==================== btop setup complete ====================\n"
 
