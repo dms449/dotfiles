@@ -16,6 +16,23 @@ prd() {
 }
 
 issues() {
+  # Parse command line arguments
+  local create_worktree=false
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      -wt)
+        create_worktree=true
+        shift
+        ;;
+      *)
+        echo "Unknown option: $1"
+        echo "Usage: issues [-wt]"
+        echo "  -wt: Create a new worktree with the branch name and cd into it"
+        return 1
+        ;;
+    esac
+  done
+
   # Check if gh CLI is available
   if ! command -v gh &> /dev/null; then
     echo "GitHub CLI (gh) is not installed. Please install it first."
@@ -40,23 +57,39 @@ issues() {
   local sanitized_title=$(echo "$issue_title" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-\|-$//g')
   local branch_name="${issue_number}-${sanitized_title}"
 
-  echo "Creating/checking out branch: $branch_name"
+  if [[ "$create_worktree" == true ]]; then
+    echo "Creating worktree and branch: $branch_name"
 
-  # Check if branch already exists locally
-  if git show-ref --verify --quiet refs/heads/"$branch_name"; then
-    echo "Branch '$branch_name' already exists locally. Checking it out..."
-    git checkout "$branch_name"
-  # Check if branch exists on remote
-  elif git show-ref --verify --quiet refs/remotes/origin/"$branch_name"; then
-    echo "Branch '$branch_name' exists on remote. Checking it out..."
-    git checkout -b "$branch_name" "origin/$branch_name"
-  else
-    echo "Creating new branch '$branch_name' off of develop..."
     # Ensure we're on develop and it's up to date
     git checkout develop
     git pull origin develop
-    # Create new branch
-    git checkout -b "$branch_name"
+
+    # Create worktree with new branch
+    local worktree_path="../$branch_name"
+    git worktree add "$worktree_path" -b "$branch_name"
+
+    # Change to the new worktree directory
+    cd "$worktree_path"
+    echo "Changed to worktree directory: $(pwd)"
+  else
+    echo "Creating/checking out branch: $branch_name"
+
+    # Check if branch already exists locally
+    if git show-ref --verify --quiet refs/heads/"$branch_name"; then
+      echo "Branch '$branch_name' already exists locally. Checking it out..."
+      git checkout "$branch_name"
+    # Check if branch exists on remote
+    elif git show-ref --verify --quiet refs/remotes/origin/"$branch_name"; then
+      echo "Branch '$branch_name' exists on remote. Checking it out..."
+      git checkout -b "$branch_name" "origin/$branch_name"
+    else
+      echo "Creating new branch '$branch_name' off of develop..."
+      # Ensure we're on develop and it's up to date
+      git checkout develop
+      git pull origin develop
+      # Create new branch
+      git checkout -b "$branch_name"
+    fi
   fi
 }
 

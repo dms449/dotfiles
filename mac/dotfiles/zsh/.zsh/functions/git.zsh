@@ -183,7 +183,35 @@ piw() {
 
 
 clean_branches() {
-  git branch --merged origin/develop | grep -v main | grep -v develop | xargs git branch -d
+  # Get list of merged branches to delete (excluding main/develop)
+  local branches_to_delete=$(git branch --merged origin/develop | grep -v main | grep -v develop | sed 's/^[* ] //')
+
+  if [[ -z "$branches_to_delete" ]]; then
+    echo "No merged branches to clean up"
+    return 0
+  fi
+
+  echo "Branches to be deleted:"
+  echo "$branches_to_delete"
+
+  # For each branch, check if there's a corresponding worktree and remove it
+  echo "$branches_to_delete" | while read -r branch; do
+    if [[ -n "$branch" ]]; then
+      # Check if there's a worktree for this branch
+      local worktree_path=$(git worktree list --porcelain | awk -v branch="$branch" '
+        /^worktree / { path = substr($0, 10) }
+        /^branch / && substr($0, 8) == "refs/heads/" branch { print path; exit }
+      ')
+
+      if [[ -n "$worktree_path" ]]; then
+        echo "Removing worktree for branch '$branch': $worktree_path"
+        git worktree remove "$worktree_path" --force
+      fi
+    fi
+  done
+
+  # Delete the merged branches
+  echo "$branches_to_delete" | xargs git branch -d
 }
 
 cherry() {
