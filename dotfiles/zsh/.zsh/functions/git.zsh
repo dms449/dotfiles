@@ -103,7 +103,14 @@ ir() {
     if [[ $# > 0 ]]; then
       git rebase -i $@
     else
-      git rebase -i $(base_branch)
+      # Use fzf to select branch for interactive rebase
+      base_branch=$(base_branch)
+      branches=$(git branch)
+      target_branch=$(echo $branches | awk '{$1=$1};1' | $(fzf_prog) --preview 'git short-log $base_branch..{} | head')
+
+      if [[ $target_branch != '' ]]; then
+        git rebase -i $(echo $target_branch)
+      fi
     fi
   fi
 }
@@ -133,7 +140,7 @@ br() {
         /^worktree / { path = substr($0, 10) }
         /^branch / && substr($0, 8) == "refs/heads/" branch { print path; exit }
       ')
-      
+
       if [[ -n $worktree_path ]]; then
 
         echo "Branch '$target' is already checked out in worktree: $worktree_path"
@@ -176,7 +183,7 @@ piw() {
 
 
 clean_branches() {
-  git branch --merged origin/develop | grep -v master | grep -v develop | xargs git branch -d
+  git branch --merged origin/develop | grep -v main | grep -v develop | xargs git branch -d
 }
 
 cherry() {
@@ -185,11 +192,6 @@ cherry() {
   if [[ -n $target_branch ]]; then
     git cherry-pick $(git log --pretty=oneline $(echo $target_branch) | $(fzf_prog) -m --preview "echo {} | cut -f 1 -d' ' | xargs -I SHA git show --color=always --pretty=fuller --stat SHA"| awk '{ print $1 }' )
   fi
-}
-
-prb() {
-  issue_id=$(current_branch | grep -o 'BW-\d*')
-  gh pr create -R="BaldwinAviation/baldwin-web" -B=$(base_branch) -t="$(current_branch)" -b="https://portsideco.atlassian.net/browse/$issue_id" $@
 }
 
 changed_files() {
@@ -205,21 +207,22 @@ delete_git_swap() {
   rm -rf ~/.local/state/nvim/swap
 }
 
+
 bindkey -s '^g' 'changed_files\n'
 
 wt() {
   if [[ $# == 0 ]]; then
     # Get list of worktrees, excluding the main one (marked with bare)
     worktrees=$(git worktree list --porcelain | grep -E '^worktree ' | sed 's/^worktree //' | grep -v '(bare)$')
-    
+
     if [[ -z $worktrees ]]; then
       echo "No worktrees found"
       return 1
     fi
-    
+
     # Use fzf to select a worktree
     selected=$(echo $worktrees | $(fzf_prog) --preview 'ls -la {}' --prompt="Select worktree: ")
-    
+
     if [[ -n $selected ]]; then
       cd "$selected"
     fi
