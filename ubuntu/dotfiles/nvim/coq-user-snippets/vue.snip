@@ -1,0 +1,21 @@
+snippet  newcomponent
+  <script setup>
+  import { $1 } from 'vue'
+
+  $2
+  </script>
+
+  <template lang="pug">
+    $1
+  </template>
+
+  <style lang="scss" scoped>
+  </style>
+
+snippet props
+  const props = defineProps({
+    $1: {type: $2, default: null}
+  })
+
+snippet computed
+  const $1 = computed(() => {$2})
