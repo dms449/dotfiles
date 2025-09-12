@@ -116,3 +116,6 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 # Added by Windsurf
 export PATH="$HOME/.codeium/windsurf/bin:$PATH"
+
+# lazygit custom config path
+export XDG_CONFIG_HOME="$HOME/.config"
