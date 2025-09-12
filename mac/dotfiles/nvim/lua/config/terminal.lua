@@ -97,9 +97,9 @@ vim.keymap.set("n", "<leader>lg", function()
   vim.fn.termopen("lazygit")
 
   -- Add buffer-local keymap to close window on 'q'
-  -- vim.keymap.set('t', 'q', function()
-  --   vim.api.nvim_win_close(win, true)
-  -- end, { buffer = buf })
+  vim.keymap.set('t', 'q', function()
+    vim.api.nvim_win_close(win, true)
+  end, { buffer = buf })
 
   vim.cmd.startinsert()
 end)
