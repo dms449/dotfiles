@@ -96,6 +96,10 @@ dev() {
   git checkout develop && git fetch && git rebase
 }
 
+main() {
+  git checkout main && git fetch && git rebase
+}
+
 ir() {
   if [ "$(current_branch)" = "$(base_branch)" ]; then
     git rebase -i HEAD~$@
@@ -183,8 +187,8 @@ piw() {
 
 
 clean_branches() {
-  # Get list of merged branches to delete (excluding main/develop)
-  local branches_to_delete=$(git branch --merged origin/develop | grep -v main | grep -v develop | sed 's/^[* ] //')
+  # Get list of merged branches to delete (excluding main/develop/prod)
+  local branches_to_delete=$(git branch --merged origin/main | grep -v main | grep -v develop | grep -v prod | sed 's/^[* ] //')
 
   if [[ -z "$branches_to_delete" ]]; then
     echo "No merged branches to clean up"

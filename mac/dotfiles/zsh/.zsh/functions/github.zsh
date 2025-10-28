@@ -12,7 +12,7 @@ prd() {
     args+=("-b" "$body_text")
   fi
 
-  gh pr create -R="Samwise-PSM/monorepo" -B=develop -t="$branch" "${args[@]}"
+  gh pr create -R="$GH_PROJECT_OWNER/monorepo" -B=main -t="$branch" "${args[@]}"
 }
 
 issues() {
@@ -85,8 +85,8 @@ issues() {
     else
       echo "Creating new branch '$branch_name' off of develop..."
       # Ensure we're on develop and it's up to date
-      git checkout develop
-      git pull origin develop
+      git checkout main
+      git pull origin main
       # Create new branch
       git checkout -b "$branch_name"
     fi
