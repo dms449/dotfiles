@@ -19,10 +19,6 @@ current_branch() {
   git rev-parse --abbrev-ref HEAD
 }
 
-current_release_branch() {
-  git branch --list 'release/*' --no-merged | awk '{ print $1 }'
-}
-
 g() {
   if [[ $# > 0 ]]; then
     git $@
@@ -33,10 +29,6 @@ g() {
 
 a() {
   git add $(git status -s | awk '{ print $2 }' | $(fzf_prog) -m --preview 'git diff --color=always {}')
-}
-
-ap() {
-  git add -p $(git status -s | awk '{ print $2 }' | $(fzf_prog) -m --preview 'git diff --color=always {}')
 }
 
 cm() {
@@ -55,38 +47,20 @@ co() {
   fi
 }
 
-git-nuke() {
-  if [[ $# == 1 ]]; then
-    confirm && git branch -D $1 && git push origin :$1
-  else
-    echo "No single branch name given"
-    return 1;
-  fi
-}
-
 fuzzy_branch_select() {
   branches=$(git branch)
-  echo $(echo $branches | awk '{$1=$1};1' | $(fzf_prog) --preview 'git short-log $base_branch..{} | head')
-}
-
-
-gdm () {
-  base_branch=$(base_branch)
-  if [[ $base_branch == "main" ]]
-  then
-    git branch --merged origin/main | grep -v main | xargs git branch -d
-  elif [[ $base_branch == "develop" ]]
-  then
-    git branch --merged origin/develop | grep -v develop | xargs git branch -d
-  else
-      git branch --merged origin/master | grep -v master | xargs git branch -d
-  fi
+  selected=$(echo $branches | awk '{$1=$1};1' | $(fzf_prog) --preview 'git short-log $base_branch..{} | head')
+  # Strip '+ ' prefix if branch is in another worktree
+  echo $(echo $selected | sed 's/^+ *//')
 }
 
 gbD() {
   if [[ $# == 0 ]]
   then
-      targets=$(fuzzy_branch_select)
+      branches=$(git branch)
+      targets=$(echo $branches | awk '{$1=$1};1' | $(fzf_prog) -m --preview 'git short-log $base_branch..{} | head')
+      # Strip '+ ' prefix if branches are in another worktree
+      targets=$(echo $targets | sed 's/+ *//g')
       echo $targets
       confirm && git branch -D $(echo $targets)
   fi
@@ -109,8 +83,7 @@ ir() {
     else
       # Use fzf to select branch for interactive rebase
       base_branch=$(base_branch)
-      branches=$(git branch)
-      target_branch=$(echo $branches | awk '{$1=$1};1' | $(fzf_prog) --preview 'git short-log $base_branch..{} | head')
+      target_branch=$(fuzzy_branch_select)
 
       if [[ $target_branch != '' ]]; then
         git rebase -i $(echo $target_branch)
@@ -118,6 +91,7 @@ ir() {
     fi
   fi
 }
+
 _ir_completion () {
     if [[ $LBUFFER == "ir "* ]]; then
         local selected_branch=$(git branch --sort=-committerdate | sed 's/..//' | fzf --height 20%)
@@ -156,18 +130,6 @@ br() {
   fi
 }
 
-cfu() {
-  if [ "$(current_branch)" = "$(base_branch)" ]; then
-    target=$(git log --max-count=50 --pretty=oneline | $(fzf_prog) --preview "echo {} | cut -f 1 -d' ' | xargs -I SHA git show --color=always --pretty=fuller --stat SHA" | awk '{ print $1 }')
-  else
-    target=$(git log --pretty=oneline $(base_branch).. | $(fzf_prog) --preview "echo {} | cut -f 1 -d' ' | xargs -I SHA git show --color=always --pretty=fuller --stat SHA" | awk '{ print $1 }')
-  fi
-
-  if [[ $target != '' ]]; then
-    git commit --fixup $(echo $target)
-  fi
-}
-
 changes() {
   if [[ $# > 0 ]]; then
     tig "$@".."$(git rev-parse --abbrev-ref HEAD)"
@@ -184,7 +146,6 @@ piw() {
     echo "no WIP available"
   fi
 }
-
 
 clean_branches() {
   # Get list of merged branches to delete (excluding main/develop/prod)
@@ -239,7 +200,6 @@ delete_git_swap() {
   rm -rf ~/.local/state/nvim/swap
 }
 
-
 bindkey -s '^g' 'changed_files\n'
 
 wt() {
@@ -263,8 +223,6 @@ wt() {
     git worktree $@
   fi
 }
-
-
 
 # Complete g like git
 compdef g=git
