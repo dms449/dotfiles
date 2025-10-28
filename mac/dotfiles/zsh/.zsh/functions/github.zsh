@@ -1,42 +1,61 @@
+# GitHub project cache - populated by gh_project_init
+# Stores JSON from: gh project field-list and gh project view
+typeset -g GH_PROJECT_CACHE=""
+typeset -g GH_PROJECT_NODE_ID=""
 
-# GitHub project status mapping from environment variable
-# Expected format: "Todo:f75ad846,In Progress:47fc9ee4,Code Review:3a5b23dc,Staging:f26b38c1,Done:98236657"
-typeset -A github_status_map
+gh_project_init() {
+  # Check if gh CLI is available
+  if ! command -v gh &> /dev/null; then
+    echo "GitHub CLI (gh) is not installed." >&2
+    return 1
+  fi
 
-if [[ -n "$GH_PROJECT_STATUS_MAP" ]]; then
-  # Parse the environment variable into the associative array
-  local IFS=','
-  local -a status_pairs=("${(s:,:)GH_PROJECT_STATUS_MAP}")
-  for pair in "${status_pairs[@]}"; do
-    local key="${pair%%:*}"
-    local value="${pair##*:}"
-    github_status_map[$key]="$value"
-  done
-else
-  # Fallback to hardcoded values if environment variable not set
-  github_status_map=(
-    "Todo" "f75ad846"
-    "In Progress" "47fc9ee4"
-    "Code Review" "3a5b23dc"
-    "Staging" "f26b38c1"
-    "Done" "98236657"
-  )
-fi
+  if [[ -z "$GH_PROJECT_NUMBER" || -z "$GH_PROJECT_OWNER" ]]; then
+    echo "GH_PROJECT_NUMBER and GH_PROJECT_OWNER must be set" >&2
+    return 1
+  fi
+
+  echo "Fetching GitHub project metadata..."
+
+  # Cache the field list (contains status field ID and status options)
+  GH_PROJECT_CACHE=$(gh project field-list "$GH_PROJECT_NUMBER" --owner "$GH_PROJECT_OWNER" --format json 2>/dev/null)
+  if [[ -z "$GH_PROJECT_CACHE" ]]; then
+    echo "Failed to fetch project fields" >&2
+    return 1
+  fi
+
+  # Cache the project node ID
+  GH_PROJECT_NODE_ID=$(gh project view "$GH_PROJECT_NUMBER" --owner "$GH_PROJECT_OWNER" --format json 2>/dev/null | jq -r '.id')
+  if [[ -z "$GH_PROJECT_NODE_ID" || "$GH_PROJECT_NODE_ID" == "null" ]]; then
+    echo "Failed to fetch project node ID" >&2
+    return 1
+  fi
+
+  echo "Project cache initialized"
+  echo "Available statuses:"
+  echo "$GH_PROJECT_CACHE" | jq -r '.fields[] | select(.name == "Status") | .options[].name' | sed 's/^/  - /'
+}
 
 prd() {
   local branch=$(current_branch)
   local args=("$@")
+  local issue_number=""
 
   # Check if branch name starts with an integer (issue number)
   if [[ $branch =~ ^[0-9]+ ]]; then
-    local issue_number=$(echo "$branch" | grep -o '^[0-9]\+')
+    issue_number=$(echo "$branch" | grep -o '^[0-9]\+')
     local body_text=" Issue: #${issue_number}"
 
     # Add the body text to the arguments
     args+=("-b" "$body_text")
   fi
 
-  gh pr create -R="$GH_PROJECT_OWNER/monorepo" -B=main -t="$branch" "${args[@]}"
+  if gh pr create -R="$GH_PROJECT_OWNER/monorepo" -B=main -t="$branch" "${args[@]}"; then
+    # Move issue to Code Review if we have an issue number
+    if [[ -n "$issue_number" ]]; then
+      move_issue "$issue_number" "Code Review"
+    fi
+  fi
 }
 
 issues() {
@@ -70,6 +89,14 @@ issues() {
   local issue_title=$(echo "$selected_issue" | sed 's/^[0-9]*: //')
   local sanitized_title=$(echo "$issue_title" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-\|-$//g')
   local branch_name="${issue_number}-${sanitized_title}"
+
+  # Check if I'm assigned to the issue, if not assign me
+  local my_username=$(gh api user --jq '.login')
+  local is_assigned=$(gh issue view "$issue_number" --json assignees --jq ".assignees[].login | select(. == \"$my_username\")")
+  if [[ -z "$is_assigned" ]]; then
+    echo "Assigning myself to issue #$issue_number..."
+    gh issue edit "$issue_number" --add-assignee @me
+  fi
 
   # Get list of worktrees with current one first
   local worktree_list=""
@@ -141,74 +168,64 @@ issues() {
       git checkout -b "$branch_name"
     fi
   fi
+
+  # Move issue to In Progress
+  move_issue "$issue_number" "In Progress"
 }
 
-get_github_project_item_id() {
-  local issue_number="$1"
-
-  if [[ -z "$issue_number" ]]; then
-    echo "Usage: get_github_project_item_id <issue_number>"
-    return 1
-  fi
-
+close_issues() {
   # Check if gh CLI is available
   if ! command -v gh &> /dev/null; then
-    echo "GitHub CLI (gh) is not installed. Please install it first." >&2
+    echo "GitHub CLI (gh) is not installed."
     return 1
   fi
 
-  # Get project items and find the one matching our issue ID
-  local project_item_id
-  project_item_id=$(gh project item-list $GH_PROJECT_NUMBER --owner "$GH_PROJECT_OWNER" --limit 500 --format json 2>/dev/null | \
-    jq -r --arg issue_id "$issue_number" '.items[] | select(.content.number == ($issue_id | tonumber)) | .id' 2>/dev/null)
-
-  if [[ -z "$project_item_id" || "$project_item_id" == "null" ]]; then
-    echo "Issue #${issue_number} not found in project" >&2
-    return 1
+  # Auto-initialize cache if empty
+  if [[ -z "$GH_PROJECT_CACHE" || -z "$GH_PROJECT_NODE_ID" ]]; then
+    echo "Project cache not initialized, running gh_project_init..."
+    gh_project_init || return 1
   fi
 
-  echo "$project_item_id"
-  return 0
-}
+  # Get closed issues assigned to me
+  echo "Fetching closed issues assigned to me..."
+  local closed_issues
+  closed_issues=$(gh issue list --assignee @me --state closed --sort updated --order desc --limit 50 --json number,title)
 
-get_status_field_id() {
-  # Check if gh CLI is available
-  if ! command -v gh &> /dev/null; then
-    echo "GitHub CLI (gh) is not installed. Please install it first." >&2
-    return 1
-  fi
+  local issue_count=$(echo "$closed_issues" | jq -r '.[] | .number' | wc -l | tr -d ' ')
+  echo "Found $issue_count closed issues"
 
-  # Get the Status field ID from the project
-  local status_field_id
-  status_field_id=$(gh project field-list $GH_PROJECT_NUMBER --owner "$GH_PROJECT_OWNER" --format json 2>/dev/null | \
-    jq -r '.fields[] | select(.name == "Status") | .id' 2>/dev/null)
+  # Process each closed issue
+  echo "$closed_issues" | jq -r '.[] | "\(.number) \(.title)"' | while read -r issue_number issue_title; do
+    # Get current status using gh's built-in --jq to avoid control character issues
+    local current_status
+    current_status=$(gh project item-list "$GH_PROJECT_NUMBER" --owner "$GH_PROJECT_OWNER" --limit 500 --format json \
+      --jq ".items[] | select(.content.number == $issue_number) | .status" 2>/dev/null)
 
-  if [[ -z "$status_field_id" || "$status_field_id" == "null" ]]; then
-    echo "Status field not found in project" >&2
-    return 1
-  fi
+    # Skip if already Done
+    if [[ "$current_status" == "Done" ]]; then
+      echo "  #$issue_number: Already Done, skipping"
+      continue
+    fi
 
-  echo "$status_field_id"
-  return 0
-}
+    # Skip if already Staging
+    if [[ "$current_status" == "Staging" ]]; then
+      echo "  #$issue_number: Already Staging, skipping"
+      continue
+    fi
 
-get_in_progress_status_id() {
-  # Check if gh CLI is available
-  if ! command -v gh &> /dev/null; then
-    echo "GitHub CLI (gh) is not installed. Please install it first." >&2
-    return 1
-  fi
+    # Check if there's a merged PR for this issue
+    local merged_pr
+    merged_pr=$(gh pr list --search "$issue_number in:title" --state merged --limit 1 --json number,title 2>/dev/null | jq -r '.[0].number // empty')
 
-  local in_progress_status_id
-  in_progress_status_id=$(gh project field-list $GH_PROJECT_NUMBER --owner $GH_PROJECT_OWNER --format json | jq '.fields[] | select(.name == "Status") | .options')
+    if [[ -n "$merged_pr" ]]; then
+      echo "  #$issue_number: Found merged PR #$merged_pr, moving to Staging..."
+      #move_issue "$issue_number" "Staging"
+    else
+      echo "  #$issue_number: No merged PR found (status: ${current_status:-not in project})"
+    fi
+  done
 
-  if [[ -z "$in_progress_status_id" || "$in_progress_status_id" == "null" ]]; then
-    echo "In progress status not found in project" >&2
-    return 1
-  fi
-
-  echo "$in_progress_status_id"
-  return 0
+  echo "Done processing closed issues"
 }
 
 move_issue() {
@@ -216,41 +233,49 @@ move_issue() {
   local target_status="$2"
 
   if [[ -z "$issue_id" || -z "$target_status" ]]; then
-    echo "Usage: move_issue <issue_id> <status>"
+    echo "Usage: move_issue <issue_number> <status>"
+    echo "Example: move_issue 959 \"In Progress\""
+    echo ""
+    echo "Run 'gh_project_init' first to see available statuses"
     return 1
   fi
 
-  echo "Searching for issue #${issue_id} in project..."
+  # Auto-initialize cache if empty
+  if [[ -z "$GH_PROJECT_CACHE" || -z "$GH_PROJECT_NODE_ID" ]]; then
+    echo "Project cache not initialized, running gh_project_init..."
+    gh_project_init || return 1
+  fi
 
-  # Get project item ID using the reusable function
+  # Get status field ID and target status option ID from cache
+  local status_field_id
+  local target_status_id
+  status_field_id=$(echo "$GH_PROJECT_CACHE" | jq -r '.fields[] | select(.name == "Status") | .id')
+  target_status_id=$(echo "$GH_PROJECT_CACHE" | jq -r --arg status "$target_status" '.fields[] | select(.name == "Status") | .options[] | select(.name == $status) | .id')
+
+  if [[ -z "$target_status_id" || "$target_status_id" == "null" ]]; then
+    echo "Invalid status: '$target_status'"
+    echo "Available statuses:"
+    echo "$GH_PROJECT_CACHE" | jq -r '.fields[] | select(.name == "Status") | .options[].name' | sed 's/^/  - /'
+    return 1
+  fi
+
+  # Get project item ID using gh's built-in --jq to avoid control character issues
   local project_item
-  project_item=$(get_github_project_item_id "$issue_id")
+  project_item=$(gh project item-list "$GH_PROJECT_NUMBER" --owner "$GH_PROJECT_OWNER" --limit 500 --format json \
+    --jq ".items[] | select(.content.number == $issue_id) | .id" 2>/dev/null)
 
-  if [[ $? -ne 0 ]]; then
+  if [[ -z "$project_item" || "$project_item" == "null" ]]; then
+    echo "Issue #${issue_id} not found in project"
     return 1
   fi
 
-  echo "Found issue #${issue_id} in project (item ID: ${project_item})"
+  echo "Moving issue #${issue_id} to '${target_status}'..."
 
-  # Use the Status field ID from environment variable
-  local status_field_id="$GH_PROJECT_STATUS_FIELD_ID"
-
-  # Look up status ID from the mapping
-  local target_status_id="${github_status_map[$target_status]}"
-
-  if [[ -z "$target_status_id" ]]; then
-    echo "❌ Invalid status: '$target_status'. Valid options: ${(k)github_status_map[@]}"
-    return 1
-  fi
-
-  echo "Moving to '${target_status}' status (ID: ${target_status_id})..."
-
-  # Edit the project item to move it to the specified status using field ID
-  gh project item-edit --id "$project_item" --project-id $GH_PROJECT_NUMBER --field-id "$status_field_id" --single-select-option-id "$target_status_id"
-  if [[ $? -eq 0 ]]; then
-    echo "✅ Successfully moved issue #${issue_id} to '${target_status}'"
+  # Edit the project item
+  if gh project item-edit --id "$project_item" --project-id "$GH_PROJECT_NODE_ID" --field-id "$status_field_id" --single-select-option-id "$target_status_id"; then
+    echo "Successfully moved issue #${issue_id} to '${target_status}'"
   else
-    echo "❌ Failed to move issue #${issue_id} to '${target_status}'"
+    echo "Failed to move issue #${issue_id}"
     return 1
   fi
 }
