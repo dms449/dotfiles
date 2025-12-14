@@ -148,8 +148,15 @@ piw() {
 }
 
 clean_branches() {
-  # Get list of merged branches to delete (excluding main/develop/prod)
-  local branches_to_delete=$(git branch --merged origin/main | grep -v main | grep -v develop | grep -v prod | sed 's/^[* ] //')
+  # Get branches checked out in worktrees
+  local worktree_branches=$(git worktree list --porcelain | grep '^branch ' | sed 's|^branch refs/heads/||')
+
+  # Get list of merged branches to delete (excluding main/develop/prod and worktree branches)
+  local branches_to_delete=$(git branch --merged origin/main | grep -v main | grep -v develop | grep -v prod | sed 's/^[* ] //' | while read -r branch; do
+    if [[ -n "$branch" ]] && ! echo "$worktree_branches" | grep -qx "$branch"; then
+      echo "$branch"
+    fi
+  done)
 
   if [[ -z "$branches_to_delete" ]]; then
     echo "No merged branches to clean up"
@@ -158,22 +165,6 @@ clean_branches() {
 
   echo "Branches to be deleted:"
   echo "$branches_to_delete"
-
-  # For each branch, check if there's a corresponding worktree and remove it
-  echo "$branches_to_delete" | while read -r branch; do
-    if [[ -n "$branch" ]]; then
-      # Check if there's a worktree for this branch
-      local worktree_path=$(git worktree list --porcelain | awk -v branch="$branch" '
-        /^worktree / { path = substr($0, 10) }
-        /^branch / && substr($0, 8) == "refs/heads/" branch { print path; exit }
-      ')
-
-      if [[ -n "$worktree_path" ]]; then
-        echo "Removing worktree for branch '$branch': $worktree_path"
-        git worktree remove "$worktree_path" --force
-      fi
-    fi
-  done
 
   # Delete the merged branches
   echo "$branches_to_delete" | xargs git branch -d
