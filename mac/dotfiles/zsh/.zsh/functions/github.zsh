@@ -167,6 +167,7 @@ prd() {
 
 issues() {
   local start_claude=false
+  local filter=""
 
   # Parse arguments
   while [[ $# -gt 0 ]]; do
@@ -176,6 +177,12 @@ issues() {
         shift
         ;;
       *)
+        # Treat non-flag arguments as filter text
+        if [[ -z "$filter" ]]; then
+          filter="$1"
+        else
+          filter="$filter $1"
+        fi
         shift
         ;;
     esac
@@ -195,7 +202,11 @@ issues() {
 
   # Get issues using gh and format them for fzf
   local selected_issue
-  selected_issue=$(gh issue list --state open --limit 100 --json number,title,labels \
+  local gh_args=(--state open --limit 100 --json number,title,labels)
+  if [[ -n "$filter" ]]; then
+    gh_args+=(--search "$filter")
+  fi
+  selected_issue=$(gh issue list "${gh_args[@]}" \
     --template '{{range .}}{{.number}}: {{.title}}{{"\n"}}{{end}}' | \
     $(fzf_prog) --preview 'gh issue view {1} --json body --template "{{.body}}"' \
     --preview-window=right:50%:wrap --header="Select an issue:")
