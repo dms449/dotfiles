@@ -151,7 +151,7 @@ prd() {
   # Check if branch name starts with an integer (issue number)
   if [[ $branch =~ ^[0-9]+ ]]; then
     issue_number=$(echo "$branch" | grep -o '^[0-9]\+')
-    local body_text=" Issue: #${issue_number}"
+    local body_text=" Resolves #${issue_number}"
 
     # Add the body text to the arguments
     args+=("-b" "$body_text")
