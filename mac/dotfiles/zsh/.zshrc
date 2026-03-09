@@ -119,3 +119,4 @@ export PATH="$HOME/.codeium/windsurf/bin:$PATH"
 
 # lazygit custom config path
 export XDG_CONFIG_HOME="$HOME/.config"
+export PATH="$HOME/.local/bin:$PATH"
