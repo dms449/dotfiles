@@ -5,23 +5,23 @@ return {
     opts = {
       options = { theme = 'gruvbox_dark' },
       sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'diff'},
-        lualine_c = {{'filename', path=1}},
-        lualine_x = {{'diagnostics', sources = { 'nvim_diagnostic', 'nvim_lsp' }, symbols = {error = '✘', warn = '▲', info = 'ⓘ', hint = '⚡'},}},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
+        lualine_a = { 'mode' },
+        lualine_b = { 'diff' },
+        lualine_c = { { 'filename', path = 1 } },
+        lualine_x = { { 'diagnostics', sources = { 'nvim_diagnostic', 'nvim_lsp' }, symbols = { error = '✘', warn = '▲', info = 'ⓘ', hint = '⚡' }, } },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location', { require("opencode").statusline } }
       },
       inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
-        lualine_x = {'location'},
+        lualine_c = { 'filename' },
+        lualine_x = { 'location' },
         lualine_y = {},
         lualine_z = {}
       },
       tabline = {},
-      extensions = {'quickfix', 'fzf'}
+      extensions = { 'quickfix', 'fzf' }
     }
   }
 }
