@@ -1,16 +1,16 @@
 return {
   { "machakann/vim-highlightedyank", version = '*' },
-  { "echasnovski/mini.ai"},
+  { "echasnovski/mini.ai" },
   {
     "FooSoft/vim-argwrap",
-    keys = { {"<leader>a", ":ArgWrap<CR>"}} ,
+    keys = { { "<leader>a", ":ArgWrap<CR>" } },
     init = function()
       vim.g.argwrap_padded_braces = '{'
     end
   },
   {
     "mbbill/undotree",
-    keys = {{ "<F5>", ":UndotreeToggle<CR>"}}
+    keys = { { "<F5>", ":UndotreeToggle<CR>" } }
   },
   {
     "joom/latex-unicoder.vim",
@@ -23,21 +23,22 @@ return {
     "norcalli/nvim-colorizer.lua",
     config = function()
       require('colorizer').setup({
-        '*'; -- Highlight all files, but customize some others.
-        css = { css = true; }; -- Enable parsing rgb(...) functions in css.
+        '*',                   -- Highlight all files, but customize some others.
+        css = { css = true, }, -- Enable parsing rgb(...) functions in css.
       })
     end
   },
-  { "slim-template/vim-slim"},
+  { "slim-template/vim-slim" },
   {
     "thoughtbot/vim-rspec",
-    init=function()
+    init = function()
       vim.g.rspec_command = 'call VimuxRunCommand("bes {spec}\n")'
     end
   },
 
-  { "ellisonleao/gruvbox.nvim",
-    config = function ()
+  {
+    "ellisonleao/gruvbox.nvim",
+    config = function()
       vim.cmd([[colorscheme gruvbox]])
     end,
     priority = 1000
