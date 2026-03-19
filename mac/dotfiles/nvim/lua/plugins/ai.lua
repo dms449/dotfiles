@@ -5,6 +5,7 @@ return {
       "nvim-lua/plenary.nvim",
       "hrsh7th/nvim-cmp",
     },
+    enabled = false,
     config = function()
       require("codeium").setup({
 
@@ -101,9 +102,86 @@ return {
       vim.keymap.set("n", "<S-C-d>", function() require("opencode").command("session.half.page.down") end,
         { desc = "Scroll opencode down" })
 
+      -- Telescope picker for opencode servers
+      vim.api.nvim_create_user_command("OCS", function()
+        require("opencode.cli.server").get_all()
+            :next(function(servers)
+              local pickers = require("telescope.pickers")
+              local finders = require("telescope.finders")
+              local conf = require("telescope.config").values
+              local actions = require("telescope.actions")
+              local action_state = require("telescope.actions.state")
+
+              -- Sort servers by common prefix with cwd
+              local nvim_cwd = vim.fn.getcwd()
+              table.sort(servers, function(a, b)
+                local function common_prefix_score(path1, path2)
+                  local function split(path)
+                    local out = {}
+                    for seg in string.gmatch(path, "[^/]+") do
+                      table.insert(out, seg)
+                    end
+                    return out
+                  end
+                  local segments1 = split(path1)
+                  local segments2 = split(path2)
+                  local score = 0
+                  for i = 1, math.min(#segments1, #segments2) do
+                    if segments1[i] == segments2[i] then
+                      score = score + 1
+                    else
+                      break
+                    end
+                  end
+                  return score
+                end
+
+                local score_a = common_prefix_score(nvim_cwd, a.cwd)
+                local score_b = common_prefix_score(nvim_cwd, b.cwd)
+                if score_a == score_b then
+                  return a.cwd < b.cwd
+                end
+                return score_a > score_b
+              end)
+
+              pickers.new({}, {
+                prompt_title = "OpenCode Servers",
+                finder = finders.new_table({
+                  results = servers,
+                  entry_maker = function(server)
+                    local display = string.format("%s | %s | %d", server.title or "<No sessions>", server.cwd,
+                      server.port)
+                    return {
+                      value = server,
+                      display = display,
+                      ordinal = display,
+                    }
+                  end,
+                }),
+                sorter = conf.generic_sorter({}),
+                attach_mappings = function(prompt_bufnr, map)
+                  actions.select_default:replace(function()
+                    local selection = action_state.get_selected_entry()
+                    actions.close(prompt_bufnr)
+                    if selection then
+                      require("opencode.events").connect(selection.value)
+                      vim.notify("Connected to opencode server: " .. selection.value.cwd, vim.log.levels.INFO)
+                    end
+                  end)
+                  return true
+                end,
+              }):find()
+            end)
+            :catch(function(err)
+              if err then
+                vim.notify(err, vim.log.levels.ERROR, { title = "opencode" })
+              end
+            end)
+      end, { desc = "Select opencode server with Telescope" })
+
       -- You may want these if you use the opinionated `<C-a>` and `<C-x>` keymaps above — otherwise consider `<leader>o…` (and remove terminal mode from the `toggle` keymap)
-      vim.keymap.set("n", "+", "<C-a>", { desc = "Increment under cursor", noremap = true })
-      vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement under cursor", noremap = true })
+      -- vim.keymap.set("n", "+", "<C-a>", { desc = "Increment under cursor", noremap = true })
+      -- vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement under cursor", noremap = true })
     end,
   }
 }
