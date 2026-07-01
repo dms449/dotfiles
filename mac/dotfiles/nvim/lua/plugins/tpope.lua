@@ -4,7 +4,7 @@ return {
     lazy = false,
     keys = {
       { "<leader>gdf", ":Gvdiffsplit<CR>" },
-      { "<leader>gdd", ":Gvdiffsplit develop<CR>" }
+      { "<leader>gdd", ":Gvdiffsplit main<CR>" }
     },
   },
   "tpope/vim-rails",
