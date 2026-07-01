@@ -104,7 +104,7 @@ return {
 
       -- Telescope picker for opencode servers
       vim.api.nvim_create_user_command("OCS", function()
-        require("opencode.cli.server").get_all()
+        require("opencode.server.discovery").locally()
             :next(function(servers)
               local pickers = require("telescope.pickers")
               local finders = require("telescope.finders")
@@ -149,8 +149,8 @@ return {
                 finder = finders.new_table({
                   results = servers,
                   entry_maker = function(server)
-                    local display = string.format("%s | %s | %d", server.title or "<No sessions>", server.cwd,
-                      server.port)
+                    local display = string.format("%s | %s | %s", server.title or "<No sessions>", server.cwd,
+                      server.url:match(":(%d+)$") or server.url)
                     return {
                       value = server,
                       display = display,
@@ -164,7 +164,7 @@ return {
                     local selection = action_state.get_selected_entry()
                     actions.close(prompt_bufnr)
                     if selection then
-                      require("opencode.events").connect(selection.value)
+                      selection.value:connect()
                       vim.notify("Connected to opencode server: " .. selection.value.cwd, vim.log.levels.INFO)
                     end
                   end)
