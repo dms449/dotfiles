@@ -65,8 +65,8 @@ SPACESHIP_EXIT_CODE_COLOR=167
 
 # using fzf and ripgrep
 export FZF_COMPLETION_TRIGGER=';;'
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
-export FZF_CTRL_T_COMMAND='rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!node_modules/*"'
+export FZF_CTRL_T_COMMAND='rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --glob "!node_modules/*" --color "always" '
 
 # open a file with neovim using a fuzzy finder on the current directory
 open_project_file() {
