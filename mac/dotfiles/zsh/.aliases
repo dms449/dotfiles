@@ -1,9 +1,8 @@
 # locations
 alias dot='cd ~/dotfiles/'
-alias bw='cd ~/workspace/projects/baldwin/baldwin-web'
-alias trc='cd ~/workspace/projects/trc/TRCUtils'
-
-#alias t="tmux"
+#alias bw='cd ~/workspace/projects/baldwin/baldwin-web'
+#alias trc='cd ~/workspace/projects/trc/TRCUtils'
+alias sam='/Volumes/Data2/workspace/samwise/monorepo.git'
 
 # directory stuff
 alias ..="cd .."
