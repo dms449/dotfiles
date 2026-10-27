@@ -126,3 +126,14 @@ export PATH=/Users/dstevenson/.opencode/bin:$PATH
 
 # initialize mise
 eval "$(mise activate zsh)"
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+path=('/Users/dstevenson/.juliaup/bin' $path)
+export PATH
+# Tab completion for juliaup and julia channel selection
+[ -f "/Users/dstevenson/.julia/juliaup/completions/zsh.zsh" ] && source "/Users/dstevenson/.julia/juliaup/completions/zsh.zsh"
+
+# <<< juliaup initialize <<<
