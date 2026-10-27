@@ -48,7 +48,7 @@ co() {
 }
 
 fuzzy_branch_select() {
-  branches=$(git branch)
+  branches=$(git branch --sort=-committerdate)
   selected=$(echo $branches | awk '{$1=$1};1' | $(fzf_prog) --preview 'git short-log $base_branch..{} | head')
   # Strip '+ ' prefix if branch is in another worktree
   echo $(echo $selected | sed 's/^+ *//')
